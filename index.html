@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
+  <meta name="color-scheme" content="light dark">
+  <title>Create Profile</title>
+  <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="app" id="app">
+
+    <header class="identity" id="identity" hidden>
+      <div class="identity__avatar" id="identityAvatar" aria-hidden="true"></div>
+      <p class="identity__name" id="identityName"></p>
+      <p class="identity__meta" id="identityMeta"></p>
+    </header>
+
+    <form id="form" novalidate autocomplete="on">
+
+      <!-- ---------------------------------------------------- Your details -->
+      <section class="section">
+        <h2 class="section__header">Your details</h2>
+        <div class="section__body">
+
+          <div class="field" data-field="name">
+            <div class="row">
+              <label class="visually-hidden" for="name">Name</label>
+              <input
+                class="row__input"
+                id="name"
+                name="name"
+                type="text"
+                inputmode="text"
+                autocomplete="given-name"
+                maxlength="128"
+                placeholder="Name"
+                aria-describedby="name-error">
+              <span class="counter" id="name-counter" aria-hidden="true">0/128</span>
+            </div>
+            <p class="field__error" id="name-error" role="alert" hidden></p>
+          </div>
+
+          <div class="field" data-field="age">
+            <div class="row">
+              <label class="visually-hidden" for="age">Age</label>
+              <input
+                class="row__input"
+                id="age"
+                name="age"
+                type="number"
+                inputmode="numeric"
+                min="18"
+                max="120"
+                step="1"
+                maxlength="3"
+                placeholder="Age"
+                aria-describedby="age-error">
+            </div>
+            <p class="field__error" id="age-error" role="alert" hidden></p>
+          </div>
+
+        </div>
+        <p class="section__footer">You must be 18 or older to use this bot.</p>
+      </section>
+
+      <!-- ------------------------------------------------------- About you -->
+      <section class="section">
+        <h2 class="section__header">About you</h2>
+        <div class="section__body">
+
+          <div class="field" data-field="gender">
+            <button type="button" class="row row--picker" id="gender-row"
+                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="gender-error">
+              <span class="row__label">Gender</span>
+              <span class="row__value is-empty" id="gender-value">Choose</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <p class="field__error" id="gender-error" role="alert" hidden></p>
+          </div>
+
+          <div class="field" data-field="preference">
+            <button type="button" class="row row--picker" id="preference-row"
+                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="preference-error">
+              <span class="row__label">Preference</span>
+              <span class="row__value is-empty" id="preference-value">Choose</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <p class="field__error" id="preference-error" role="alert" hidden></p>
+          </div>
+
+        </div>
+      </section>
+
+      <!-- ------------------------------------------------------------- Bio -->
+      <section class="section">
+        <h2 class="section__header">Bio</h2>
+        <div class="section__body">
+          <div class="field" data-field="bio">
+            <div class="row row--textarea">
+              <label class="visually-hidden" for="bio">Bio</label>
+              <textarea
+                class="row__textarea"
+                id="bio"
+                name="bio"
+                rows="1"
+                maxlength="180"
+                placeholder="A few words about you"
+                aria-describedby="bio-error"></textarea>
+            </div>
+            <p class="field__error" id="bio-error" role="alert" hidden></p>
+          </div>
+        </div>
+        <p class="section__footer section__footer--split">
+          <span>Optional. Anyone you match with can read this.</span>
+          <span class="counter" id="bio-counter" aria-hidden="true">0/180</span>
+        </p>
+      </section>
+
+      <!-- -------------------------------------------------------- Location -->
+      <section class="section">
+        <h2 class="section__header">Location</h2>
+        <div class="section__body">
+
+          <div class="field" data-field="country">
+            <button type="button" class="row row--picker" id="country-row"
+                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="country-error">
+              <span class="row__label">Country</span>
+              <span class="row__value is-empty" id="country-value">Choose</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <p class="field__error" id="country-error" role="alert" hidden></p>
+          </div>
+
+          <!-- Disabled until a country is picked; reset whenever it changes. -->
+          <div class="field" data-field="city">
+            <button type="button" class="row row--picker" id="city-row" disabled
+                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="city-error">
+              <span class="row__label">City</span>
+              <span class="row__value is-empty" id="city-value">Choose</span>
+              <span class="chevron" aria-hidden="true"></span>
+            </button>
+            <p class="field__error" id="city-error" role="alert" hidden></p>
+          </div>
+
+        </div>
+        <p class="section__footer" id="location-footer">Pick a country to see its cities.</p>
+      </section>
+
+      <!-- ------------------------------------------------------------ Photo -->
+      <section class="section" id="photo-section" hidden>
+        <h2 class="section__header">Photo</h2>
+        <div class="section__body">
+          <div class="field" data-field="usePhoto">
+            <label class="row row--check" for="usePhoto">
+              <input class="check__input" type="checkbox" id="usePhoto" name="usePhoto">
+              <span class="check" aria-hidden="true"></span>
+              <span class="check__label">Use my Telegram profile picture for my profile</span>
+            </label>
+          </div>
+        </div>
+        <p class="section__footer">Optional. You can turn this off and add a different photo later.</p>
+      </section>
+
+      <!-- ----------------------------------------------------------- Terms -->
+      <section class="section">
+        <div class="section__body">
+          <div class="field" data-field="tos">
+            <label class="row row--check" for="tos">
+              <input class="check__input" type="checkbox" id="tos" name="tos" aria-describedby="tos-error">
+              <span class="check" aria-hidden="true"></span>
+              <span class="check__label">
+                I accept the
+                <a href="https://example.com/terms" data-external-link>Terms of Service</a>
+                and the
+                <a href="https://example.com/privacy" data-external-link>Privacy Policy</a>.
+              </span>
+            </label>
+            <p class="field__error" id="tos-error" role="alert" hidden></p>
+          </div>
+        </div>
+      </section>
+
+      <!-- Browser fallback for Telegram's MainButton. Hidden inside Telegram. -->
+      <button type="submit" class="main-button" id="fallbackSubmit" hidden disabled>Save profile</button>
+    </form>
+  </main>
+
+  <!-- Bottom-sheet picker. Contents are rendered by app.js. -->
+  <div class="sheet-root" id="sheetRoot" hidden>
+    <div class="sheet__backdrop" id="sheetBackdrop"></div>
+    <div class="sheet" id="sheet" role="dialog" aria-modal="true" aria-labelledby="sheetTitle">
+      <div class="sheet__grabber" aria-hidden="true"></div>
+      <h3 class="sheet__title" id="sheetTitle"></h3>
+      <div class="sheet__search" id="sheetSearchWrap" hidden>
+        <input class="sheet__search-input" id="sheetSearch" type="search" placeholder="Search" autocomplete="off">
+      </div>
+      <div class="sheet__list" id="sheetList" role="listbox" tabindex="-1"></div>
+    </div>
+  </div>
+
+  <script src="locations.js"></script>
+  <script src="app.js"></script>
+</body>
+</html>
