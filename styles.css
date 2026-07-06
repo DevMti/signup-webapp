@@ -1,0 +1,561 @@
+/* ===========================================================================
+   styles.css — native Telegram look, no frameworks.
+
+   Every colour resolves through a --tg-theme-* variable that the Telegram
+   client injects on <html>. The second argument of each var() is the browser
+   fallback, so the app also looks right outside Telegram. The dark fallbacks
+   live in a prefers-color-scheme block; inside Telegram they are never used
+   because the --tg-theme-* variables are always defined.
+   =========================================================================== */
+
+:root {
+  /* --- surfaces ---------------------------------------------------------- */
+  --bg:            var(--tg-theme-secondary-bg-color, #efeff4);
+  --section-bg:    var(--tg-theme-section-bg-color, var(--tg-theme-bg-color, #ffffff));
+  --separator:     var(--tg-theme-section-separator-color, rgba(60, 60, 67, 0.18));
+
+  /* --- text -------------------------------------------------------------- */
+  --text:          var(--tg-theme-text-color, #000000);
+  --subtitle:      var(--tg-theme-subtitle-text-color, var(--tg-theme-hint-color, #8e8e93));
+  --hint:          var(--tg-theme-hint-color, #8e8e93);
+  --header-text:   var(--tg-theme-section-header-text-color, var(--tg-theme-hint-color, #6d6d72));
+  --link:          var(--tg-theme-link-color, #007aff);
+  --accent:        var(--tg-theme-button-color, var(--tg-theme-link-color, #007aff));
+  --accent-text:   var(--tg-theme-button-text-color, #ffffff);
+  --destructive:   var(--tg-theme-destructive-text-color, #ff3b30);
+
+  /* --- metrics ----------------------------------------------------------- */
+  --radius:        12px;
+  --gutter:        16px;
+  --row-height:    48px;
+  --font: -apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto,
+          "Helvetica Neue", "Noto Sans", Arial, sans-serif;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg:          var(--tg-theme-secondary-bg-color, #0f0f0f);
+    --section-bg:  var(--tg-theme-section-bg-color, var(--tg-theme-bg-color, #1c1c1d));
+    --separator:   var(--tg-theme-section-separator-color, rgba(255, 255, 255, 0.12));
+    --text:        var(--tg-theme-text-color, #ffffff);
+    --subtitle:    var(--tg-theme-subtitle-text-color, var(--tg-theme-hint-color, #98989e));
+    --hint:        var(--tg-theme-hint-color, #98989e);
+    --header-text: var(--tg-theme-section-header-text-color, var(--tg-theme-hint-color, #8d8d93));
+    --link:        var(--tg-theme-link-color, #6ab3f3);
+    --accent:      var(--tg-theme-button-color, var(--tg-theme-link-color, #2ea6ff));
+    --destructive: var(--tg-theme-destructive-text-color, #ff453a);
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+  background: var(--bg);
+}
+
+body {
+  font-family: var(--font);
+  font-size: 17px;
+  line-height: 1.3;
+  color: var(--text);
+  -webkit-font-smoothing: antialiased;
+  -webkit-tap-highlight-color: transparent;
+  overscroll-behavior-y: none;
+}
+
+.app {
+  /* Telegram exposes the stable (keyboard-independent) viewport height. */
+  min-height: var(--tg-viewport-stable-height, 100vh);
+  max-width: 560px;              /* keeps the list readable on desktop clients */
+  margin: 0 auto;
+  padding: 8px 0 calc(28px + env(safe-area-inset-bottom, 0px));
+}
+
+.visually-hidden {
+  position: absolute;
+  width: 1px; height: 1px;
+  margin: -1px; padding: 0;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+/* --- identity header ------------------------------------------------------ */
+
+.identity {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2px;
+  padding: 16px var(--gutter) 22px;
+  text-align: center;
+}
+
+.identity__avatar {
+  width: 72px;
+  height: 72px;
+  margin-bottom: 10px;
+  border-radius: 50%;
+  background-color: var(--accent);
+  background-size: cover;
+  background-position: center;
+  color: var(--accent-text);
+  font-size: 28px;
+  font-weight: 500;
+  line-height: 72px;
+  text-align: center;
+  letter-spacing: 0.5px;
+}
+
+.identity__name {
+  margin: 0;
+  font-size: 20px;
+  font-weight: 600;
+}
+
+.identity__meta {
+  margin: 0;
+  font-size: 14px;
+  color: var(--subtitle);
+}
+
+/* --- grouped sections ----------------------------------------------------- */
+
+.section { margin: 0 0 22px; }
+.section:last-of-type { margin-bottom: 24px; }
+
+.section__header {
+  margin: 0 0 7px;
+  padding: 0 calc(var(--gutter) + 4px);
+  font-size: 13px;
+  font-weight: 400;
+  line-height: 1.25;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+  color: var(--header-text);
+}
+
+.section__body {
+  background: var(--section-bg);
+  border-radius: var(--radius);
+  margin: 0 var(--gutter);
+  overflow: hidden;
+}
+
+.section__footer {
+  margin: 7px 0 0;
+  padding: 0 calc(var(--gutter) + 4px);
+  font-size: 13px;
+  line-height: 1.35;
+  color: var(--hint);
+}
+
+.section__footer--split {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: 12px;
+}
+
+/* --- rows ----------------------------------------------------------------- */
+
+.field { position: relative; }
+
+/* Hairline separator, inset from the left like the native list. */
+.section__body .field:not(:last-child) > .row::after,
+.section__body .field:not(:last-child) > .field__error:not([hidden])::after {
+  content: "";
+  position: absolute;
+  left: var(--gutter);
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+  background: var(--separator);
+}
+/* When an error is visible the separator belongs under the error, not the row. */
+.section__body .field:not(:last-child):has(> .field__error:not([hidden])) > .row::after {
+  display: none;
+}
+
+.row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  width: 100%;
+  min-height: var(--row-height);
+  padding: 0 var(--gutter);
+  margin: 0;
+  background: transparent;
+  border: 0;
+  font: inherit;
+  color: inherit;
+  text-align: left;
+}
+
+button.row {
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+/* Telegram highlights the whole row while it is being pressed. */
+@media (hover: none) {
+  button.row:active:not(:disabled),
+  label.row:active { background: var(--separator); }
+}
+@media (hover: hover) {
+  button.row:hover:not(:disabled) { background: color-mix(in srgb, var(--separator) 45%, transparent); }
+}
+
+button.row:disabled { cursor: default; }
+button.row:disabled .row__label { opacity: 0.4; }
+button.row:disabled .row__value,
+button.row:disabled .chevron { opacity: 0.35; }
+
+.row__label {
+  flex: 0 0 auto;
+  white-space: nowrap;
+}
+
+.row__value {
+  flex: 1 1 auto;
+  min-width: 0;
+  text-align: right;
+  color: var(--subtitle);
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.row__value.is-empty { color: var(--hint); }
+
+/* CSS-drawn chevron — no icon packs. */
+.chevron {
+  flex: 0 0 auto;
+  width: 8px;
+  height: 8px;
+  margin-left: 2px;
+  border-right: 2px solid var(--hint);
+  border-bottom: 2px solid var(--hint);
+  border-radius: 1px;
+  opacity: 0.55;
+  transform: rotate(-45deg);
+}
+
+/* --- text inputs ---------------------------------------------------------- */
+
+.row__input,
+.row__textarea {
+  flex: 1 1 auto;
+  min-width: 0;
+  width: 100%;
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--text);
+  caret-color: var(--accent);
+  -webkit-appearance: none;
+  appearance: none;
+  border-radius: 0;
+}
+
+.row__input:focus,
+.row__textarea:focus { outline: none; }
+
+.row__input::placeholder,
+.row__textarea::placeholder { color: var(--hint); opacity: 1; }
+
+/* Hide the number spinners; age is typed, not stepped. */
+.row__input[type="number"] { -moz-appearance: textfield; }
+.row__input[type="number"]::-webkit-outer-spin-button,
+.row__input[type="number"]::-webkit-inner-spin-button { -webkit-appearance: none; margin: 0; }
+
+.row--textarea {
+  align-items: flex-start;
+  padding-top: 13px;
+  padding-bottom: 13px;
+}
+
+.row__textarea {
+  resize: none;
+  overflow: hidden;           /* height is managed in app.js */
+  line-height: 1.35;
+  max-height: 40vh;
+}
+
+.counter {
+  flex: 0 0 auto;
+  font-size: 15px;
+  font-variant-numeric: tabular-nums;
+  color: var(--hint);
+  opacity: 0.85;
+}
+
+.counter.is-limit { color: var(--destructive); opacity: 1; }
+
+/* --- checkbox ------------------------------------------------------------- */
+
+.row--check {
+  align-items: flex-start;
+  gap: 12px;
+  padding-top: 13px;
+  padding-bottom: 13px;
+  cursor: pointer;
+}
+
+.check__input {
+  position: absolute;
+  opacity: 0;
+  width: 22px;
+  height: 22px;
+  margin: 0;
+}
+
+.check {
+  flex: 0 0 auto;
+  position: relative;
+  width: 22px;
+  height: 22px;
+  margin-top: 1px;
+  border: 2px solid var(--hint);
+  border-radius: 50%;
+  transition: background-color 0.12s ease, border-color 0.12s ease;
+}
+
+.check::after {
+  content: "";
+  position: absolute;
+  left: 6px;
+  top: 3px;
+  width: 5px;
+  height: 10px;
+  border-right: 2px solid var(--accent-text);
+  border-bottom: 2px solid var(--accent-text);
+  border-radius: 1px;
+  transform: rotate(45deg) scale(0.6);
+  opacity: 0;
+  transition: opacity 0.12s ease, transform 0.12s ease;
+}
+
+.check__input:checked + .check {
+  background: var(--accent);
+  border-color: var(--accent);
+}
+
+.check__input:checked + .check::after {
+  opacity: 1;
+  transform: rotate(45deg) scale(1);
+}
+
+.check__label {
+  font-size: 15px;
+  line-height: 1.35;
+  color: var(--text);
+}
+
+.check__label a {
+  color: var(--link);
+  text-decoration: none;
+}
+
+.check__label a:active { opacity: 0.6; }
+
+.field.is-invalid .check { border-color: var(--destructive); }
+
+/* --- inline errors -------------------------------------------------------- */
+
+.field__error {
+  position: relative;
+  margin: 0;
+  padding: 0 var(--gutter) 11px;
+  font-size: 13px;
+  line-height: 1.3;
+  color: var(--destructive);
+}
+
+.field__error[hidden] { display: none; }
+
+/* --- fallback main button (browser only) ---------------------------------- */
+
+.main-button {
+  display: block;
+  width: calc(100% - var(--gutter) * 2);
+  margin: 4px var(--gutter) 0;
+  padding: 15px 16px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--accent);
+  color: var(--accent-text);
+  font: inherit;
+  font-size: 17px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.main-button[disabled] {
+  opacity: 0.45;
+  cursor: default;
+}
+
+.main-button[hidden] { display: none; }
+
+/* --- bottom-sheet picker -------------------------------------------------- */
+
+.sheet-root {
+  position: fixed;
+  inset: 0;
+  z-index: 100;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+}
+
+.sheet-root[hidden] { display: none; }
+
+.sheet__backdrop {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.4);
+  opacity: 0;
+  transition: opacity 0.2s ease;
+}
+
+.sheet {
+  position: relative;
+  width: 100%;
+  max-width: 560px;
+  max-height: 88vh;
+  display: flex;
+  flex-direction: column;
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+  background: var(--section-bg);
+  border-radius: 14px 14px 0 0;
+  transform: translateY(100%);
+  transition: transform 0.26s cubic-bezier(0.22, 0.8, 0.3, 1);
+}
+
+.sheet-root.is-open .sheet__backdrop { opacity: 1; }
+.sheet-root.is-open .sheet { transform: translateY(0); }
+
+.sheet__grabber {
+  width: 36px;
+  height: 4px;
+  margin: 8px auto 2px;
+  border-radius: 2px;
+  background: var(--hint);
+  opacity: 0.35;
+}
+
+.sheet__title {
+  margin: 8px 0 10px;
+  font-size: 17px;
+  font-weight: 600;
+  text-align: center;
+  color: var(--text);
+}
+
+.sheet__search { padding: 0 var(--gutter) 10px; }
+
+.sheet__search-input {
+  width: 100%;
+  padding: 9px 12px;
+  border: 0;
+  border-radius: 10px;
+  background: var(--bg);
+  font: inherit;
+  font-size: 16px;
+  color: var(--text);
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.sheet__search-input:focus { outline: none; }
+.sheet__search-input::-webkit-search-cancel-button { -webkit-appearance: none; }
+
+.sheet__list {
+  flex: 1 1 auto;
+  overflow-y: auto;
+  -webkit-overflow-scrolling: touch;
+  padding-bottom: 8px;
+}
+
+.sheet__list:focus { outline: none; }
+
+.option {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  width: 100%;
+  min-height: var(--row-height);
+  padding: 0 var(--gutter);
+  border: 0;
+  background: transparent;
+  font: inherit;
+  color: var(--text);
+  text-align: left;
+  cursor: pointer;
+}
+
+.option:not(:last-child)::after {
+  content: "";
+  position: absolute;
+  left: var(--gutter);
+  right: 0;
+  bottom: 0;
+  height: 1px;
+  transform: scaleY(0.5);
+  transform-origin: bottom;
+  background: var(--separator);
+}
+
+@media (hover: hover) {
+  .option:hover { background: color-mix(in srgb, var(--separator) 45%, transparent); }
+}
+@media (hover: none) {
+  .option:active { background: var(--separator); }
+}
+
+.option__flag { flex: 0 0 auto; font-size: 20px; line-height: 1; }
+.option__text { flex: 1 1 auto; min-width: 0; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+
+/* Accent checkmark on the selected option, Telegram style. */
+.option__tick {
+  flex: 0 0 auto;
+  width: 7px;
+  height: 13px;
+  margin-right: 4px;
+  border-right: 2px solid var(--accent);
+  border-bottom: 2px solid var(--accent);
+  border-radius: 1px;
+  transform: rotate(45deg);
+  opacity: 0;
+}
+
+.option[aria-selected="true"] .option__tick { opacity: 1; }
+
+.sheet__empty {
+  padding: 26px var(--gutter);
+  text-align: center;
+  font-size: 15px;
+  color: var(--hint);
+}
+
+/* --- focus visibility & motion preferences -------------------------------- */
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 4px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  * { transition-duration: 0.01ms !important; animation-duration: 0.01ms !important; }
+}
