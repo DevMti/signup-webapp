@@ -114,7 +114,51 @@
   var touched = {};
 
   var LOCATIONS = window.LOCATIONS || {};
-  var COUNTRY_NAMES = Object.keys(LOCATIONS);
+
+  // Countries sorted once, by display name, for consistent picker order.
+  var COUNTRY_CODES = Object.keys(LOCATIONS).sort(function (a, b) {
+    return LOCATIONS[a].name.localeCompare(LOCATIONS[b].name);
+  });
+
+  /* ------------------------------------------------------- city data (lazy) */
+
+  // City lists are fetched on demand from cities/<CODE>.txt and cached for
+  // the rest of the session, so a 400-city file only costs a request the
+  // first time that country is actually picked — never on page load.
+  var CITY_SEARCH_THRESHOLD = 30;  // above this, require typing before listing
+  var MAX_RENDERED_OPTIONS = 150;  // cap DOM nodes even for a matched search
+
+  var cityCache = {};   // code -> { status: 'loading'|'ready'|'error', cities?, promise? }
+  var cityRequestId = 0; // guards against a stale fetch populating the wrong sheet
+
+  /** Fetch (or reuse a cached/in-flight) city list for a country code. */
+  function fetchCities(code) {
+    var entry = cityCache[code];
+    if (entry && entry.status === 'ready') return Promise.resolve(entry.cities);
+    if (entry && entry.promise) return entry.promise;
+
+    entry = cityCache[code] = { status: 'loading' };
+    entry.promise = fetch('cities/' + encodeURIComponent(code) + '.txt')
+      .then(function (res) {
+        if (!res.ok) throw new Error('HTTP ' + res.status);
+        return res.text();
+      })
+      .then(function (text) {
+        var cities = text.split(/\r?\n/)
+          .map(function (line) { return line.trim(); })
+          .filter(Boolean);
+        entry.status = 'ready';
+        entry.cities = cities;
+        delete entry.promise;
+        return cities;
+      })
+      .catch(function (err) {
+        delete cityCache[code]; // allow a future retry to fetch again
+        throw err;
+      });
+
+    return entry.promise;
+  }
 
   /* ------------------------------------------------------------ validation */
 
@@ -327,16 +371,21 @@
     items: [],
     selected: null,
     onSelect: null,
-    lastFocused: null
+    lastFocused: null,
+    loading: false,     // true while an async item list (cities) is loading
+    error: null,        // { message, retry } when the async load failed
+    requireSearch: false // true when the list is large and needs a query first
   };
 
   /**
    * @param {Object} opts
-   * @param {string} opts.title       Sheet heading.
-   * @param {Array}  opts.items       [{ value, label, flag? }]
-   * @param {*}      opts.selected    Currently selected value, or null.
-   * @param {boolean} opts.searchable Show the search field.
-   * @param {Function} opts.onSelect  Called with the chosen item.
+   * @param {string} opts.title        Sheet heading.
+   * @param {Array}  opts.items        [{ value, label, flag? }]. Pass [] and
+   *                                    call setSheetLoading/setSheetItems for
+   *                                    async lists (e.g. cities).
+   * @param {*}      opts.selected     Currently selected value, or null.
+   * @param {boolean} opts.searchable  Show the search field.
+   * @param {Function} opts.onSelect   Called with the chosen item.
    */
   function openSheet(opts) {
     sheet.items = opts.items;
@@ -344,6 +393,9 @@
     sheet.onSelect = opts.onSelect;
     sheet.lastFocused = document.activeElement;
     sheet.open = true;
+    sheet.loading = false;
+    sheet.error = null;
+    sheet.requireSearch = opts.items.length > CITY_SEARCH_THRESHOLD;
 
     els.sheetTitle.textContent = opts.title;
     els.sheetSearchWrap.hidden = !opts.searchable;
@@ -365,6 +417,30 @@
     if (selectedNode) selectedNode.scrollIntoView({ block: 'center' });
   }
 
+  /** Switch the open sheet into a loading spinner (used while cities fetch). */
+  function setSheetLoading() {
+    sheet.loading = true;
+    sheet.error = null;
+    renderOptions(els.sheetSearch.value);
+  }
+
+  /** Populate the open sheet once an async item list (cities) resolves. */
+  function setSheetItems(items) {
+    sheet.items = items;
+    sheet.loading = false;
+    sheet.error = null;
+    sheet.requireSearch = items.length > CITY_SEARCH_THRESHOLD;
+    els.sheetSearchWrap.hidden = items.length <= 10;
+    renderOptions(els.sheetSearch.value);
+  }
+
+  /** Switch the open sheet into a retryable error state. */
+  function setSheetError(message, retry) {
+    sheet.loading = false;
+    sheet.error = { message: message, retry: retry };
+    renderOptions(els.sheetSearch.value);
+  }
+
   function closeSheet() {
     if (!sheet.open) return;
     sheet.open = false;
@@ -383,12 +459,53 @@
   }
 
   function renderOptions(query) {
+    els.sheetList.textContent = '';
+
+    if (sheet.loading) {
+      var loading = document.createElement('div');
+      loading.className = 'sheet__loading';
+      var spinner = document.createElement('span');
+      spinner.className = 'spinner';
+      spinner.setAttribute('aria-hidden', 'true');
+      var loadingText = document.createElement('p');
+      loadingText.textContent = 'Loading cities…';
+      loading.appendChild(spinner);
+      loading.appendChild(loadingText);
+      els.sheetList.appendChild(loading);
+      return;
+    }
+
+    if (sheet.error) {
+      var err = document.createElement('div');
+      err.className = 'sheet__error';
+      var errText = document.createElement('p');
+      errText.textContent = sheet.error.message;
+      err.appendChild(errText);
+      if (sheet.error.retry) {
+        var retryBtn = document.createElement('button');
+        retryBtn.type = 'button';
+        retryBtn.className = 'sheet__retry';
+        retryBtn.textContent = 'Try again';
+        retryBtn.addEventListener('click', sheet.error.retry);
+        err.appendChild(retryBtn);
+      }
+      els.sheetList.appendChild(err);
+      return;
+    }
+
     var q = query.trim().toLowerCase();
+
+    if (sheet.requireSearch && !q) {
+      var prompt = document.createElement('p');
+      prompt.className = 'sheet__empty';
+      prompt.textContent = 'Type to search ' + sheet.items.length + ' cities.';
+      els.sheetList.appendChild(prompt);
+      return;
+    }
+
     var visible = q
       ? sheet.items.filter(function (item) { return item.label.toLowerCase().indexOf(q) !== -1; })
       : sheet.items;
-
-    els.sheetList.textContent = '';
 
     if (!visible.length) {
       var empty = document.createElement('p');
@@ -397,6 +514,9 @@
       els.sheetList.appendChild(empty);
       return;
     }
+
+    var truncated = visible.length > MAX_RENDERED_OPTIONS;
+    if (truncated) visible = visible.slice(0, MAX_RENDERED_OPTIONS);
 
     var frag = document.createDocumentFragment();
 
@@ -434,6 +554,13 @@
     });
 
     els.sheetList.appendChild(frag);
+
+    if (truncated) {
+      var note = document.createElement('p');
+      note.className = 'sheet__truncated';
+      note.textContent = 'Showing the first ' + MAX_RENDERED_OPTIONS + ' matches — refine your search to see more.';
+      els.sheetList.appendChild(note);
+    }
   }
 
   function bindSheet() {
@@ -502,21 +629,22 @@
   }
 
   function countryItems() {
-    return COUNTRY_NAMES.map(function (name) {
-      return { value: name, label: name, flag: (LOCATIONS[name] || {}).flag };
+    return COUNTRY_CODES.map(function (code) {
+      var c = LOCATIONS[code];
+      return { value: code, label: c.name, flag: c.flag };
     });
   }
 
-  function cityItems(country) {
-    var cities = (LOCATIONS[country] || {}).cities || [];
-    return cities.map(function (city) { return { value: city, label: city }; });
+  /** Country display name for a stored code, or '' if none is selected. */
+  function countryName(code) {
+    return code && LOCATIONS[code] ? LOCATIONS[code].name : '';
   }
 
   /** Clear the city whenever the country changes, and lock/unlock the row. */
-  function applyCountry(country, options) {
+  function applyCountry(code, options) {
     var keepCity = options && options.keepCity;
-    state.country = country;
-    setPickerValue('country', country);
+    state.country = code; // stored as the ISO code; resolved to a name for display/payload
+    setPickerValue('country', countryName(code));
 
     if (!keepCity) {
       state.city = null;
@@ -524,13 +652,56 @@
       touched.city = false;
     }
 
-    var hasCountry = !!country;
+    var hasCountry = !!code;
     pickers.city.row.disabled = !hasCountry;
     els.locationFooter.textContent = hasCountry
-      ? 'Cities shown are the ones we support in ' + country + '.'
+      ? 'Cities shown are the ones we support in ' + countryName(code) + '.'
       : 'Pick a country to see its cities.';
 
     renderError('city');
+  }
+
+  /** Turn a plain city-name array into sheet items. */
+  function cityItemsFrom(cities) {
+    return cities.map(function (city) { return { value: city, label: city }; });
+  }
+
+  /** Open the city sheet for `code`, fetching (or reusing cached) cities. */
+  function openCitySheet(code) {
+    var requestId = ++cityRequestId;
+
+    openSheet({
+      title: countryName(code),
+      items: [],
+      selected: state.city,
+      searchable: true,
+      onSelect: function (item) {
+        state.city = item.value;
+        setPickerValue('city', item.label);
+        touched.city = true;
+        refresh('city');
+      }
+    });
+
+    var cached = cityCache[code];
+    if (cached && cached.status === 'ready') {
+      setSheetItems(cityItemsFrom(cached.cities));
+      return;
+    }
+
+    setSheetLoading();
+
+    fetchCities(code)
+      .then(function (cities) {
+        if (requestId !== cityRequestId) return; // a newer request has superseded this one
+        setSheetItems(cityItemsFrom(cities));
+      })
+      .catch(function () {
+        if (requestId !== cityRequestId) return;
+        setSheetError('Couldn’t load cities. Check your connection and try again.', function () {
+          openCitySheet(code);
+        });
+      });
   }
 
   function bindLocationPickers() {
@@ -539,7 +710,7 @@
         title: 'Country',
         items: countryItems(),
         selected: state.country,
-        searchable: COUNTRY_NAMES.length > 10,
+        searchable: COUNTRY_CODES.length > 10,
         onSelect: function (item) {
           var changed = item.value !== state.country;
           applyCountry(item.value, { keepCity: !changed });
@@ -551,18 +722,7 @@
 
     pickers.city.row.addEventListener('click', function () {
       if (!state.country) return;
-      openSheet({
-        title: state.country,
-        items: cityItems(state.country),
-        selected: state.city,
-        searchable: cityItems(state.country).length > 10,
-        onSelect: function (item) {
-          state.city = item.value;
-          setPickerValue('city', item.label);
-          touched.city = true;
-          refresh('city');
-        }
-      });
+      openCitySheet(state.country);
     });
   }
 
@@ -599,14 +759,35 @@
       if (validators.age(state.age)) touched.age = true;
     }
 
-    // Optional extras: ?country=…&city=… follow the same rules.
+    // Optional extras: ?country=<CODE>&city=<name>. Country is matched
+    // case-insensitively against ISO codes; city is validated against the
+    // (lazily fetched) list for that country, since we don't have it upfront.
     var qCountry = params.get('country');
-    if (qCountry && Object.prototype.hasOwnProperty.call(LOCATIONS, qCountry)) {
-      applyCountry(qCountry);
+    var code = qCountry ? qCountry.trim().toUpperCase() : '';
+
+    if (code && Object.prototype.hasOwnProperty.call(LOCATIONS, code)) {
+      applyCountry(code);
+
       var qCity = params.get('city');
-      if (qCity && (LOCATIONS[qCountry].cities || []).indexOf(qCity) !== -1) {
-        state.city = qCity;
-        setPickerValue('city', qCity);
+      if (qCity) {
+        var wantedCity = qCity.trim();
+        fetchCities(code)
+          .then(function (cities) {
+            // The country picker may have changed again before this resolves.
+            if (state.country !== code) return;
+            var match = cities.find(function (c) {
+              return c.toLowerCase() === wantedCity.toLowerCase();
+            });
+            if (match) {
+              state.city = match;
+              setPickerValue('city', match);
+            }
+            touched.city = true;
+            refresh('city');
+          })
+          .catch(function () {
+            // City list failed to load; leave the field for manual selection.
+          });
       }
     } else {
       applyCountry(null);
@@ -658,7 +839,11 @@
       gender: state.gender ? state.gender.value : null,
       preference: state.preference ? state.preference.value : null,
       bio: state.bio.trim(),
-      country: state.country,
+
+      // state.country holds the ISO code (picker value); resolve it to the
+      // ASCII display name for the payload, same shape as before.
+      country: countryName(state.country) || null,
+      country_code: state.country,
       city: state.city,
 
       // Optional: only true when a Telegram photo exists and the user kept
