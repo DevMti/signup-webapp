@@ -1,0 +1,691 @@
+Paris
+Marseille
+Lyon
+Toulouse
+Nice
+Nantes
+Marne La Vallee
+Strasbourg
+Bordeaux
+Montpellier
+Lille
+Paris 15 Vaugirard
+Rennes
+Reims
+Le Havre
+Paris 20 Menilmontant
+Cergy-Pontoise
+Paris 18 Buttes-Montmartre
+Paris 13 Gobelins
+Paris 19 Buttes-Chaumont
+Paris 13e Arrondissement
+Saint-Etienne
+Toulon
+Angers
+Dijon
+Paris 16 Passy
+Paris 17 Batignolles-Monceau
+Grenoble
+Nimes
+Clermont-Ferrand
+Aix-en-Provence
+Saint-Quentin-en-Yvelines
+Brest
+Le Mans
+Paris 11e Arrondissement
+Amiens
+Tours
+Limoges
+Paris 12e Arrondissement
+Paris 11 Popincourt
+Paris 12 Reuilly
+Paris 14 Observatoire
+Villeurbanne
+Besancon
+Metz
+Orleans
+Rouen
+Mulhouse
+Montreuil
+Perpignan
+Caen
+Boulogne-Billancourt
+Nancy
+Lyon 03
+Argenteuil
+Roubaix
+Tourcoing
+Saint-Denis
+Avignon
+Marseille 13
+Asnieres-sur-Seine
+Nanterre
+Dunkirk
+Lyon 08
+Poitiers
+Versailles
+Courbevoie
+Creteil
+Paris 10 Entrepot
+Paris 10e Arrondissement
+Pau
+Lyon 07
+Colombes
+Vitry-sur-Seine
+Aulnay-sous-Bois
+Marseille 08
+Marseille 15
+Marseille 09
+La Rochelle
+Champigny-sur-Marne
+Rueil-Malmaison
+Antibes
+Gare
+Saint-Maur-des-Fosses
+Cannes
+Calais
+Beziers
+Aubervilliers
+Merignac
+Bourges
+Saint-Nazaire
+Colmar
+Maison Blanche
+Valence
+Quimper
+Drancy
+Noisy-le-Grand
+Villeneuve-d'Ascq
+La Seyne-sur-Mer
+Levallois-Perret
+Marseille 14
+Picpus
+Chambery
+Issy-les-Moulineaux
+Neuilly-sur-Seine
+Troyes
+Juan-les-Pins
+Antony
+La Roche-sur-Yon
+Marseille 12
+Lorient
+Sarcelles
+Pessac
+Ivry-sur-Seine
+Evreux
+Venissieux
+Cergy
+Clichy
+Paris 09 Opera
+Marseille 11
+Saint-Quentin
+Paris 05 Pantheon
+Niort
+Belfort
+Ajaccio
+Vannes
+Sartrouville
+Maisons-Alfort
+Meaux
+Blois
+Brive-la-Gaillarde
+Arles
+Beauvais
+Chateauroux
+Cholet
+Frejus
+Pantin
+Lyon 06
+Saint-Brieuc
+Montauban
+Charleville-Mezieres
+Albi
+Tarbes
+Fontenay-sous-Bois
+Lyon 09
+Evry
+Clamart
+Marseille 10
+Chalons-en-Champagne
+Narbonne
+Saint-Malo
+Laval
+Hyeres
+Lyon 05
+Carcassonne
+Angouleme
+Annecy
+Bondy
+Le Blanc-Mesnil
+Villejuif
+Paris 07 Palais-Bourbon
+Grasse
+Sevran
+Castres
+Chalon-sur-Saone
+Marseille 04
+Arras
+Boulogne-sur-Mer
+Chelles
+Cagnes-sur-Mer
+Saint-Herblain
+Douai
+Epinay-sur-Seine
+Vincennes
+Roquette
+Martigues
+Marseille 03
+Bourg-en-Bresse
+Bobigny
+Montlucon
+Aubagne
+Valenciennes
+Suresnes
+Meudon
+Marseille 05
+Bayonne
+Istres
+Thionville
+Mantes-la-Jolie
+Compiegne
+Nevers
+Chartres
+Marseille 06
+Le Cannet
+Wattrelos
+Caluire-et-Cuire
+Gap
+Talence
+Ales
+Gennevilliers
+Saint-Priest
+Rosny-sous-Bois
+Auxerre
+Salon-de-Provence
+Saint-Germain-en-Laye
+Bastia
+Marseille 01
+Sete
+Anglet
+Puteaux
+Corbeil-Essonnes
+Paris 06 Luxembourg
+Garges-les-Gonesse
+Roanne
+Savigny-sur-Orge
+Livry-Gargan
+Epinal
+Saint-Ouen
+Reze
+Montigny-le-Bretonneux
+Noisy-le-Sec
+Melun
+Bagneux
+Massy
+Haguenau
+Montrouge
+Marcq-en-Baroeul
+Vitrolles
+Draguignan
+Lens
+Gagny
+Saint-Chamond
+Bron
+Vaulx-en-Velin
+Joue-les-Tours
+Alfortville
+La Courneuve
+Chatellerault
+Villepinte
+Cambrai
+Poissy
+Conflans-Sainte-Honorine
+Sainte-Marguerite
+Bel-Air
+Mont-de-Marsan
+Plaisir
+Lyon 04
+Marseille 07
+Marignane
+Dieppe
+Montelimar
+Tremblay-en-France
+Choisy-le-Roi
+Saint-Martin-d'Heres
+Macon
+Paris 08 Elysee
+Romans-sur-Isere
+Saint-Raphael
+Pontault-Combault
+Six-Fours-les-Plages
+Perigueux
+Aurillac
+Neuilly-sur-Marne
+Lievin
+Agen
+Franconville
+Sainte-Genevieve-des-Bois
+Maubeuge
+Bagnolet
+Saumur
+Biarritz
+La Ciotat
+Echirolles
+Villefranche-sur-Saone
+Chatenay-Malabry
+Stains
+Chatillon
+Vienne
+Schiltigheim
+Paris 03 Temple
+Les Mureaux
+Le Perreux-sur-Marne
+Guyancourt
+Palaiseau
+Saint-Dizier
+Creil
+Vandoeuvre-les-Nancy
+Thonon-les-Bains
+Bethune
+Colomiers
+Lyon 02
+Folie Mericourt
+Nogent-sur-Marne
+Athis-Mons
+Viry-Chatillon
+Houilles
+Soissons
+Dreux
+Charenton-le-Pont
+Villeneuve-Saint-Georges
+Elancourt
+Saint-Ambroise
+Alencon
+Sotteville-les-Rouen
+Orange
+Villenave-d'Ornon
+Pontoise
+Villiers-sur-Marne
+Chatou
+Goussainville
+Lomme
+Vierzon
+Saint-Medard-en-Jalles
+Thiais
+Carpentras
+L'Hay-les-Roses
+Menton
+Lyon 01
+Saint-Laurent-du-Var
+Saintes
+Rochefort
+Malakoff
+Draveil
+Saint-Leu
+Saint-Sebastien-sur-Loire
+Le Chesnay
+Tournefeuille
+Clichy-sous-Bois
+Chaumont
+Saint-Etienne-du-Rouvray
+Meyzieu
+Yerres
+Montbeliard
+Saint-Cloud
+Sens
+Laon
+Lambersart
+Trappes
+Rodez
+Bergerac
+Annemasse
+La Garde
+Ermont
+Rillieux-la-Pape
+Villemomble
+Pierrefitte-sur-Seine
+Le Kremlin-Bicetre
+Champs-sur-Marne
+Aix-les-Bains
+Bezons
+Paris 04 Hotel-de-Ville
+Vallauris
+Taverny
+Illkirch-Graffenstaden
+La Teste-de-Buch
+Epernay
+Villiers-le-Bel
+Vichy
+Hopital Saint-Louis
+Sannois
+Gonesse
+Vigneux-sur-Seine
+Cavaillon
+Rambouillet
+Cherbourg
+Armentieres
+Lunel
+Cachan
+Le Grand-Quevilly
+Abbeville
+La Garenne-Colombes
+Montigny-les-Metz
+Quinze-Vingts
+Vanves
+Vernon
+Savigny-le-Temple
+Dole
+Villeneuve-sur-Lot
+Les Ulis
+Marseille 02
+Oyonnax
+Oullins
+Le Creusot
+Henin-Beaumont
+Orvault
+Coudekerque-Branche
+Herblay-sur-Seine
+Ris-Orangis
+Sucy-en-Brie
+Grigny
+Fresnes
+Romainville
+Fontenay-aux-Roses
+Decines-Charpieu
+Saint-Die-des-Vosges
+Fontaine
+Auch
+Bruay-la-Buissiere
+Lisieux
+Sarreguemines
+Torcy
+Gradignan
+Lanester
+Bretigny-sur-Orge
+Muret
+Bois-Colombes
+Blagnac
+Herouville-Saint-Clair
+Libourne
+Le Bouscat
+Miramas
+Beaune
+Eaubonne
+Brunoy
+Villeparisis
+Montfermeil
+Sevres
+Fougeres
+Saint-Pol-sur-Mer
+La Madeleine
+Gif-sur-Yvette
+Begles
+Cahors
+Millau
+Hazebrouck
+Grande-Synthe
+La Valette-du-Var
+Moulins
+Mont-Saint-Aignan
+Etampes
+Mons-en-Baroeul
+Agde
+Saint-Ouen-l'Aumone
+Vertou
+Montgeron
+Maisons-Laffitte
+Le Puy-en-Velay
+Le Petit-Quevilly
+Lormont
+Olivet
+Ozoir-la-Ferriere
+Le Plessis-Robinson
+Cenon
+Combs-la-Ville
+Dax
+Frontignan
+Voiron
+Loos
+Le Mee-sur-Seine
+Villeneuve-la-Garenne
+Fecamp
+Cormeilles-en-Parisis
+Sainte-Foy-les-Lyon
+Verdun
+Velizy-Villacoublay
+Saint-Lo
+Acheres
+Luneville
+Deuil-la-Barre
+La Celle-Saint-Cloud
+Annecy-le-Vieux
+Sceaux
+Lannion
+Denain
+Allauch
+Concarneau
+Eysines
+Croix
+Forbach
+Manosque
+Saint-Mande
+Plaine du Var
+Montmorency
+Porte Saint-Martin
+Gardanne
+Les Lilas
+Fleury-les-Aubrais
+Dammarie-les-Lys
+Roissy-en-Brie
+Saint-Genis-Laval
+Saint-Louis
+Cognac
+Saint-Michel-sur-Orge
+Longjumeau
+Bressuire
+Vaureal
+Lons-le-Saunier
+Ploemeur
+Lagny-sur-Marne
+Sedan
+Orly
+Saint-Vincent de Paul
+Pontarlier
+Chamalieres
+Meylan
+Montceau-les-Mines
+Halluin
+Riom
+Chevilly-Larue
+Croulebarbe
+La Defense
+Romorantin-Lanthenay
+Mantes-la-Ville
+Pertuis
+Morsang-sur-Orge
+Vesoul
+Saint-Jean-de-Braye
+Les Pennes-Mirabeau
+Paris 02 Bourse
+Cluses
+Bourg-les-Valence
+Villefontaine
+Saint-Gratien
+Les Pavillons-sous-Bois
+Fontainebleau
+Hem
+Nogent-sur-Oise
+Bagnols-sur-Ceze
+Coueron
+Ecully
+Cran-Gevrier
+Wasquehal
+Mandelieu-la-Napoule
+Vendome
+Louviers
+Gujan-Mestras
+Sanary-sur-Mer
+Senlis
+Albertville
+Limeil-Brevannes
+Jouy-le-Moutier
+Marmande
+Royan
+Maurepas
+Digne-les-Bains
+Mougins
+Challans
+Selestat
+Garches
+Chilly-Mazarin
+Bourg-la-Reine
+Equeurdreville-Hainneville
+Cournon-d'Auvergne
+Saint-Roch
+Chaville
+Neuilly-Plaisance
+Bonneuil-sur-Marne
+Sorgues
+Vence
+Saint-Barthelemy
+Le Plessis-Trevise
+Bar-le-Duc
+Seynod
+Mitry-Mory
+Carvin
+Limay
+La Fleche
+Plaisance-du-Touch
+La Chapelle-sur-Erdre
+Avion
+Annonay
+Ronchin
+Mauguio
+Chennevieres-sur-Marne
+Autun
+Saint-Avold
+Tourlaville
+Saint-Omer
+Argentan
+Givors
+Joinville-le-Pont
+Carquefou
+Cestas
+Castelnau-le-Lez
+Montigny-les-Cormeilles
+La Crau
+Firminy
+Orsay
+Saint-Amand-les-Eaux
+La Pomme
+Le Pre-Saint-Gervais
+Luce
+Les Clayes-sous-Bois
+La Baule-Escoublac
+Salpetriere
+Sin-le-Noble
+Toul
+Marseille 16
+Villeneuve-le-Roi
+Mazargues
+Saint-Jean-de-la-Ruelle
+Morlaix
+Montargis
+Soisy-sous-Montmorency
+Bischheim
+Flers
+Marly-le-Roi
+Lattes
+Saint-Cyr-sur-Loire
+Fos-sur-Mer
+Arcueil
+Lingolsheim
+Vitre
+Vitry-le-Francois
+Elbeuf
+Pamiers
+Montereau-Fault-Yonne
+Tulle
+L'Isle-sur-la-Sorgue
+Octeville
+Tassin-la-Demi-Lune
+Bouguenais
+Verneuil-sur-Seine
+Verrieres-le-Buisson
+Pontivy
+Le Vesinet
+Sallanches
+Montivilliers
+Domont
+Blanquefort
+Douarnenez
+Le Camas
+Osny
+Le Pecq
+Guerande
+Floirac
+Saint-Cyr-l'Ecole
+Laxou
+Fontenay-le-Comte
+Moissy-Cramayel
+Saran
+Bry-sur-Marne
+Cesson-Sevigne
+Le Pontet
+Montbrison
+Faches-Thumesnil
+Viroflay
+Les Sables-d'Olonne
+Saint-Loup
+Saint-Leu-la-Foret
+Saint-Fons
+Landerneau
+Saint-Avertin
+Chateaudun
+Issoire
+Gien
+Bayeux
+Gentilly
+Chateau-Thierry
+Port-de-Bouc
+Saint-Egreve
+Villers-les-Nancy
+Brie-Comte-Robert
+Boissy-Saint-Leger
+Gueret
+Chenove
+Lourdes
+Wittenheim
+Canteleu
+Haubourdin
+Crepy-en-Valois
+Berck-Plage
+Les Herbiers
+Yutz
+Outreau
+Berck
+Mayenne
+Audincourt
+Balma
+Hautmont
+Lognes
+Hayange
+Les Moulins
+Tergnier
+Carrieres-sous-Poissy
+Illzach
+Pont-a-Mousson
+Cugnaux
+Eragny
+Noisiel
+La Blancarde
+Saint-Pierre-des-Corps
+Coulommiers
+Montesson
+Saint-Maximin-la-Sainte-Baume
+Les Olives
+Noyon
+Paris 01 Louvre
+Porte Saint-Denis
+Brignoles
+Avon

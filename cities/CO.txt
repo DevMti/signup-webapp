@@ -1,0 +1,310 @@
+Bogota
+Cali
+Medellin
+Barranquilla
+Kennedy
+Cartagena
+Cucuta
+Soacha
+Bucaramanga
+Ibague
+Santa Marta
+Monteria
+Valledupar
+Pereira
+Manizales
+Buenaventura
+Bello
+Pasto
+Neiva
+Soledad
+Villavicencio
+Popayan
+Palmira
+Armenia
+Itaguei
+Sincelejo
+Floridablanca
+Tulua
+Dosquebradas
+Barrancabermeja
+Riohacha
+Tunja
+Yopal
+Florencia
+Maicao
+Piedecuesta
+Envigado
+Facatativa
+Pitalito
+Madrid
+Cartago
+Zipaquira
+Quibdo
+Malambo
+Rionegro
+Mosquera
+Chia
+Magangue
+Funza
+Guadalajara de Buga
+Sogamoso
+Giron
+Girardot City
+Sabanalarga
+Ocana
+Santander de Quilichao
+Aguachica
+Cerete
+Duitama
+Montelibano
+Fusagasuga
+Cienaga
+Tumaco
+Apartado
+Chigorodo
+Arauca
+Sabaneta
+Caldas
+La Dorada
+Calarca
+Ipiales
+Yumbo
+Planeta Rica
+Granada
+Chinchina
+Baranoa
+Villa del Rosario
+San Marcos
+Sahagun
+Fundacion
+Los Patios
+San Andres
+Caucasia
+Santa Rosa de Cabal
+Orito
+Marinilla
+Mocoa
+Espinal
+Turbaco
+Ayapel
+El Banco
+Cajica
+Pamplona
+San Jose del Guaviare
+Agustin Codazzi
+El Bagre
+Puerto Berrio
+Cimitarra
+Chinu
+Turbo
+Arjona
+Carmen de Viboral
+La Estrella
+Copacabana
+Samaniego
+Plato
+Leticia
+El Carmen de Bolivar
+Florida
+Puerto Tejada
+San Gil
+Chiquinquira
+Jamundi
+Pradera
+Piendamo
+Sevilla
+Miranda
+Montenegro
+Aracataca
+Guaduas
+Acacias
+Lorica
+San Juan del Cesar
+Tuquerres
+Segovia
+Corozal
+Libano
+El Cerrito
+Barrancas
+Santa Rosa de Osos
+Patia
+Bosconia
+Payande
+San Pablo
+Belalcazar
+La Ceja
+Gigante
+Quimbaya
+Villamaria
+Sabanagrande
+Curumani
+Paz de Ariporo
+San Antero
+San Juan Nepomuceno
+Quinchia
+Corinto
+Puerto Rico
+Puebloviejo
+Sonson
+Sitionuevo
+San Sebastian de Mariquita
+Anserma
+Pivijay
+San Onofre
+Caicedonia
+Fonseca
+Villanueva
+Puerto Wilches
+Mompos
+San Luis de Since
+San Pedro de Uraba
+Guamo
+Chimichagua
+Socorro
+Mitu
+Puerto Asis
+Morales
+Purificacion
+Garzon
+Flandes
+Tame
+Zarzal
+Santo Tomas
+El Charco
+El Copey
+Honda
+Sabana de Torres
+Luruaco
+Roldanillo
+Santiago de Tolu
+Puerto Boyaca
+Circasia
+Palmar de Varela
+La Tebaida
+Chiriguana
+Albania
+La Mesa
+Supia
+Ariguani
+Tierralta
+Puerto Colombia
+Mahates
+El Zulia
+Melgar
+La Virginia
+Anaime
+Repelon
+Guamal
+Hatonuevo
+Isnos
+Zaragoza
+Nechi
+Cumaribo
+Candelaria
+Ituango
+San Jacinto
+San Carlos
+Ponedera
+Maria la Baja
+Ciudad Bolivar
+Pinillos
+Santa Fe de Antioquia
+Sucre
+Sibate
+Rivera
+Campo de la Cruz
+Dabeiba
+Campoalegre
+Natagaima
+Yarumal
+Tauramena
+Timbiqui
+Planadas
+Belen de Umbria
+La Jagua de Ibirico
+Sampues
+Puerto Carreno
+Moniquira
+Aguadas
+Retiro
+Villeta
+Carepa
+Silvania
+Neira
+Villa de San Diego de Ubate
+Becerril
+Cota
+San Martin
+Rovira
+Barbosa
+Galeras
+Frontino
+Puerto Leguizamo
+Tolu Viejo
+San Juan de Uraba
+Chaparral
+Buesaco
+Malaga
+Galapa
+Suarez
+Guacari
+Polonuevo
+Velez
+El Reten
+Padua
+La Plata
+Manati
+Rioblanco
+Riosucio
+Balboa
+Urrao
+Juan de Acosta
+Fredonia
+Villa Rica
+Pizarro
+San Diego
+Astrea
+Santa Rosa
+Chivolo
+San Benito Abad
+Andalucia
+Salamina
+San Vicente
+Tiquisio
+El Doncello
+Santuario
+Fresno
+El Carmen de Chucuri
+Cienaga de Oro
+Restrepo
+Abejorral
+Yondo
+Nueva Granada
+Puerto Triunfo
+Lerida
+Tado
+Pailitas
+Pacho
+Puerto Lopez
+San Lorenzo
+Manzanares
+San Estanislao
+Pupiales
+Andes
+Puerto Santander
+Momil
+Cotorra
+Tarqui
+Concordia
+Guadalupe
+Salgar
+Darien
+Santa Lucia
+Aguazul
+Marsella
+Tocancipa
+Simiti
+Betulia
+La Union
+Puerto Salgar

@@ -1,0 +1,393 @@
+Kyiv
+Kharkiv
+Odesa
+Dnipro
+Donetsk
+Lviv
+Zaporizhzhya
+Kryvyy Rih
+Sevastopol
+Mykolayiv
+Vinnytsya
+Saltivka
+Luhansk
+Desna
+Dniprovskyi
+Pravyi Bereh
+Darnytsya
+Makiyivka
+Simferopol
+Saltivskyi
+Chernihiv
+Poltava
+Khmelnytskyi
+Cherkasy
+Chernivtsi
+Zhytomyr
+Sumy
+Rivne
+Vyhurivshchyna-Troyeshchyna
+Horlivka
+Obolon
+Ivano-Frankivsk
+Mariupol
+Kamyanske
+Ternopil
+Kremenchuk
+Shevchenkivskyi
+Kropyvnytskyi
+Lutsk
+Bila Tserkva
+Verhunskyi
+Kyivskyi
+Borshchahivka
+Desnyanskyi
+Novozavodskyi
+Tsentralnyi
+Rutchenkivskyi
+Fortechnyi
+Nyzhnodniprovsk
+Industrialnyi
+Avtozavodskyi
+Sykhiv
+Zarichnyi
+Kerch
+Melitopol
+Shevchenko
+Bohuniya
+Kramatorsk
+Slobidskyi
+Nemyshlyanskyi
+Kovpakivskyi
+Rayon KhTZ
+Mykilska Borshchahivka
+Vilkhivskyi
+Livoberezhnyi
+Cheremushky
+Tsentralno-Miskyi
+Smolyanskyi
+Uzhhorod
+Korolyov
+Brovary
+Novobavarskyi
+Hirnytskyi
+Yevpatoriya
+Berdyansk
+Alchevsk
+Nikopol
+Slovyansk
+Pozniaky
+Kalynivskyi
+Chumakivskyi
+Skhidni Kvartaly
+Kindrativskyi
+Kalmiuskyi
+Pavlohrad
+Pechersk
+Oleksiyivka
+Oleksandrivskyi
+Siverskodonetsk
+Kamyanets-Podilskyi
+Yuzivskyi
+Kharkivskyi Masyv
+Lysychansk
+Osnovyanskyi
+Bohodukhivskyi
+Kholodna Hora
+Lisovyi Masyv
+Podilskyi
+Mukachevo
+Voznesenskyi
+Konotop
+Voskresenka
+Uman
+Berestovskyi
+Bakhmut
+Khrustalnyi
+Yalta
+Yenakiyeve
+Oleksandriya
+Kryukiv
+Tekstylnyk
+Drohobych
+Chokolivka
+Kadiyivka
+Shostka
+Berdychiv
+Livyi Bereh
+Shakhtarsk
+Nyvky
+Prymorskyi
+Samar
+Mykytivskyi
+Izmayil
+Vidradnyi
+Darnytskyi Masyv
+Feodosiya
+Kovel
+Kostyantynivka
+Nizhyn
+Korabelna Storona
+Smila
+Kherson
+Irpin
+Kalush
+Sheptytskyi
+Boryspil
+Dovzhansk
+Pervomaysk
+Holosiyiv
+Shulyavka
+Inhulets
+Korosten
+Stryi
+Kolomyia
+Pokrovsk
+Chornomors'k
+Vynohradar
+Khartsyzk
+Zvyahel
+Snizhne
+Rubizhne
+Lozova
+Druzhkivka
+Chystyakove
+Sotsmisto
+Khanzhonkivskyi
+Svyatoshyn
+Enerhodar
+Pryluky
+Hruzkyi
+Antratsyt
+Pivdenna Borshchahivka
+Bosse
+Horishni Plavni
+Novovolynsk
+Sorokyne
+Nova Zabudova
+Bilhorod-Dnistrovskyi
+Okhtyrka
+Myrnohrad
+Berezniaky
+Izyum
+Nova Darnytsya
+Syrets
+Rovenky
+Pivnichna Saltivka
+Marhanets
+Bryanka
+Lubny
+Nova Kakhovka
+Fastiv
+Molodizhne
+Svitlovodsk
+Vyshneve
+Kamyanobridskyi
+Bucha
+Zhovti Vody
+Varash
+Stare Misto
+Dzhankoy
+Hladkivka
+Shepetivka
+Sonyachnyi
+Bilychi
+Khanzhonkove
+Telychka
+Novyi Lviv
+Myrhorod
+Pivnichni Osokorky
+Podilsk
+Pivdennoukrainsk
+Romny
+Volodymyr-Volynskyi
+Yasynuvata
+Pivnichno-Brovarskyi Masyv
+Pokrov
+Dubno
+Vasylkiv
+Chuhuyiv
+Priorka
+Netishyn
+Sokolohirsk
+Kakhovka
+Avdiyivka
+Karavayevi Dachi
+Vyshhorodskyi Masyv
+Slavuta
+Arshyntseve
+Teremky
+Zhmerynka
+Boyarka
+Starokostyantyniv
+Sambir
+Oleksandrivska Slobidka
+Voznesensk
+Vyshhorod
+Minskyi Masyv
+Pivdenne
+Solomyanka
+Boryslav
+Podil
+Hlukhiv
+Obukhiv
+Lukyanivka
+Novoyavorivs'k
+Toretsk
+Kostopil
+Yany Kapu
+Mohyliv-Podilskyy
+Synelnykove
+Masany
+Nahirna Chastyna
+Alushta
+Tokmak
+Demiyivka
+Sarny
+Zlatopil
+Novobilychi
+Khust
+Chortkiv
+Saky
+Novyi Rozdil
+Truskavets
+Dobropillya
+Terny
+Zolotonosha
+Khmilnyk
+Shakhtarske
+Bakhchysaray
+Rusanivka
+Khrestivka
+Kupyansk
+Ternivka
+Holubivka
+Rayduzhnyi Masyv
+Balakliya
+Pereiaslav
+Livoberezhnyi Masyv
+Stara Darnytsya
+Sofiivska Borschahivka
+Tatarka
+Haysyn
+Dolynska
+Vynohradiv
+Malyn
+Mostytskyi Masyv
+Perevalsk
+Oleshky
+Zdolbuniv
+Slavutych
+Armyansk
+Debaltseve
+Korostyshiv
+Krolevets
+Lebedyn
+Teremky-II
+Kurenivka
+Pisochyn
+Kaniv
+Hadyach
+Berehove
+Kozyatyn
+Brody
+Dokuchayevsk
+Zolochiv
+Nadvirna
+Ladyzhyn
+Otamanivka
+Znamyanka
+Ihren
+Vilnohirsk
+Selydove
+Berestyn
+Bilohorodka
+Merefa
+Volnovakha
+Kremenets
+Polonne
+Dolyna
+Sukhodilsk
+Sokal
+Stebnyk
+Saperna Slobidka
+Lyman
+Liubotyn
+Zhuravlivka
+Kivsharivka
+Trostyanets
+Kiliya
+Henichesk
+Popasna
+Pidhorodnye
+Vynnyky
+Yahotyn
+Krasyliv
+Balaklava
+Reni
+Balta
+Kalynivka
+Volochysk
+Hostomel
+Kurakhove
+Vitryani Hory
+Pyatykhatky
+Kreminna
+Polohy
+Lypky
+Klov
+Amvrosiyivka
+Skadovsk
+Pelahiivka
+Zuhres
+Rozdilna
+Bohodukhiv
+Korsun-Shevchenkivskyi
+Dniprorudne
+Berezhany
+Kotsyubynske
+Nova Bavariya
+Darnytsya Car Repair Plant Microdistrict
+Vovchansk
+Skvyra
+Rakivka
+Derhachi
+Svalyava
+Lutuhyne
+Rakove
+Nyzhnya Telychka
+Katerynivka
+Mostyska
+Bakhmach
+Shpola
+Sudak
+Knyahynyn
+Zvenyhorodka
+Novoukrayinka
+Bilohirsk
+Berezan
+Svyatopetrivske
+Iziaslav
+Svatove
+Kybalchych
+Trudivskyi
+Horodok
+Starobilsk
+Apostolove
+Slobozhanske
+Bohuslav
+Bahacheve
+Dunayivtsi
+Rakhiv
+Bilopillia
+Bortnychi
+Verkhnodniprovsk
+Ilovays'k
+Bar
+Ovruch
+Radomyshl
+Voznesenivka
+Novhorod-Siverskyi
+Vilnyansk
+Bolhrad
+Tulchyn

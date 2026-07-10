@@ -1,0 +1,134 @@
+Bucharest
+Sector 3
+Iasi
+Sector 6
+Constanta
+Sector 2
+Sector 4
+Cluj-Napoca
+Sector 5
+Brasov
+Timisoara
+Craiova
+Sector 1
+Galati
+Targu Mures
+Oradea
+Ploiesti
+Arad
+Braila
+Pitesti
+Bacau
+Sibiu
+Satu Mare
+Baia Mare
+Buzau
+Piatra Neamt
+Ramnicu Valcea
+Botosani
+Suceava
+Resita
+Drobeta-Turnu Severin
+Bistrita
+Targu Jiu
+Hunedoara
+Roman
+Barlad
+Deva
+Targoviste
+Focsani
+Tulcea
+Alba Iulia
+Slatina
+Vaslui
+Giurgiu
+Medias
+Zalau
+Sfantu Gheorghe
+Pascani
+Petrosani
+Turda
+Medgidia
+Lugoj
+Campina
+Slobozia
+Tecuci
+Sighetu Marmatiei
+Alexandria
+Mangalia
+Ramnicu Sarat
+Dej
+Odorheiu Secuiesc
+Reghin-Sat
+Sighisoara
+Miercurea-Ciuc
+Caracal
+Navodari
+Fetesti
+Curtea de Arges
+Dorohoi
+Fagaras
+Lupeni
+Voluntari
+Sacele
+Falticeni
+Husi
+Mioveni
+Turnu Magurele
+Tarnaveni
+Aiud
+Caransebes
+Rosiorii de Vede
+Sebes
+Borsa
+Campia Turzii
+Petrila
+Zarnesti
+Cugir
+Moinesti
+Radauti
+Fetesti-Gara
+Gherla
+Comanesti
+Oltenita
+Motru
+Carei
+Orastie
+Buftea
+Dragasani
+Bals
+Moreni
+Codlea
+Targu Neamt
+Blaj
+Targu Secuiesc
+Corabia
+Baicoi
+Gheorgheni
+Vulcan
+Campulung Moldovenesc
+Bailesti
+Filiasi
+Calafat
+Cernavoda
+Buhusi
+Breaza
+Salonta
+Ludus
+Urziceni
+Baia Sprie
+Bocsa
+Pantelimon
+Vatra Dornei
+Brad
+Gura Humorului
+Simleu Silvaniei
+Mizil
+Viseu de Sus
+Ocna Mures
+Popesti-Leordeni
+Rasnov
+Zimnicea
+Adjud
+Cisnadie
+Gaesti

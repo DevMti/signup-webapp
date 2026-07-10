@@ -1,0 +1,661 @@
+Rome
+Milan
+Naples
+Turin
+Palermo
+Genoa
+Bologna
+Florence
+Bari
+Catania
+Verona
+Messina
+Trieste
+Padua
+Brescia
+Taranto
+Parma
+Prato
+Modena
+Reggio Calabria
+Quarto Oggiaro
+Reggio nell'Emilia
+Livorno
+Cagliari
+Rimini
+Mestre
+Circoiscrizione II
+Foggia
+Circoiscrizione VIII
+Ferrara
+Circoiscrizione III
+Acilia-Castel Fusano-Ostia Antica
+Circoiscrizione V
+Salerno
+Monza
+Siracusa
+Bergamo
+Trento
+Perugia
+Pescara
+Forli
+Vicenza
+Terni
+Pisa
+Bolzano
+Circoiscrizione VI
+Piacenza
+Novara
+Arezzo
+Udine
+Andria
+Circoiscrizione IV
+Cesena
+La Spezia
+Barletta
+Alessandria
+Sassari
+Ancona
+Circoiscrizione VII
+Guidonia Montecelio
+Campo di Marte
+Brindisi
+Treviso
+Torre del Greco
+Lido di Ostia
+Como
+Busto Arsizio
+Sesto San Giovanni
+Lucca
+Pozzuoli
+Ravenna
+Fiumicino
+Lecce
+Varese
+Giugliano in Campania
+Catanzaro
+Circoiscrizione I
+Marsala
+Pesaro
+Fuorigrotta
+Latina
+Cinisello Balsamo
+Gela
+Aprilia
+Asti
+Ragusa
+Casoria
+Pistoia
+Caserta
+Cremona
+Carpi
+Altamura
+Lamezia Terme
+Imola
+San Carlo All'Arena
+Arenella
+Trapani
+Quartu Sant'Elena
+Castellammare di Stabia
+Pavia
+Massa
+Crotone
+Afragola
+Cosenza
+Caltanissetta
+Viareggio
+Savona
+Fano
+Grosseto
+Matera
+Olbia
+Acerra
+Molfetta
+Carrara
+Benevento
+Vigevano
+Pianura
+Legnano
+Manfredonia
+Foligno
+Potenza
+Moncalieri
+Cuneo
+Bisceglie
+Pozzo Strada
+Modica
+Teramo
+Cerignola
+Trani
+Siena
+Portici
+Ercolano
+Montesilvano
+Bagheria
+Cava De Tirreni
+Aversa
+Velletri
+Ponticelli
+San Severo
+Secondigliano
+Bitonto
+Mazara del Vallo
+Venice
+Vittoria
+Gallarate
+Barriera di Milano
+Rovigo
+Barriera di Lanzo
+Marano di Napoli
+Pordenone
+Nettuno
+Lingotto
+Acireale
+Campobasso
+Scafati
+Rivoli
+Avellino
+San Lorenzo
+Nichelino
+Civitavecchia
+Settimo Torinese
+Viterbo
+Battipaglia
+Rho
+Sanremo
+Chioggia
+Parella
+Lecco
+Collegno
+Corato
+Paderno Dugnano
+Paterno
+Vercelli
+San Benedetto del Tronto
+Casalnuovo di Napoli
+Cologno Monzese
+Sesto Fiorentino
+Nocera Inferiore
+Misterbianco
+Filadelfia
+San Giorgio a Cremano
+Anzio
+Soccavo
+Monte Rosello
+Scandicci
+Vomero
+Frosinone
+Chieti
+Alcamo
+Marino
+Arcella
+Torre Annunziata
+Biella
+Seregno
+Imperia
+Civitanova Marche
+Gravina in Puglia
+Desio
+San Dona di Piave
+Ascoli Piceno
+Faenza
+Vasto
+Mirafiori Nord
+Capannori
+Merano
+Lodi
+Chiaia
+Sciacca
+Cascina
+Marcianise
+Nicastro
+Cantu
+Fondi
+Rozzano
+Mantua
+Rieti
+Pomigliano d'Arco
+Voghera
+Caltagirone
+Ciampino
+Bassano del Grappa
+Saronno
+Avezzano
+Monopoli
+Martina Franca
+Quarto
+Lissone
+Monterotondo
+Cesano Maderno
+Jesi
+Melito di Napoli
+Sassuolo
+Chieri
+Grugliasco
+Barra
+Licata
+Modugno
+Cenisia
+Nuoro
+San Salvario
+Aosta
+Bollate
+Carini
+Arzano
+Lanciano
+Caivano
+Barcellona Pozzo di Gotto
+Maddaloni
+Adrano
+Gorizia
+Empoli
+Formigine
+Alghero
+Mugnano di Napoli
+Ladispoli
+Pioltello
+Rovereto
+Piombino
+Casalecchio di Reno
+Schio
+L'Aquila
+Mirafiori Sud
+Corsico
+Sant'Antimo
+Venaria Reale
+Francavilla Fontana
+Borgo San Paolo
+Casale Monferrato
+Brugherio
+Avvocata
+Canicatti
+Mira Taglio
+Campi Bisenzio
+Pagani
+Abbiategrasso
+Riccione
+Casal Palocco
+San Donato
+Agrigento
+Somma Vesuviana
+Lucera
+Mascalucia
+Favara
+Limbiate
+Milazzo
+Santa Maria Capua Vetere
+Castelvetrano
+Oristano
+Angri
+Crema
+Grottaglie
+Verbania
+San Giuliano Milanese
+Termoli
+Terracina
+Senigallia
+Massafra
+Pinerolo
+Macerata
+Conegliano
+Augusta
+Stella
+Rosignano Marittimo
+Marigliano
+Canosa di Puglia
+Infernetto
+Frattamaggiore
+San Paolo
+Santa Rita
+Nardo
+Vanchiglia
+Monterusciello
+Gragnano
+Cernusco sul Naviglio
+Chinatown
+Pallanza-Intra-Suna
+Sarno
+Partinico
+Cervia
+Mondragone
+Avola
+Marghera
+Formia
+San Donato Milanese
+Segrate
+Piscinola
+Manduria
+Cisterna di Latina
+Casal de' Pazzi
+San Giovanni Rotondo
+Rapallo
+Niscemi
+San Giuseppe Vesuviano
+Boscoreale
+Triggiano
+Camaiore
+Monfalcone
+Albano Laziale
+Montebelluna
+Chiavari
+Gravina di Catania
+Mesagne
+Nizza Millefonti
+San Miniato Basso
+Parabiago
+Comiso
+Eboli
+Romano Banco
+Garbagnate Milanese
+Novi Ligure
+Falconara Marittima
+Giussano
+Scandiano
+Terlizzi
+Bresso
+Bacoli
+Castelfranco Veneto
+Assemini
+Villaricca
+Belluno
+Lainate
+Marina di Carrara
+Lucento
+Treviglio
+Alba
+Santeramo in Colle
+Vittorio Veneto
+Orta di Atella
+Mola di Bari
+Aci Catena
+Spinaceto
+Gioia del Colle
+Ostuni
+Giarre
+Ventimiglia
+Lentini
+Nola
+Bra
+Ruvo di Puglia
+Pompei
+Miano
+Casa Santa
+San Giovanni a Teduccio
+Rossano Stazione
+Sora
+Qualiano
+Lumezzane
+Spinea-Orgnano
+Putignano
+Poggioreale
+Ivrea
+Seriate
+Copertino
+Nocera Superiore
+Ottaviano
+Chiaiano
+Scampia
+Cesano Boscone
+Bagnoli
+Selargius
+Fabriano
+San Sebastiano
+Muggio
+Biancavilla
+Montecalvario
+Chivasso
+Carmagnola
+Enna
+Termini Imerese
+Volla
+Quattromiglia
+Dalmine
+Posillipo
+Tortona
+Seveso
+Vimercate
+Meda
+Desenzano del Garda
+Conversano
+Iglesias
+Palma di Montechiaro
+Mariano Comense
+Carbonara di Bari
+Fasano
+Magenta
+Valdagno
+Chieti Scalo
+Citta di Castello
+Massarosa
+Vignola
+San Lazzaro
+Pomezia
+Nova Milanese
+Porto Sant'Elpidio
+Floridia
+San Cataldo
+San Giovanni la Punta
+Tivoli
+Cecina
+Mogliano Veneto
+Noicattaro
+Monreale
+Fidenza
+Castel Volturno
+Mondovi
+Orbassano
+Poggibonsi
+Carbonia
+Porto Torres
+Legnago
+Cardito
+Madonna di Campagna
+Lugo
+Esquilino
+Arzignano
+Cassano Magnago
+Follonica
+San Nicola la Strada
+Thiene
+Francavilla al Mare
+Sulmona
+Cassino
+Guidonia
+Tor Lupara
+Montecchio Maggiore-Alte Ceccato
+Colleferro
+Sant'Anastasia
+Palo del Colle
+Giardinetti-Tor Vergata
+Senago
+Casal di Principe
+Genzano di Roma
+Acquaviva delle Fonti
+Pachino
+Giulianova
+Sarzana
+Borgomanero
+Castrovillari
+Centro
+Marina di Ardea-Tor San Lorenzo
+Monserrato
+Cornaredo
+San Giovanni Lupatoto
+Frascati
+Cormano
+Viadana
+Trezzano sul Naviglio
+Aurora
+Sambiase
+Lavinio
+Gaeta
+Rosignano Solvay-Castiglioncello
+Novate Milanese
+Rosolini
+Galatina
+Pontedera
+Poggiomarino
+Trecate
+Casarano
+Sabaudia
+Spoleto
+Vibo Valentia
+Sondrio
+Giovinazzo
+Gallipoli
+Misilmeri
+Arese
+Marina di Massa
+Bronte
+Villabate
+Porta Palazzo
+Gorgonzola
+Cesenatico
+Cusano
+Pietrasanta
+Sant'Antonio Abate
+Fossano
+Gioia Tauro
+Montevarchi
+Monselice
+Casavatore
+Ischia
+Palmi
+Castiglione delle Stiviere
+San Mauro Torinese
+Brera
+Noto
+San Ferdinando
+Casamassima
+Crocetta
+Vanchiglietta
+Abano Terme
+Ischia Porto
+Sestu
+Cento
+Pozzallo
+Grottaferrata
+Fermo
+Melzo
+Palazzolo sull'Oglio
+Montecatini-Terme
+Grumo Nevano
+Bastia umbra
+Acqui Terme
+Cercola
+Domodossola
+Arpino
+Piazza Armerina
+Rutigliano
+Ribera
+Bellaria-Igea Marina
+San Vito dei Normanni
+Aci Castello
+Romano di Lombardia
+Adriano
+Montemurlo
+Ariccia
+Portogruaro
+Cirie
+Mirandola
+San Giovanni in Fiore
+San Bonifacio
+Agropoli
+Riva del Garda
+Paolo VI
+San Pietro a Patierno
+Castelfranco Emilia
+Valenza
+Fornacelle
+Cassano d'Adda
+Torvaianica
+Tradate
+Terzigno
+San Salvo
+Albenga
+Ardea
+Vimodrone
+Trentola-Ducenta
+Mentana
+Nerviano
+Polo Nord
+Sestri Levante
+Este
+Torremaggiore
+Isernia
+Piossasco
+San Miniato
+Pendino
+Malafede
+Savigliano
+Adelfia
+Melegnano
+Arcore
+Orta Nova
+Scordia
+Sacile
+Colle di Val d'Elsa
+Osimo
+Alpignano
+Porto Empedocle
+Suzzara
+San Felice A Cancello
+Bareggio
+Bovisio-Masciago
+Roseto degli Abruzzi
+Saluzzo
+Ceglie Messapica
+Tolentino
+Albignasego
+Erba
+Caronno Pertusella
+Ghedi
+Belpasso
+Fiorano
+Casal Bertone
+Minturno
+Palagonia
+Cattolica
+Ginosa
+Scicli
+Valenzano
+Sezze
+Castel Maggiore
+San Giovanni Valdarno
+Quartiere Otto
+Forio
+Zola Predosa
+Cordenons
+Sava
+Villafranca di Verona
+Cerveteri
+Bressanone
+San Nicandro Garganico
+Sinnai
+San Giovanni in Persiceto
+Oderzo
+Salsomaggiore Terme
+Lido
+Galliate
+Siderno
+Correggio
+Porto San Giorgio
+Chiari
+Frattaminore
+Malnate
+Capua
+Carate Brianza
+Palagiano
+Noci
+Carugate
+Todi
+Lancenigo-Villorba
+Brusciano
+Bussolengo
+Mirano
+Corigliano Scalo
+Villanova
+Eppan
+Vicaria
+Rocca di Papa
+Montichiari

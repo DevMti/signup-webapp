@@ -1,0 +1,139 @@
+Budapest
+Pest
+Buda
+Debrecen
+Szeged
+Miskolc
+Pecs
+Budapest XI. keruelet
+Zuglo
+Gyor
+Budapest III. keruelet
+Nyiregyhaza
+Budapest XIII. keruelet
+Kecskemet
+Szekesfehervar
+Ujpest
+Budapest IV. keruelet
+Budapest XVIII. keruelet
+Budapest II. keruelet
+Budapest VIII. keruelet
+Budapest XV. keruelet
+Kobanya
+Budapest XVII. keruelet
+Szombathely
+Jozsefvaros
+Budapest XXI. keruelet
+Szolnok
+Budapest XVI. keruelet
+Tatabanya
+Kaposvar
+Budapest XX. keruelet
+Erd
+Sopron
+Angyalfoeld
+Erzsebetvaros
+Zalaegerszeg
+Budapest XIX. keruelet
+Kispest
+Bekescsaba
+Ferencvaros
+Pestlorinc
+Veszprem
+Budapest XII. keruelet
+Eger
+Kelenfoeld
+Budapest XXII. keruelet
+Dunaujvaros
+Nagykanizsa
+Hodmezovasarhely
+Budapest VI. keruelet
+Cegled
+Rakospalota
+Baja
+Ujlipotvaros
+Ujpalota
+Pesterzsebet
+Vac
+Salgotarjan
+Szekszard
+Koezepso-Ferencvaros
+Obuda
+Papa
+Gyongyos
+Kazincbarcika
+Godollo
+Gyula
+Hajduboszormeny
+Kiskunfelegyhaza
+Ajka
+Oroshaza
+Mosonmagyarovar
+Dunakeszi
+Ozd
+Kiskunhalas
+Alsorakos
+Esztergom
+Szentes
+Jaszbereny
+Komlo
+Budafok
+Budapest V. keruelet
+Ohegy
+Ujszeged
+Mako
+Budaors
+Rakoskeresztur
+Szigetszentmiklos
+Naphegy
+Budapest I. keruelet
+Hajduszoboszlo
+Szentendre
+Nagykoroes
+Tata
+Rakosszentmihaly
+Siofok
+Torokszentmiklos
+Karcag
+Gyal
+Monor
+Varpalota
+Bekes
+Dombovar
+Paks
+Budapest XXIII. keruelet
+Oroszlany
+Hatvan
+Matyasfoeld
+Lagymanyos
+Keszthely
+Vecses
+Mezotur
+Komarom
+Mateszalka
+Mohacs
+Csongrad
+Csepel-Csillagtelep
+Kalocsa
+Kisvarda
+Szarvas
+Veresegyhaz
+Diosgyor
+Satoraljaujhely
+Hajdunanas
+Balmazujvaros
+Mezokovesd
+Tapolca
+Szazhalombatta
+Tiszaujvaros
+Dunaharaszti
+Fot
+Dabas
+Abony
+Puspokladany
+Csepel-Kiralyerdo
+God
+Sarvar
+Sashalom
+Gyomaendrod
+Kiskoros

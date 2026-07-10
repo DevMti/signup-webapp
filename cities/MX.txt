@@ -1,0 +1,623 @@
+Mexico City
+Tijuana
+Iztapalapa
+Ecatepec de Morelos
+Santiago de Queretaro
+Leon de los Aldama
+Ciudad Juarez
+Zapopan
+Guadalajara
+Merida
+Gustavo Adolfo Madero
+Monterrey
+Ciudad Nezahualcoyotl
+Mexicali
+Chihuahua
+Cancun
+Naucalpan de Juarez
+Hermosillo
+Culiacan
+Morelia
+Torreon
+Alvaro Obregon
+San Luis Potosi
+Aguascalientes
+Saltillo
+Acapulco de Juarez
+Tlalnepantla
+Tlaquepaque
+Coyoacan
+Tuxtla
+Reynosa
+Tlalpan
+Cuautitlan Izcalli
+Victoria de Durango
+Heroica Matamoros
+Toluca
+Ciudad Lopez Mateos
+Ciudad Apodaca
+Ciudad General Escobedo
+Ensenada
+Xochimilco
+Venustiano Carranza
+Veracruz
+Xalapa de Enriquez
+Nuevo Laredo
+Azcapotzalco
+San Nicolas de los Garza
+Tonala
+Ojo de Agua
+Benito Juarez
+Xico
+Iztacalco
+Mazatlan
+Irapuato
+Miguel Hidalgo
+Tapachula
+Villahermosa
+Celaya
+Cuernavaca
+Tepic
+Ciudad Victoria
+Soledad de Graciano Sanchez
+Ciudad Obregon
+Ixtapaluca
+Coatzacoalcos
+Tampico
+Ciudad Benito Juarez
+Tlahuac
+Santa Catarina
+Uruapan
+Cholula
+Nicolas Romero
+Zumpango
+Coacalco
+Nogales
+Gomez Palacio
+Los Mochis
+Pachuca de Soto
+Oaxaca
+La Paz
+Colonia del Valle
+Tehuacan
+Magdalena Contreras
+Puerto Vallarta
+Campeche
+Buenavista
+Ciudad Acuna
+San Cristobal de las Casas
+Jiutepec
+Monclova
+Cordoba
+Cabo San Lucas
+Ciudad Madero
+Ciudad Lazaro Cardenas
+Ciudad del Carmen
+Chilpancingo
+Zamora de Hidalgo
+Poza Rica de Hidalgo
+Cuautitlan
+San Luis Rio Colorado
+San Miguel de Allende
+Chicoloapan
+Guadalupe
+Chetumal
+Chalco
+Cuauhtemoc
+Comitan
+Salamanca
+Delegacion Cuajimalpa de Morelos
+Manzanillo
+Tuxtepec
+Cuautla
+San Pablo de las Salinas
+San Martin Texmelucan de Labastida
+Piedras Negras
+Playa del Carmen
+Ciudad Delicias
+Colima
+Fresnillo
+San Juan del Rio
+San Jose del Cabo
+San Pedro Garza Garcia
+Zacatecas
+Huixquilucan
+Ciudad Valles
+Orizaba
+Miramar
+Iguala de la Independencia
+Ciudad de Villa de Alvarez
+Heroica Guaymas
+Navojoa
+Minatitlan
+Ciudad Guzman
+Yautepec
+Texcoco de Mora
+Hidalgo del Parral
+Teziutlan
+Tepexpan
+Tulancingo
+Apatzingan
+Rosarito
+Colonia Lindavista
+Lagos de Moreno
+Temixco
+Ciudad Rio Bravo
+Amozoc de Mota
+Garcia
+Tepatitlan de Morelos
+Cardenas
+Heroica Ciudad de Juchitan de Zaragoza
+Hacienda Santa Fe
+Atlixco
+Paraiso
+Tecoman
+Los Reyes Acaquilpan
+Ciudad Mante
+Tuxpam de Rodriguez Cano
+Tlaxcala
+Salina Cruz
+Heroica Zitacuaro
+Ocotlan
+La Piedad de Cabadas
+Tepeji del Rio de Ocampo
+Lerdo
+Matehuala
+Agua Prieta
+Kanasin
+Cozumel
+Silao de la Victoria
+Fuentes del Valle
+Guamuchil
+Guanajuato
+El Pueblito
+Guasave
+San Francisco del Rincon
+Santa Maria Chimalhuacan
+Linares
+Frontera
+Cadereyta Jimenez
+Valle de Santiago
+Cadereyta
+San Mateo Atenco
+Santo Domingo Tehuantepec
+Montemorelos
+Ixtapa-Zihuatanejo
+Dolores Hidalgo
+Santa Cruz Xoxocotlan
+Ramos Arizpe
+Tultepec
+Tecate
+Sahuayo de Morelos
+Puerto Penasco
+San Francisco Tesistan
+San Andres Tuxtla
+Cortazar
+San Salvador Tizatlalli
+Ciudad Hidalgo
+Martinez de la Torre
+Villa Vicente Guerrero
+Colonia Nativitas
+Heroica Caborca
+Altamira
+Acambaro
+Huauchinango
+Nuevo Casas Grandes
+Patzcuaro
+Sabinas
+San Bernardino Tlaxcalancingo
+Zinacantepec
+Jacona de Plancarte
+Jardines de la Silla
+Santiago Teyahualco
+Coatepec
+Papantla de Olarte
+Rioverde
+Ciudad de Huajuapan de Leon
+Matamoros
+Arandas
+Huamantla
+Uriangato
+Teoloyucan
+Acayucan
+Taxco de Alarcon
+Zacapu
+Pijijiapan
+Polanco
+San Luis de la Paz
+Apizaco
+Valladolid
+Valle Hermoso
+San Juan de los Lagos
+Colonia del Sol
+Santa Ana Chiautempan
+Tierra Blanca
+Tlapa de Comonfort
+Tizimin
+Autlan de Navarro
+Chiapa de Corzo
+San Buenaventura
+Purisima de Bustos
+Tizayuca
+Moroleon
+Jerez de Garcia Salinas
+Jesus Maria
+Palenque
+Izucar de Matamoros
+Las Choapas
+Empalme
+Cintalapa de Figueroa
+Juventino Rosas
+Zacatelco
+Ocosingo
+Comalcalco
+San Pedro
+Ciudad Constitucion
+Loma Bonita
+Panuco
+Rio Blanco
+Santa Rosalia de Camargo
+Cihuatlan
+Penjamo
+Huejutla de Reyes
+San Andres Cholula
+Xicotepec de Juarez
+Uman
+San Jose del Castillo
+Los Reyes de Salgado
+Ocozocoautla de Espinosa
+Esperanza
+Melchor Ocampo
+Nueva Rosita
+Tepotzotlan
+Las Guacamayas
+Perote
+Paracho de Verduzco
+Progreso
+Villaflores
+Salvatierra
+Santa Teresa
+Santiago
+San Jeronimo Cuatro Vientos
+Ameca
+Agua Dulce
+Xalisco
+Coyotepec
+Ciudad Mendoza
+Tala
+San Martin Azcatepec
+Tlapacoyan
+La Barca
+San Pablo Autopan
+Ciudad Melchor Muzquiz
+Ixmiquilpan
+Fraccionamiento Real Palmas
+San Miguel Topilejo
+Maravatio de Ocampo
+Jose Mariano Jimenez
+Porticos de San Antonio
+Coatzintla
+Parras de la Fuente
+San Isidro
+Zacatlan
+Calpulalpan
+Ciudad Sabinas Hidalgo
+Rio Grande
+Ticul
+Jaltipan de Morelos
+Victor Rosales
+Tenosique
+Nueva Italia de Ruiz
+Zapotlanejo
+Actopan
+Macuspana
+Centro Familiar la Soledad
+Huixtla
+Ciudad Fernandez
+Amecameca
+Cananea
+Huatusco
+San Jose Guadalupe Otzacatipan
+Chilapa de Alvarez
+Champoton
+Miguel Aleman (La Doce)
+Escuinapa de Hidalgo
+Tantoyuca
+Cosamaloapan
+Puruandiro
+Huatabampo
+San Agustin
+Tlajomulco de Zuniga
+Puerto Escondido
+Tequisquiapan
+San Miguel Ajusco
+Coyula
+Pinotepa Nacional
+Escarcega
+Marfil
+Santa Isabel
+Cocula
+Tequila
+San Fernando
+Navolato
+Ixtapa
+Tecamachalco
+Pabellon de Arteaga
+Fray Bernardino de Sahagun
+Tula de Allende
+San Felipe
+Metepec
+San Sebastian el Grande
+Nuevo Mexico
+Berriozabal
+Ojinaga
+Ajalpan
+Tultitlan de Mariano Escobedo
+Apaseo el Alto
+Rincon de Romos
+San Francisco Acuautla
+Sanctorum
+Catemaco
+Contla
+Gabriel Leyva Solano
+Tuxpan
+Tepeaca
+Abasolo
+Huimanguillo
+Moyotzingo
+Villagran
+Atotonilco el Alto
+La Joya
+Misantla
+Sayula
+Apan
+Francisco I. Madero
+Magdalena de Kino
+Teapa
+Rio de Teapa
+Las Pintitas
+Magdalena Atlicpac
+Isla
+San Jeronimo
+Reforma
+Ixtaczoquitlan
+Santiago Papasquiaro
+Apaseo el Grande
+Ciudad de Allende
+Ocoyoacac
+Acatzingo
+Tecax
+Felipe Carrillo Puerto
+Valente Diaz
+Huejotzingo
+Tacambaro de Codallos
+Tejupilco de Hidalgo
+Valle de Bravo
+Mixquiahuala de Juarez
+Ixtepec
+Emiliano Zapata
+Nanchital de Lazaro Cardenas del Rio
+Yuriria
+Ciudad Altamirano
+Alamo
+Cuautlancingo
+Encarnacion de Diaz
+Hunucma
+San Francisco Cuaxusco
+Costa Rica
+Zumpango del Rio
+Tamazunchale
+La Isla
+Arriaga
+Jalostotitlan
+San Antonio Tecomitl
+Ebano
+Loreto
+Jiquilpan de Juarez
+Licenciado Benito Juarez
+San Juan Ixtayopan
+Ometepec
+San Miguel el Alto
+Miahuatlan de Porfirio Diaz
+Yurecuaro
+Ciudad Serdan
+Motozintla
+Teocaltiche
+Purepero de Echaiz
+Comonfort
+Castanos
+Juan Jose Rios
+Teloloapan
+San Martin Cuautlalpan
+San Jose Iturbide
+Teotihuacan de Arista
+Ixtlan del Rio
+Motul
+Jesus del Monte
+Alvarado
+Zacualtipan
+San Jorge Pueblo Nuevo
+Oxkutzkab
+San Lorenzo Acopilco
+Papalotla
+Rodolfo Sanchez Taboada
+Las Pintas de Arriba
+Zapotiltic
+Tixtla de Guerrero
+Atlacomulco de Fabela
+Manuel Ojinaga
+Lerma de Villada
+Tequixquiac
+San Mateo Otzacatipan
+San Miguel Coatlinchan
+Pedro Meoqui
+El Salto
+San Jose del Valle
+Cosoleacaque
+Cerro Azul
+Nava
+Reyes Acozac
+Playas del Rosario
+Huetamo de Nunez
+Santa Maria Atzompa
+Tenango de Arista
+Chiconcuac
+Sombrerete
+Petatlan
+Chapala
+Zacatepec de Hidalgo
+Atoyac de Alvarez
+Fortin de las Flores
+Romita
+Puente de Ixtla
+San Pedro Totoltepec
+Xoxocotla
+El Grullo
+Acajete
+San Rafael
+Las Margaritas
+Capulhuac de Mirafuentes
+Allende
+Xonacatlan
+Jaral del Progreso
+Terrazas del Valle
+Santa Anita
+San Antonio de la Cal
+La Orilla
+Mezcales
+Naranjos
+Ciudad Miguel Aleman
+Cunduacan
+Peto
+Calvillo
+Altotonga
+La Ermita
+Banderilla
+Chignahuapan
+San Juan Zitlaltepec
+Lomas del Sur
+Pueblo Nuevo
+Acatlan de Osorio
+Xochitepec
+Acaponeta
+Jose Cardel
+Matias Romero Avendano
+Jojutla
+Jocotepec
+Cuautepec
+Las Rosas
+Tamazula de Gordiano
+Santa Maria Totoltepec
+Lerdo de Tejada
+Comalapa
+Arcelia
+Juan Aldama
+Santa Rosa Jauregui
+San Jose de los Olvera
+Tlaquiltenango
+Parque Industrial Ciudad Mitras
+Milpa Alta
+Mitras Poniente
+Santiago Ixcuintla
+Tulum
+Villa del Prado 2da Seccion
+Altepexi
+Zacoalco de Torres
+Coalcoman de Vazquez Pallares
+San Andres Cuexcontitlan
+Chichen-Itza
+Carlos A. Carrillo
+Tres de Mayo
+Mapastepec
+Santa Maria Ajoloapan
+Don Antonio
+San Jose del Quince
+Ixtapan de la Sal
+Santiago Momoxpan
+Compostela
+Heroica Ciudad de Tlaxiaco
+Axochiapan
+Progreso de Obregon
+Ciudad de Huitzuco
+Huilango
+Tres Valles
+San Salvador El Seco
+Casa Blanca
+Palmarito Tochapan
+Jamay
+San Salvador Atenco
+Ciudad Guadalupe Victoria
+Palau
+Tezoyuca
+La Magdalena Tlaltelulco
+Salinas de Hidalgo
+Yecapixtla
+Zaragoza
+La Providencia Siglo XXI
+Ozumba de Alzate
+Santa Rosa Treinta
+Los Reyes de Juarez
+Suchiapa
+Anahuac
+Yajalon
+Ario de Rosales
+Cacahoatan
+Nochistlan de Mejia
+Hidalgo
+San Francisco Tlalcilalcalpan
+Guadalupe Victoria
+San Antonio Acahualco
+Tlaltenango de Sanchez Roman
+Tamuin
+Lazaro Cardenas
+Ampliacion San Mateo
+Teopisca
+Teolocholco
+Magdalena
+Izamal
+Medina
+Bucerias
+Santa Ana Xalmimilulco
+San Francisco de los Romo
+Tepatlaxco de Hidalgo
+Santiago Tulantepec
+Fraccionamiento Ciudad Olmeca
+Juchitepec
+El Rosario
+San Rafael Tlanalapan
+Vicente Guerrero
+Ciudad de Armeria
+Tecamac de Felipe Villanueva
+Zinapecuaro de Figueroa
+Santiago Tlacotepec
+Jalpa de Mendez
+La Cruz
+Zinacatepec
+Tulantongo
+Venceremos
+Libres
+Ahualulco de Mercado
+San Pablo Oztotepec
+Las Delicias
+Santiago Tuxtla
+Madera
+Periban de Ramos
+San Mateo Huitzilzingo
+Ayutla de los Libres
+Tuzantla
+Villa Independencia
+Coscomatepec de Bravo
+Tepeapulco
+Tecamac
+Alborada Jaltenco
+Tepalcatepec
+Villa Hidalgo
+Puebla
+Cienega de Flores
+Tetla
+Crucecita
+Tecpan de Galeana
+Tangancicuaro de Arista
+Xalatlaco
+Ocotlan de Morelos
+Alto Lucero

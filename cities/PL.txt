@@ -1,0 +1,360 @@
+Warsaw
+Krakow
+Wroclaw
+Lodz
+Poznan
+Gdansk
+Szczecin
+Lublin
+Bydgoszcz
+Bialystok
+Katowice
+Gdynia
+Czestochowa
+Sosnowiec
+Radom
+Mokotow
+Gliwice
+Rzeszow
+Torun
+Kielce
+Zabrze
+Bytom
+Praga Poludnie
+Bielsko-Biala
+Olsztyn
+Ursynow
+Ruda Slaska
+Rybnik
+Wola
+Bielany
+Tychy
+Bialoleka
+Opole
+Elblag
+Plock
+Walbrzych
+Targowek
+Bemowo
+Wloclawek
+Zielona Gora
+Tarnow
+Dabrowa Gornicza
+Gorzow Wielkopolski
+Chorzow
+Kalisz
+Koszalin
+Legnica
+Srodmiescie
+Slupsk
+Jaworzno
+Jastrzebie Zdroj
+Psie Pole
+Praga Polnoc
+Grudziadz
+Nowy Sacz
+Ochota
+Konin
+Piotrkow Trybunalski
+Inowroclaw
+Lubin
+Jelenia Gora
+Wawer
+Siedlce
+Pila
+Ostrowiec Swietokrzyski
+Siemianowice Slaskie
+Ostrow Wielkopolski
+Myslowice
+Stargard
+Pabianice
+Gniezno
+Fordon
+Suwalki
+Tomaszow Mazowiecki
+Przemysl
+Stalowa Wola
+Zamosc
+Kedzierzyn-Kozle
+Glogow
+Wrzeszcz
+Leszno
+Zory
+Belchatow
+Lomza
+Tarnowskie Gory
+Swidnica
+Tczew
+Piekary Slaskie
+Mielec
+Raciborz
+Bedzin
+Zgierz
+Biala Podlaska
+Elk
+Swietochlowice
+Pruszkow
+Ostroleka
+Starachowice
+Zawiercie
+Zoliborz
+Legionowo
+Tarnobrzeg
+Pulawy
+Wodzislaw Slaski
+Skarzysko-Kamienna
+Skierniewice
+Kutno
+Krosno
+Debica
+Ursus
+Nysa
+Starogard Gdanski
+Wejherowo
+Ciechanow
+Rumia
+Radomsko
+Zdunska Wola
+Sieradz
+Kolobrzeg
+Rejon placu Swietego Macieja
+Otwock
+Bienczyce
+Zyrardow
+Swinoujscie
+Boleslawiec
+Nowa Sol
+Swidnik
+Chrzanow
+Knurow
+Sanok
+Mikolow
+Chojnice
+Zary
+Szczecinek
+Sochaczew
+Brzeg
+Jaslo
+Olkusz
+Kwidzyn
+Minsk Mazowiecki
+Olesnica
+Malbork
+Wolomin
+Piaseczno
+Wlochy
+Krasnik
+Cieszyn
+Jaroslaw
+Lebork
+Sopot
+Czechowice-Dziedzice
+Police
+Czeladz
+Oswiecim
+Dzierzoniow
+Nowy Targ
+Ostroda
+Myszkow
+Zgorzelec
+Olawa
+Ilawa
+Zywiec
+Karlowice-Rozanka
+Pilczyce-Kozanow-Popowice Polnocne
+Olbin
+Chelm
+Lukow
+Srem
+Kabaty
+Gizycko
+Ujescisko-Lostowice
+Lowicz
+Augustow
+Psie Pole Zawidawie
+Turek
+Mlawa
+Bielawa
+Krotoszyn
+Bochnia
+Swarzedz
+Grzegorzki
+Czerwionka-Leszczyny
+Wrzesnia
+Gorlice
+Gierloz
+Nowy Dwor Mazowiecki
+Ketrzyn
+Brodnica
+Zakopane
+Piecki-Migowo
+Rejon placu Grunwaldzkiego
+Bilgoraj
+Grodzisk Mazowiecki
+Wyszkow
+Bielsk Podlaski
+Lubon
+Szczytno
+Kluczbork
+Walcz
+Swiecie
+Zagan
+Klodzko
+Wagrowiec
+Jarocin
+Pszczyna
+Sandomierz
+Nowa Ruda
+Gadow-Popowice Poludniowe
+Bialogard
+Przymorze Wielkie
+Osiedle Powstancow Slaskich
+Koscian
+Jawor
+Lubliniec
+Skawina
+Pruszcz Gdanski
+Kolo
+Bartoszyce
+Zabki
+Prudnik
+Koscierzyna
+Piastow
+Swiebodzice
+Marki
+Nadodrze
+Zambrow
+Lubartow
+Grajewo
+Drzetowo-Grabowo
+Ostrow Mazowiecka
+Opoczno
+Goleniow
+Luban
+Plonsk
+Hajnowka
+Laziska Gorne
+Mragowo
+Andrychow
+Rembertow
+Rydultowy
+Gajowice
+Swiebodzin
+Sroda Wielkopolska
+Kamienna Gora
+Leczna
+Wrzeszcz Dolny
+Wielun
+Polkowice
+Rawicz
+Gryfino
+Krzyki-Partynice
+Dzialdowo
+Wrzeszcz Gorny
+Gostyn
+Konskie
+Rejon ulicy Traugutta
+Ozorkow
+Chelmno
+Przedmiescie Olawskie
+Aleksandrow Lodzki
+Tomaszow Lubelski
+Strzelce Opolskie
+Wesola
+Pionki
+Biskupin-Sepolno-Dabie-Bartoszowice
+Orunia Gorna-Gdansk Poludnie
+Chodziez
+Bierun
+Naklo nad Notecia
+Krasnystaw
+Kety
+Wadowice
+Pisz
+Gaj
+Sokolka
+Osiedle Kosmonautow
+Pultusk
+Pyskowice
+Gostynin
+Sierpc
+Trzebinia
+Huby
+Wieliczka
+Miedzyrzecz
+Hrubieszow
+Szamotuly
+Lask
+Szczepin
+Orzesze
+Sulejowek
+Zlotow
+Braniewo
+Konstantynow Lodzki
+Krapkowice
+Lancut
+Sokolow Podlaski
+Reda
+Sulechow
+Oborniki
+Jozefow
+Libiaz
+Kostrzyn nad Odra
+Deblin
+Rawa Mazowiecka
+Myslenice
+Kobylka
+Pleszew
+Slubice
+Zielonka
+Radlin
+Radzionkow
+Miedzyrzec Podlaski
+Busko-Zdroj
+Kozienice
+Trzcianka
+Brzesko
+Jedrzejow
+Boguszow-Gorce
+Bytow
+Gryfice
+Przasnysz
+Nowogard
+Gubin
+Rypin
+Konstancin-Jeziorna
+Lidzbark Warminski
+Bogatynia
+Lapy
+Namyslow
+Ledziny
+Ustka
+Staszow
+Strzegom
+Radzyn Podlaski
+Swierczewo
+Osowa
+Olecko
+Garwolin
+Kozanow
+Przeworsk
+Milanowek
+Rozanka-Polanka
+Choszczno
+Swidwin
+Ustron
+Nisko
+Zlotoryja
+Leczyca
+Siemiatycze
+Chelmza
+Jelcz Laskowice
+Lomianki
+Jelcz
+Ropczyce
+Nowy Tomysl
+Solec Kujawski
+Glucholazy
+Glowno
+Zabkowice Slaskie
+Kartuzy

@@ -1,0 +1,508 @@
+Toronto
+Montreal
+Calgary
+Ottawa
+Edmonton
+Winnipeg
+Mississauga
+Vancouver
+Brampton
+Hamilton
+Surrey
+Quebec
+Halifax
+Laval
+London
+Etobicoke
+Markham
+Vaughan
+Gatineau
+Victoria
+Saskatoon
+Kitchener
+Burnaby
+Windsor
+Longueuil
+Regina
+Oakville
+Richmond
+Richmond Hill
+Burlington
+Nepean
+Oshawa
+Greater Sudbury
+Newton
+Gloucester
+Saguenay
+Coquitlam
+Barrie
+Rosemont-La Petite-Patrie
+Villeray-Saint-Michel-Parc-Extension
+Kelowna
+Trois-Rivieres
+Guelph
+Levis
+Mercier-Hochelaga-Maisonneuve
+Abbotsford
+Whitby
+St. Catharines
+Ahuntsic-Cartierville
+Le Vieux-Longueuil
+Milton
+Langley
+Kingston
+Cambridge
+Sherbrooke
+Orleans
+Ottawa South
+Saint-Louis-de-Terrebonne
+Ajax
+Saanich
+Thornhill
+Riviere-des-Prairies-Pointe-aux-Trembles
+Terrebonne
+Sainte-Foy
+St. John's
+Thunder Bay
+La Cite-Limoilou
+Sydney
+Le Plateau-Mont-Royal
+Waterloo
+Ville-Marie
+Brantford
+Kamloops
+Lethbridge
+Whalley
+Delta
+Chilliwack
+Dartmouth
+Red Deer
+Niagara Falls
+Saint-Laurent
+Saint-Jean-sur-Richelieu
+Chomedey
+Pickering
+Newmarket
+Nanaimo
+Airdrie
+Kanata
+La Haute-Saint-Charles
+North Vancouver
+Montreal-Nord
+Le Sud-Ouest
+Moncton
+Peterborough
+Repentigny
+Charlesbourg
+Saint-Hubert
+Maple Ridge
+Beauport
+East Hastings
+Saint-Leonard
+Willowdale
+Prince George
+New Westminster
+South Surrey
+Les Rivieres
+Caledon
+Stoney Creek
+Cloverdale
+Pierrefonds-Roxboro
+Nutana Sector
+Sarnia
+Sault Ste. Marie
+Saint John
+Sherwood Park
+Grande Prairie
+Confederation
+Brossard
+Verdun
+Chicoutimi
+Notre-Dame-de-Grace
+Fort McMurray
+Granby
+Waterfront Communities-The Island
+Fleetwood
+Fort Garry South
+Guildford
+Hull
+Medicine Hat
+Fredericton
+Halton Hills
+Brighouse-City Centre
+Downtown Vancouver
+Norfolk County
+North Delta
+Drummondville
+Pierrefonds
+Port Coquitlam
+St. Albert
+Aylmer
+Saint-Michel
+Aurora
+Saint-Jerome
+Jonquiere
+Woburn
+Metrotown
+Welland
+University Heights
+Lower Sackville
+Renfrew-Collingwood
+Lakewood
+Belleville
+Willowdale East
+North Bay
+Saint-Hyacinthe
+Whitchurch-Stouffville
+Kensington-Cedar Cottage
+Dollard-Des Ormeaux
+Brandon
+Cornwall
+West End
+Langford
+Rouge
+Blainville
+Victoria-Downtown
+West Vancouver
+Georgetown
+L'Amoreaux
+Islington-City Centre West
+Malvern
+Quinte West
+Chatham
+Innisfil
+Kitsilano
+Salaberry-de-Valleyfield
+Chateauguay
+Rimouski
+Saint-Eustache
+Timmins
+Sorel-Tracy
+Mission
+Strawberry Hill
+Centre City
+Val-des-Arbres
+Stittsville
+Ancaster
+Woodstock
+Vernon
+Bowmanville
+Boucherville
+Spruce Grove
+St. Thomas
+Charlottetown
+Okanagan Mission
+Shawinigan
+Neufchatel-Est-Lebourgneuf
+Duvernay
+Laval-des-Rapides
+Stouffville
+Dovercourt-Wallace Emerson-Junction
+Sunset
+Core Neighbourhoods
+Leamington
+Rock Forest
+Prince Albert
+Downsview-Roding-CFB
+Parkwoods-Donalda
+Rutland
+Joliette
+Cartierville
+Mascouche
+Mirabel
+Lawson
+Hastings-Sunrise
+Victoriaville
+Brant
+Mimico
+Moose Jaw
+Parc-Extension
+Penticton
+Arcola East
+Fairview
+Surrey City Centre
+Campbell River
+West Humber-Clairville
+Mount Pleasant
+Mt Pleasant
+Mount Olive-Silverstone-Jamestown
+LaSalle
+Chestermere
+Cochrane
+Snowdon
+Lloydminster
+Stratford
+Chilliwack-Downtown
+Cote-Saint-Luc
+Church-Yonge Corridor
+Willoughby
+Niagara
+Saint-Georges
+Orillia
+Victoria-Fraserview
+Orangeville
+Fort Erie
+Annex
+Glenfield-Jane Heights
+Ville-Emard
+Okotoks
+Pointe-Claire
+Bendale
+Desmarchais-Crawford
+North Cowichan
+Mount Pleasant West
+Alma
+Killarney
+Grandview-Woodlands
+Agincourt North
+Sainte-Julie
+West Kelowna
+Sept-Iles
+Courtenay
+Whitehorse
+Fredericton Northside
+Wexford/Maryvale
+South Riverdale
+Marpole
+St. James-Assiniboia East
+Banbury-Don Mills
+York University Heights
+Port Moody
+Tam O'Shanter-Sullivan
+West Hill
+Saint-Constant
+Grimsby
+Dieppe
+Conception Bay South
+Don Valley Village
+Clairlea-Birchmount
+Bolton
+Milliken
+Boisbriand
+Westminster-Branson
+Beltline
+Bay Street Corridor
+Vaudreuil-Dorion
+Thetford-Mines
+Centretown
+Walnut Grove
+Coquitlam West
+Downtown Halifax
+Val-d'Or
+Panorama Hills
+Prince Edward
+Sainte-Therese
+Steveston
+Stonegate-Queensway
+Dorset Park
+Brooklin
+Fraser Heights
+Fallingbrook
+South Granville
+Alta Vista
+Steeles
+Bridlewood
+Waterdown
+Saint-Bruno-de-Montarville
+Saddle Ridge
+Midland
+Coquitlam Town Centre
+Chinatown
+East Gwillimbury
+Mile End
+Outremont
+High Park-Swansea
+Brockville
+Strathroy
+Newtonbrook West
+Squamish
+Agincourt South-Malvern West
+White Rock
+Rouyn-Noranda
+La Prairie
+Bedford Park-Nortown
+Tecumseh
+Broadmoor
+Ladner
+Paradise
+Cariboo
+Eglinton East
+Halifax West End
+Vedder Crossing
+Chambly
+Riley Park
+Mount Pearl
+Englemount-Lawrence
+Edmonds
+Birchcliffe-Cliffside
+Rockcliffe-Smythe
+Duncan
+High Park North
+Willowridge-Martingrove-Richview
+Kingsville
+Kingsview Village-The Westway
+Flemingdon Park
+South Parkdale
+Collingwood
+Black Creek
+Tsawwassen
+The Beaches
+Baie-Comeau
+Bedford
+Fort St. John
+Bayview Village
+East End-Danforth
+Owen Sound
+Gordon Head
+Dunbar-Southlands
+Oakwood Village
+Uxbridge
+Thorncliffe Park
+Townline
+Haney
+Keswick
+Varennes
+Rosedale-Moore Park
+Cranston
+Clarence-Rockland
+Evergreen
+Fergus
+Port Alberni
+Wasaga Beach
+Riverview
+Renfrew Heights
+Moss Park
+Westmount
+Kirkland
+Ile-des-Soeurs
+Camrose
+Lindsay
+Yellowknife
+Cranbrook
+Templeton-Est
+Woodlawn
+Halifax South End
+Saint-Lazare
+L'Ile-Bizard-Sainte-Genevieve
+Huntsville
+Westwood Plateau
+Lower Lonsdale
+Tuscany
+Maywood
+Terrace
+North Battleford
+Salmon Arm
+Corner Brook
+Beaconsfield
+Cole Harbour
+Dorval
+Mont-Royal
+Beloeil
+Alliston
+Thorold
+Quispamsis
+Dewdney East
+Evanston
+O'Connor-Parkview
+New Glasgow
+Tillsonburg
+North St.James Town
+Eringate-Centennial-West Deane
+Riviere-du-Loup
+Pitt Meadows
+Central Lonsdale
+Downtown Eastside
+Hespeler
+Carey
+Port Colborne
+Wihkwentowin
+Cobourg
+Auburn Bay
+Blundell
+La Baie
+Oak Bay
+Stony Plain
+Weston
+Kensington-Chinatown
+Amos
+St. Andrew-Windfields
+Brookhaven-Amesbury
+Esquimalt
+Taradale
+Fiddlesticks
+Miramichi
+Niagara-on-the-Lake
+Victoria Village
+McKenzie Towne
+Lafleche
+Sylvan Lake
+Saint-Lin-Laurentides
+Morningside
+Valley East
+Deux-Montagnes
+Les Coteaux
+Central Saanich
+Coventry Hills
+Saint-Augustin-de-Desmaures
+Petawawa
+Danforth East York
+Kennedy Park
+Willowdale West
+Hillcrest Village
+University Endowment Lands
+Glace Bay
+Colwood
+Leaside-Bennington
+Mount Pleasant East
+Greenfield Park
+Scarborough Village
+Brocklehurst
+Buckingham
+Swift Current
+Edmundston
+Trinity-Bellwoods
+Clayton Park West
+L'Ancienne-Lorette
+Armdale
+Clanton Park
+Stonebridge
+Yorkton
+Lutes Mountain
+Sainte-Catherine
+Lansing-Westgate
+Newtonbrook East
+Seafair
+Bracebridge
+Candiac
+Cliffcrest
+L'Assomption
+Greater Napanee
+Bathurst Manor
+Maillardville
+Steinbach
+Pleasant View
+Lake Country
+Saint-Henri
+Henry Farm
+Mont-Saint-Hilaire
+Taylor-Massey
+Saint-Basile-le-Grand
+Forest Heights
+Leduc
+Little Portugal
+Magog
+Humbermede
+Edenbridge-Humber Valley
+Central Coquitlam
+Christopher-Champlain
+Lougheed
+Arbutus Ridge
+Saint-Charles-Borromee
+Saint John West
+Vanier
+Edgemont
+Saint-Vincent-de-Paul
+Lawrence Park South
+Kenora
+Sooke
+Harewood
