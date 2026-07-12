@@ -200,6 +200,14 @@
     </div>
   </div>
 
+  <!-- On-device error log. Errors always appear here automatically; add
+       ?debug=1 to the URL to also see informational logs. Telegram's mobile
+       WebView has no console, so this is how you see what broke there. -->
+  <div class="debug-panel" id="debugPanel" hidden>
+    <div class="debug-panel__header">Debug log</div>
+    <div class="debug-panel__body" id="debugLog"></div>
+  </div>
+
   <script src="locations.js"></script>
   <script src="app.js"></script>
 </body>
