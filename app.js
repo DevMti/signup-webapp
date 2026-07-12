@@ -125,7 +125,7 @@
   // City lists are fetched on demand from cities/<CODE>.txt and cached for
   // the rest of the session, so a 400-city file only costs a request the
   // first time that country is actually picked — never on page load.
-  var CITY_SEARCH_THRESHOLD = 30;  // above this, require typing before listing
+  var CITY_PREVIEW_LIMIT = 10;     // cities shown before the user types anything
   var MAX_RENDERED_OPTIONS = 150;  // cap DOM nodes even for a matched search
 
   var cityCache = {};   // code -> { status: 'loading'|'ready'|'error', cities?, promise? }
@@ -154,6 +154,10 @@
       })
       .catch(function (err) {
         delete cityCache[code]; // allow a future retry to fetch again
+        // Surface the real cause in the console — the UI only shows a
+        // generic message, but this is what actually failed (bad path,
+        // opened via file://, 404, offline, etc).
+        console.error('Failed to load cities for "' + code + '":', err);
         throw err;
       });
 
@@ -372,9 +376,9 @@
     selected: null,
     onSelect: null,
     lastFocused: null,
-    loading: false,     // true while an async item list (cities) is loading
-    error: null,        // { message, retry } when the async load failed
-    requireSearch: false // true when the list is large and needs a query first
+    loading: false,      // true while an async item list (cities) is loading
+    error: null,         // { message, retry } when the async load failed
+    previewLimit: null   // cap on items shown before any search text (null = show all)
   };
 
   /**
@@ -385,6 +389,9 @@
    *                                    async lists (e.g. cities).
    * @param {*}      opts.selected     Currently selected value, or null.
    * @param {boolean} opts.searchable  Show the search field.
+   * @param {number} [opts.previewLimit] Show only this many items until the
+   *                                    user types a query. Omit to always
+   *                                    show the full list (e.g. countries).
    * @param {Function} opts.onSelect   Called with the chosen item.
    */
   function openSheet(opts) {
@@ -395,7 +402,7 @@
     sheet.open = true;
     sheet.loading = false;
     sheet.error = null;
-    sheet.requireSearch = opts.items.length > CITY_SEARCH_THRESHOLD;
+    sheet.previewLimit = opts.previewLimit != null ? opts.previewLimit : null;
 
     els.sheetTitle.textContent = opts.title;
     els.sheetSearchWrap.hidden = !opts.searchable;
@@ -429,7 +436,6 @@
     sheet.items = items;
     sheet.loading = false;
     sheet.error = null;
-    sheet.requireSearch = items.length > CITY_SEARCH_THRESHOLD;
     els.sheetSearchWrap.hidden = items.length <= 10;
     renderOptions(els.sheetSearch.value);
   }
@@ -494,29 +500,31 @@
     }
 
     var q = query.trim().toLowerCase();
+    var visible;
+    var note = null;
 
-    if (sheet.requireSearch && !q) {
-      var prompt = document.createElement('p');
-      prompt.className = 'sheet__empty';
-      prompt.textContent = 'Type to search ' + sheet.items.length + ' cities.';
-      els.sheetList.appendChild(prompt);
-      return;
+    if (q) {
+      visible = sheet.items.filter(function (item) { return item.label.toLowerCase().indexOf(q) !== -1; });
+      if (visible.length > MAX_RENDERED_OPTIONS) {
+        visible = visible.slice(0, MAX_RENDERED_OPTIONS);
+        note = 'Showing the first ' + MAX_RENDERED_OPTIONS + ' matches — refine your search to see more.';
+      }
+    } else if (sheet.previewLimit != null && sheet.items.length > sheet.previewLimit) {
+      // No search yet, and the full list is long: show a first taste of it
+      // rather than nothing, and hint that typing narrows it down.
+      visible = sheet.items.slice(0, sheet.previewLimit);
+      note = 'Showing ' + sheet.previewLimit + ' of ' + sheet.items.length + ' — type to search the rest.';
+    } else {
+      visible = sheet.items;
     }
-
-    var visible = q
-      ? sheet.items.filter(function (item) { return item.label.toLowerCase().indexOf(q) !== -1; })
-      : sheet.items;
 
     if (!visible.length) {
       var empty = document.createElement('p');
       empty.className = 'sheet__empty';
-      empty.textContent = 'Nothing matches “' + query.trim() + '”.';
+      empty.textContent = q ? 'Nothing matches “' + query.trim() + '”.' : 'Nothing to show yet.';
       els.sheetList.appendChild(empty);
       return;
     }
-
-    var truncated = visible.length > MAX_RENDERED_OPTIONS;
-    if (truncated) visible = visible.slice(0, MAX_RENDERED_OPTIONS);
 
     var frag = document.createDocumentFragment();
 
@@ -555,11 +563,11 @@
 
     els.sheetList.appendChild(frag);
 
-    if (truncated) {
-      var note = document.createElement('p');
-      note.className = 'sheet__truncated';
-      note.textContent = 'Showing the first ' + MAX_RENDERED_OPTIONS + ' matches — refine your search to see more.';
-      els.sheetList.appendChild(note);
+    if (note) {
+      var noteEl = document.createElement('p');
+      noteEl.className = 'sheet__truncated';
+      noteEl.textContent = note;
+      els.sheetList.appendChild(noteEl);
     }
   }
 
@@ -675,6 +683,7 @@
       items: [],
       selected: state.city,
       searchable: true,
+      previewLimit: CITY_PREVIEW_LIMIT,
       onSelect: function (item) {
         state.city = item.value;
         setPickerValue('city', item.label);
