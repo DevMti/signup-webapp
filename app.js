@@ -59,6 +59,53 @@
     });
   }
 
+  /* ---------------------------------------------------------- debug logging */
+
+  // Visit the app with ?debug=1 to see informational logs on-device.
+  // Actual errors always surface in the panel regardless of ?debug=1 —
+  // Telegram's mobile WebView gives you no console, so this is the only way
+  // to see what went wrong when something silently doesn't work there.
+  var DEBUG = /(?:^|[?&])debug=1(?:&|$)/.test(window.location.search);
+  var debugPanel = null;
+  var debugLog = null;
+
+  function showDebugLine(message) {
+    if (!debugPanel) {
+      debugPanel = document.getElementById('debugPanel');
+      debugLog = document.getElementById('debugLog');
+    }
+    if (!debugPanel || !debugLog) return;
+
+    debugPanel.hidden = false;
+    var line = document.createElement('div');
+    line.className = 'debug-panel__line';
+    line.textContent = new Date().toLocaleTimeString() + '  ' + message;
+    debugLog.appendChild(line);
+    debugLog.scrollTop = debugLog.scrollHeight;
+  }
+
+  /** Informational log — only visible on-screen with ?debug=1. */
+  function logDebug(message) {
+    console.log('[app] ' + message);
+    if (DEBUG) showDebugLine(message);
+  }
+
+  /** Error log — always visible on-screen, ?debug=1 or not. */
+  function logError(message) {
+    console.error('[app] ' + message);
+    showDebugLine('⚠ ' + message);
+  }
+
+  // Catch anything that slips past the safely() wrapper below (async errors,
+  // errors in event handlers, syntax issues in a dynamically added script).
+  window.addEventListener('error', function (e) {
+    logError('Uncaught error: ' + e.message + ' (' + e.filename + ':' + e.lineno + ')');
+  });
+  window.addEventListener('unhandledrejection', function (e) {
+    var reason = e.reason && e.reason.message ? e.reason.message : e.reason;
+    logError('Unhandled promise rejection: ' + reason);
+  });
+
   /* ------------------------------------------------------------------ DOM */
 
   var $ = function (id) { return document.getElementById(id); };
@@ -239,7 +286,7 @@
 
     if (tg && tg.MainButton) {
       if (valid) {
-        tg.MainButton.enable();
+        tgCall(function (t) { t.MainButton.enable(); });
         // Some clients do not dim a disabled button by themselves, so we also
         // restore the accent colour here.
         tgCall(function (t) {
@@ -249,7 +296,7 @@
           });
         });
       } else {
-        tg.MainButton.disable();
+        tgCall(function (t) { t.MainButton.disable(); });
         tgCall(function (t) {
           t.MainButton.setParams({
             color: t.themeParams.hint_color || '#8e8e93',
@@ -934,8 +981,8 @@
       return;
     }
 
-    tg.ready();
-    tg.expand();
+    tgCall(function (t) { t.ready(); });
+    tgCall(function (t) { t.expand(); });
 
     // Match the client chrome to the list background.
     if (atLeast('6.1')) {
@@ -947,36 +994,53 @@
     }
 
     if (tg.MainButton) {
-      tg.MainButton.setText('Save profile');
-      tg.MainButton.show();
-      tg.onEvent('mainButtonClicked', submit);
+      tgCall(function (t) { t.MainButton.setText('Save profile'); });
+      tgCall(function (t) { t.MainButton.show(); });
+      tgCall(function (t) { t.onEvent('mainButtonClicked', submit); });
     } else {
       els.fallbackSubmit.hidden = false;
     }
 
     // Re-apply anything colour-dependent when the user switches theme.
-    tg.onEvent('themeChanged', function () { updateSubmitState(); });
+    tgCall(function (t) { t.onEvent('themeChanged', function () { updateSubmitState(); }); });
+  }
+
+  /**
+   * Run `fn` and swallow/log any error instead of letting it abort the rest
+   * of init(). Without this, a single unsupported Telegram API call (or any
+   * other exception) during setup would silently stop every bind*() call
+   * that hadn't run yet — pickers wouldn't open, validation wouldn't wire
+   * up, and since Telegram's mobile WebView has no visible console, it
+   * would look like the app just "doesn't work" with no clue why.
+   */
+  function safely(label, fn) {
+    try {
+      fn();
+    } catch (err) {
+      var message = (err && err.message) ? err.message : String(err);
+      logError(label + ' failed: ' + message);
+    }
   }
 
   function init() {
-    setupTelegram();
-    renderIdentity();
+    safely('setupTelegram', setupTelegram);
+    safely('renderIdentity', renderIdentity);
 
-    bindName();
-    bindAge();
-    bindBio();
-    bindUsePhoto();
-    bindTos();
-    bindExternalLinks();
-    bindSheet();
-    bindSimplePicker('gender', 'Gender', GENDERS);
-    bindSimplePicker('preference', 'Preference', PREFERENCES);
-    bindLocationPickers();
+    safely('bindName', bindName);
+    safely('bindAge', bindAge);
+    safely('bindBio', bindBio);
+    safely('bindUsePhoto', bindUsePhoto);
+    safely('bindTos', bindTos);
+    safely('bindExternalLinks', bindExternalLinks);
+    safely('bindSheet', bindSheet);
+    safely('bindSimplePicker:gender', function () { bindSimplePicker('gender', 'Gender', GENDERS); });
+    safely('bindSimplePicker:preference', function () { bindSimplePicker('preference', 'Preference', PREFERENCES); });
+    safely('bindLocationPickers', bindLocationPickers);
 
-    prefillFromQuery();
-    autoGrow(els.bio);
-    renderAllErrors();
-    updateSubmitState();
+    safely('prefillFromQuery', prefillFromQuery);
+    safely('autoGrow', function () { autoGrow(els.bio); });
+    safely('renderAllErrors', renderAllErrors);
+    safely('updateSubmitState', updateSubmitState);
 
     els.form.addEventListener('submit', function (e) {
       e.preventDefault();
