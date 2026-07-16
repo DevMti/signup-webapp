@@ -117,6 +117,7 @@
     age: $('age'),
     bio: $('bio'),
     bioCounter: $('bio-counter'),
+    identity: $('identity'),
     identityName: $('identityName'),
     identityMeta: $('identityMeta'),
     identityAvatar: $('identityAvatar'),
