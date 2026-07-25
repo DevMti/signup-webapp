@@ -138,6 +138,39 @@ body {
   color: var(--header-text);
 }
 
+/* Section header with a trailing action button (e.g. Bio's "Tips"). */
+.section__header-row {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 8px;
+  margin: 0 0 7px;
+  padding: 0 calc(var(--gutter) + 4px) 0 calc(var(--gutter) + 4px);
+}
+
+.section__header-row .section__header {
+  margin: 0;
+  padding: 0;
+}
+
+.hint-button {
+  flex: 0 0 auto;
+  margin: -6px -6px -6px 0;
+  padding: 6px 6px;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--link);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.hint-button:active { opacity: 0.6; }
+
 .section__body {
   background: var(--section-bg);
   border-radius: var(--radius);
@@ -553,6 +586,48 @@ button.row:disabled .chevron { opacity: 0.35; }
   text-align: center;
   font-size: 13px;
   color: var(--hint);
+}
+
+/* --- info sheet (e.g. bio-writing tips) ------------------------------------ */
+
+.sheet__info {
+  padding: 4px var(--gutter) calc(18px + env(safe-area-inset-bottom, 0px));
+}
+
+.sheet__tips {
+  margin: 0 0 18px;
+  padding: 0;
+  list-style: none;
+}
+
+.sheet__tips li {
+  position: relative;
+  padding: 10px 0 10px 22px;
+  font-size: 15px;
+  line-height: 1.4;
+  color: var(--text);
+}
+
+.sheet__tips li:not(:last-child) {
+  border-bottom: 1px solid var(--separator);
+}
+
+.sheet__tips li::before {
+  content: "";
+  position: absolute;
+  left: 4px;
+  top: 19px;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: var(--accent);
+  opacity: 0.7;
+}
+
+.sheet__info .sheet__retry {
+  display: block;
+  width: 100%;
+  padding: 13px 16px;
 }
 
 /* --- async list states (used while a large city file loads) --------------- */

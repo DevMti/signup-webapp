@@ -42,23 +42,18 @@
             <p class="field__error" id="name-error" role="alert" hidden></p>
           </div>
 
-          <div class="field" data-field="age">
+          <div class="field" data-field="birthday">
             <div class="row">
-              <label class="visually-hidden" for="age">Age</label>
+              <label class="visually-hidden" for="birthday">Birthday</label>
               <input
                 class="row__input"
-                id="age"
-                name="age"
-                type="number"
-                inputmode="numeric"
-                min="18"
-                max="120"
-                step="1"
-                maxlength="3"
-                placeholder="Age"
-                aria-describedby="age-error">
+                id="birthday"
+                name="birthday"
+                type="date"
+                autocomplete="bday"
+                aria-describedby="birthday-error">
             </div>
-            <p class="field__error" id="age-error" role="alert" hidden></p>
+            <p class="field__error" id="birthday-error" role="alert" hidden></p>
           </div>
 
         </div>
@@ -95,7 +90,12 @@
 
       <!-- ------------------------------------------------------------- Bio -->
       <section class="section">
-        <h2 class="section__header">Bio</h2>
+        <div class="section__header-row">
+          <h2 class="section__header">Bio</h2>
+          <button type="button" class="hint-button" id="bio-hint-button">
+            Tips
+          </button>
+        </div>
         <div class="section__body">
           <div class="field" data-field="bio">
             <div class="row row--textarea">
@@ -113,7 +113,7 @@
           </div>
         </div>
         <p class="section__footer section__footer--split">
-          <span>Optional. Anyone you match with can read this.</span>
+          <span>Anyone you match with can read this.</span>
           <span class="counter" id="bio-counter" aria-hidden="true">0/180</span>
         </p>
       </section>

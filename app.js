@@ -114,9 +114,10 @@
     form: $('form'),
     name: $('name'),
     nameCounter: $('name-counter'),
-    age: $('age'),
+    birthday: $('birthday'),
     bio: $('bio'),
     bioCounter: $('bio-counter'),
+    bioHintButton: $('bio-hint-button'),
     identity: $('identity'),
     identityName: $('identityName'),
     identityMeta: $('identityMeta'),
@@ -147,7 +148,7 @@
 
   var state = {
     name: '',
-    age: '',
+    birthday: '',      // ISO date string, YYYY-MM-DD
     gender: null,      // { value, label }
     preference: null,  // { value, label }
     bio: '',
@@ -215,6 +216,55 @@
     return entry.promise;
   }
 
+  /* -------------------------------------------------------------- date helpers */
+
+  function pad2(n) { return (n < 10 ? '0' : '') + n; }
+
+  /** Left-pad a string with '0' to `len` chars. Avoids String.padStart for
+   *  older WebViews, consistent with the rest of this file. */
+  function zeroPad(str, len) {
+    var s = String(str);
+    while (s.length < len) s = '0' + s;
+    return s;
+  }
+
+  /** 'YYYY-MM-DD' for a Date, in local time (never UTC — avoids off-by-one). */
+  function formatISODate(d) {
+    return d.getFullYear() + '-' + pad2(d.getMonth() + 1) + '-' + pad2(d.getDate());
+  }
+
+  /** Parse a strict 'YYYY-MM-DD' string as a local-time Date, or null. */
+  function parseISODate(raw) {
+    var s = String(raw || '').trim();
+    var m = /^(\d{4})-(\d{2})-(\d{2})$/.exec(s);
+    if (!m) return null;
+
+    var year = parseInt(m[1], 10);
+    var month = parseInt(m[2], 10);
+    var day = parseInt(m[3], 10);
+    var d = new Date(year, month - 1, day);
+
+    // Reject values like 2000-02-30 that Date() would otherwise roll over
+    // into March.
+    if (d.getFullYear() !== year || d.getMonth() !== month - 1 || d.getDate() !== day) return null;
+    return d;
+  }
+
+  /** Whole years between a birthday and today, or null if unparseable. */
+  function calculateAge(raw) {
+    var birth = parseISODate(raw);
+    if (!birth) return null;
+
+    var today = new Date();
+    var age = today.getFullYear() - birth.getFullYear();
+    var hadBirthdayThisYear =
+      today.getMonth() > birth.getMonth() ||
+      (today.getMonth() === birth.getMonth() && today.getDate() >= birth.getDate());
+    if (!hadBirthdayThisYear) age--;
+
+    return age;
+  }
+
   /* ------------------------------------------------------------ validation */
 
   var validators = {
@@ -224,28 +274,33 @@
       if (value.length > LIMITS.name) return 'Name must be ' + LIMITS.name + ' characters or fewer.';
       return '';
     },
-    age: function (v) {
+    birthday: function (v) {
       var raw = String(v == null ? '' : v).trim();
-      if (!raw) return 'Enter your age.';
-      if (!/^\d+$/.test(raw)) return 'Age must be a whole number.';
-      var n = parseInt(raw, 10);
-      if (n < LIMITS.ageMin) return 'You must be at least ' + LIMITS.ageMin + ' to use this bot.';
-      if (n > LIMITS.ageMax) return 'Age must be ' + LIMITS.ageMax + ' or less.';
+      if (!raw) return 'Enter your birthday.';
+
+      var birth = parseISODate(raw);
+      if (!birth) return 'Enter a valid birthday.';
+      if (birth.getTime() > Date.now()) return 'Birthday can’t be in the future.';
+
+      var age = calculateAge(raw);
+      if (age < LIMITS.ageMin) return 'You must be at least ' + LIMITS.ageMin + ' to use this bot.';
+      if (age > LIMITS.ageMax) return 'Enter a valid birthday.';
       return '';
     },
     gender: function (v) { return v ? '' : 'Choose your gender.'; },
     preference: function (v) { return v ? '' : 'Choose who you want to meet.'; },
     bio: function (v) {
-      return String(v || '').length > LIMITS.bio
-        ? 'Bio must be ' + LIMITS.bio + ' characters or fewer.'
-        : '';
+      var value = String(v || '').trim();
+      if (!value) return 'Write a short bio.';
+      if (String(v || '').length > LIMITS.bio) return 'Bio must be ' + LIMITS.bio + ' characters or fewer.';
+      return '';
     },
     country: function (v) { return v ? '' : 'Choose your country.'; },
     city: function (v) { return v ? '' : 'Choose your city.'; },
     tos: function (v) { return v ? '' : 'Accept the Terms of Service and Privacy Policy to continue.'; }
   };
 
-  var FIELD_ORDER = ['name', 'age', 'gender', 'preference', 'bio', 'country', 'city', 'tos'];
+  var FIELD_ORDER = ['name', 'birthday', 'gender', 'preference', 'bio', 'country', 'city', 'tos'];
 
   function errorFor(field) {
     return validators[field](state[field]);
@@ -344,24 +399,31 @@
     });
   }
 
-  function bindAge() {
-    // Block the characters a number input otherwise accepts.
-    els.age.addEventListener('keydown', function (e) {
-      if (['e', 'E', '+', '-', '.', ','].indexOf(e.key) !== -1) e.preventDefault();
-    });
+  /**
+   * Constrain the native date picker to plausible birthdays: no later than
+   * "LIMITS.ageMin years ago" (so picking today's date can never validate)
+   * and no earlier than "LIMITS.ageMax years ago". This only affects the
+   * browser/OS date-picker UI — the same range is enforced again in
+   * validators.birthday regardless of what the picker allows.
+   */
+  function setupBirthdayLimits() {
+    var today = new Date();
+    var maxDate = new Date(today.getFullYear() - LIMITS.ageMin, today.getMonth(), today.getDate());
+    var minDate = new Date(today.getFullYear() - LIMITS.ageMax, today.getMonth(), today.getDate());
+    els.birthday.max = formatISODate(maxDate);
+    els.birthday.min = formatISODate(minDate);
+  }
 
-    els.age.addEventListener('input', function () {
-      var v = els.age.value.replace(/\D/g, '');
-      if (v.length > 3) v = v.slice(0, 3); // 120 is the ceiling, 3 digits is enough
-      if (v !== els.age.value) els.age.value = v;
-      state.age = v;
-      if (touched.age) renderError('age');
+  function bindBirthday() {
+    els.birthday.addEventListener('input', function () {
+      state.birthday = els.birthday.value;
+      if (touched.birthday) renderError('birthday');
       updateSubmitState();
     });
 
-    els.age.addEventListener('blur', function () {
-      touched.age = true;
-      refresh('age');
+    els.birthday.addEventListener('blur', function () {
+      touched.birthday = true;
+      refresh('birthday');
     });
   }
 
@@ -380,6 +442,24 @@
     els.bio.addEventListener('blur', function () {
       touched.bio = true;
       refresh('bio');
+    });
+  }
+
+  var BIO_TIPS = [
+    'Mention a hobby or interest you\u2019re genuinely excited about, not just that you "like" it.',
+    'Add one specific, concrete detail \u2014 a favourite trip, a go-to weekend plan, a dish you always cook.',
+    'Say what you\u2019re looking for, even in a few words.',
+    'Keep it short. A couple of clear sentences beats a long paragraph.',
+    'Skip generic lines like "I love to travel and laugh" \u2014 everyone writes that. Get specific instead.',
+    'Let a bit of personality or humour come through \u2014 it\u2019s more memorable than a polished résumé.'
+  ];
+
+  function bindBioHint() {
+    if (!els.bioHintButton) return;
+
+    els.bioHintButton.addEventListener('click', function () {
+      haptic('selection');
+      openInfoSheet('Tips for a better bio', BIO_TIPS);
     });
   }
 
@@ -423,13 +503,15 @@
 
   var sheet = {
     open: false,
+    mode: 'picker',      // 'picker' (selectable options) or 'info' (read-only tips)
     items: [],
     selected: null,
     onSelect: null,
     lastFocused: null,
     loading: false,      // true while an async item list (cities) is loading
     error: null,         // { message, retry } when the async load failed
-    previewLimit: null   // cap on items shown before any search text (null = show all)
+    previewLimit: null,  // cap on items shown before any search text (null = show all)
+    tips: null            // string[] shown when mode === 'info'
   };
 
   /**
@@ -446,6 +528,8 @@
    * @param {Function} opts.onSelect   Called with the chosen item.
    */
   function openSheet(opts) {
+    sheet.mode = 'picker';
+    sheet.tips = null;
     sheet.items = opts.items;
     sheet.selected = opts.selected;
     sheet.onSelect = opts.onSelect;
@@ -473,6 +557,38 @@
     var selectedNode = els.sheetList.querySelector('[aria-selected="true"]');
     (selectedNode || els.sheetList).focus({ preventScroll: true });
     if (selectedNode) selectedNode.scrollIntoView({ block: 'center' });
+  }
+
+  /**
+   * Open the same bottom sheet used for pickers, but showing a static,
+   * non-selectable list of text (e.g. bio-writing tips) with a single
+   * "Got it" button instead of selectable options.
+   */
+  function openInfoSheet(title, tips) {
+    sheet.mode = 'info';
+    sheet.tips = tips;
+    sheet.items = [];
+    sheet.selected = null;
+    sheet.onSelect = null;
+    sheet.lastFocused = document.activeElement;
+    sheet.open = true;
+    sheet.loading = false;
+    sheet.error = null;
+    sheet.previewLimit = null;
+
+    els.sheetTitle.textContent = title;
+    els.sheetSearchWrap.hidden = true;
+    els.sheetSearch.value = '';
+
+    renderOptions('');
+
+    els.sheetRoot.hidden = false;
+    requestAnimationFrame(function () { els.sheetRoot.classList.add('is-open'); });
+
+    document.body.style.overflow = 'hidden';
+    tgCall(function (t) { if (t.BackButton) t.BackButton.show(); });
+
+    els.sheetList.focus({ preventScroll: true });
   }
 
   /** Switch the open sheet into a loading spinner (used while cities fetch). */
@@ -517,6 +633,30 @@
 
   function renderOptions(query) {
     els.sheetList.textContent = '';
+
+    if (sheet.mode === 'info') {
+      var info = document.createElement('div');
+      info.className = 'sheet__info';
+
+      var list = document.createElement('ul');
+      list.className = 'sheet__tips';
+      (sheet.tips || []).forEach(function (tip) {
+        var li = document.createElement('li');
+        li.textContent = tip;
+        list.appendChild(li);
+      });
+      info.appendChild(list);
+
+      var doneBtn = document.createElement('button');
+      doneBtn.type = 'button';
+      doneBtn.className = 'sheet__retry';
+      doneBtn.textContent = 'Got it';
+      doneBtn.addEventListener('click', closeSheet);
+      info.appendChild(doneBtn);
+
+      els.sheetList.appendChild(info);
+      return;
+    }
 
     if (sheet.loading) {
       var loading = document.createElement('div');
@@ -789,10 +929,10 @@
   /* ------------------------------------------------------------------ prefill */
 
   /**
-   * Prefill Name and Age from the query string (?name=…&age=…).
-   * Prefilled values are validated exactly like typed ones: an out-of-range
-   * ?age=5 lands in the field, shows its error immediately and keeps the
-   * submit button disabled.
+   * Prefill Name and Birthday from the query string
+   * (?name=…&year=…&month=…&day=…). Prefilled values are validated exactly
+   * like typed ones: an underage or malformed birthday lands in the field,
+   * shows its error immediately and keeps the submit button disabled.
    */
   function prefillFromQuery() {
     var params = new URLSearchParams(window.location.search);
@@ -810,13 +950,24 @@
     }
     updateCounter(els.nameCounter, state.name.length, LIMITS.name);
 
-    var qAge = params.get('age');
-    if (qAge !== null && qAge !== '') {
-      var digits = qAge.trim().replace(/\D/g, '').slice(0, 3);
-      // Keep the raw-ish value so the user sees what the link tried to set.
-      state.age = digits || qAge.trim();
-      els.age.value = digits;
-      if (validators.age(state.age)) touched.age = true;
+    // ?year=2000&month=12&day=02 — all three must be present. Whatever comes
+    // in is validated exactly like a value picked by hand: an underage or
+    // malformed date lands in the field, shows its error immediately and
+    // keeps the submit button disabled.
+    var qYear = params.get('year');
+    var qMonth = params.get('month');
+    var qDay = params.get('day');
+    if (qYear && qMonth && qDay) {
+      var iso = zeroPad(qYear.trim(), 4) + '-' +
+        zeroPad(qMonth.trim(), 2) + '-' +
+        zeroPad(qDay.trim(), 2);
+
+      state.birthday = iso;
+      // Only hand a syntactically valid date to the native input — an
+      // invalid string would just be ignored by it and leave the field
+      // blank, hiding the bad value from the user.
+      els.birthday.value = parseISODate(iso) ? iso : '';
+      if (validators.birthday(state.birthday)) touched.birthday = true;
     }
 
     // Optional extras: ?country=<CODE>&city=<name>. Country is matched
@@ -895,7 +1046,8 @@
   function buildPayload() {
     return {
       name: state.name.trim(),
-      age: parseInt(state.age, 10),
+      age: calculateAge(state.birthday),
+      birthday: state.birthday,
       gender: state.gender ? state.gender.value : null,
       preference: state.preference ? state.preference.value : null,
       bio: state.bio.trim(),
@@ -1031,8 +1183,10 @@
     safely('renderIdentity', renderIdentity);
 
     safely('bindName', bindName);
-    safely('bindAge', bindAge);
+    safely('setupBirthdayLimits', setupBirthdayLimits);
+    safely('bindBirthday', bindBirthday);
     safely('bindBio', bindBio);
+    safely('bindBioHint', bindBioHint);
     safely('bindUsePhoto', bindUsePhoto);
     safely('bindTos', bindTos);
     safely('bindExternalLinks', bindExternalLinks);
