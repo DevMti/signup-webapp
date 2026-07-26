@@ -299,6 +299,11 @@ button.row:disabled .chevron { opacity: 0.35; }
   border-radius: 0;
 }
 
+#birthday {
+  -webkit-appearance: auto;
+  appearance: auto;
+}
+
 .row__input:focus,
 .row__textarea:focus { outline: none; }
 
