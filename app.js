@@ -141,7 +141,12 @@
     gender: { row: $('gender-row'), value: $('gender-value') },
     preference: { row: $('preference-row'), value: $('preference-value') },
     country: { row: $('country-row'), value: $('country-value') },
-    city: { row: $('city-row'), value: $('city-value') }
+    city: { row: $('city-row'), value: $('city-value') },
+    // No row/sheet here — the real <input type="date"> sits invisibly on
+    // top of the row and handles the tap itself. This entry only exists so
+    // setPickerValue() can drive the display span the same way it does for
+    // every other field.
+    birthday: { row: null, value: $('birthday-value') }
   };
 
   /* ---------------------------------------------------------------- state */
@@ -248,6 +253,13 @@
     // into March.
     if (d.getFullYear() !== year || d.getMonth() !== month - 1 || d.getDate() !== day) return null;
     return d;
+  }
+
+  /** 'Choose', or a formatted date like '2 Dec 2000', for the picker row. */
+  function formatBirthdayLabel(raw) {
+    var d = parseISODate(raw);
+    if (!d) return null;
+    return d.toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
   }
 
   /** Whole years between a birthday and today, or null if unparseable. */
@@ -415,8 +427,13 @@
   }
 
   function bindBirthday() {
+    // Reflect whatever the input starts with (e.g. bfcache restore) before
+    // the user ever touches it.
+    setPickerValue('birthday', formatBirthdayLabel(els.birthday.value));
+
     els.birthday.addEventListener('input', function () {
       state.birthday = els.birthday.value;
+      setPickerValue('birthday', formatBirthdayLabel(state.birthday));
       if (touched.birthday) renderError('birthday');
       updateSubmitState();
     });
@@ -967,6 +984,7 @@
       // invalid string would just be ignored by it and leave the field
       // blank, hiding the bad value from the user.
       els.birthday.value = parseISODate(iso) ? iso : '';
+      setPickerValue('birthday', formatBirthdayLabel(els.birthday.value));
       if (validators.birthday(state.birthday)) touched.birthday = true;
     }
 

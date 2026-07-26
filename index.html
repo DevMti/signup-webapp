@@ -43,10 +43,13 @@
           </div>
 
           <div class="field" data-field="birthday">
-            <div class="row">
+            <div class="row row--date">
+              <span class="row__label">Birthday</span>
+              <span class="row__value is-empty" id="birthday-value">Choose</span>
+              <span class="chevron" aria-hidden="true"></span>
               <label class="visually-hidden" for="birthday">Birthday</label>
               <input
-                class="row__input"
+                class="row__input--date-native"
                 id="birthday"
                 name="birthday"
                 type="date"
