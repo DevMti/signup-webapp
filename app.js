@@ -21,6 +21,11 @@
   var TERMS_URL = 'https://example.com/terms';
   var PRIVACY_URL = 'https://example.com/privacy';
 
+  var BOT_NAME = 'botname';
+  var BOT_USERNAME = 'username';
+  var BOT_PROFILE_URL = 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
+  var BOT_ID = 412412342
+
   var LIMITS = { name: 128, bio: 180, ageMin: 18, ageMax: 120 };
   var SEND_DATA_MAX_BYTES = 4096; // Telegram's hard limit for sendData()
 
@@ -955,10 +960,10 @@
     var params = new URLSearchParams(window.location.search);
 
     var qName = params.get('name');
-    if (qName === null && tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
-      // Sensible default when the link carries no name.
-      qName = tg.initDataUnsafe.user.first_name || '';
-    }
+    // if (qName === null && tg && tg.initDataUnsafe && tg.initDataUnsafe.user) {
+    //   // Sensible default when the link carries no name.
+    //   qName = tg.initDataUnsafe.user.first_name || '';
+    // }
 
     if (qName) {
       state.name = qName.slice(0, LIMITS.name);
@@ -1035,19 +1040,19 @@
    * `web_app_data` message sender and the signed `initData` string.
    */
   function renderIdentity() {
-    var user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
-    if (!user) return;
+    // var user = tg && tg.initDataUnsafe ? tg.initDataUnsafe.user : null;
+    // if (!user) return;
 
-    var fullName = [user.first_name, user.last_name].filter(Boolean).join(' ');
-    els.identityName.textContent = fullName || 'Telegram user';
-    els.identityMeta.textContent = user.username ? '@' + user.username : 'ID ' + user.id;
+    var fullName = BOT_NAME;
+    els.identityName.textContent = fullName;
+    els.identityMeta.textContent = BOT_USERNAME ? '@' + BOT_USERNAME : 'ID ' + BOT_ID;
 
-    if (user.photo_url) {
-      els.identityAvatar.style.backgroundImage = 'url("' + user.photo_url + '")';
+    if (BOT_PROFILE_URL) {
+      els.identityAvatar.style.backgroundImage = 'url("' + BOT_PROFILE_URL + '")';
 
       // Only offer the checkbox when there is actually a photo to use, and
       // default it to checked since that's the more useful starting point.
-      telegramPhotoUrl = user.photo_url;
+      telegramPhotoUrl = BOT_PROFILE_URL;
       state.usePhoto = true;
       els.usePhoto.checked = true;
       els.photoSection.hidden = false;
