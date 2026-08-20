@@ -30,14 +30,14 @@
   var SEND_DATA_MAX_BYTES = 4096; // Telegram's hard limit for sendData()
 
   var GENDERS = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' }
+    { value: 'Male', label: 'Male' },
+    { value: 'Female', label: 'Female' }
   ];
 
   var PREFERENCES = [
-    { value: 'male', label: 'Male' },
-    { value: 'female', label: 'Female' },
-    { value: 'any', label: "Doesn't matter" }
+    { value: 'Male', label: 'Male' },
+    { value: 'Female', label: 'Female' },
+    { value: 'doesn\'t matter', label: "Doesn't matter" }
   ];
 
   /* ------------------------------------------------------- Telegram bridge */
@@ -426,9 +426,7 @@
   function setupBirthdayLimits() {
     var today = new Date();
     var maxDate = new Date(today.getFullYear() - LIMITS.ageMin, today.getMonth(), today.getDate());
-    var minDate = new Date(today.getFullYear() - LIMITS.ageMax, today.getMonth(), today.getDate());
     els.birthday.max = formatISODate(maxDate);
-    els.birthday.min = formatISODate(minDate);
   }
 
   function bindBirthday() {
@@ -1091,10 +1089,10 @@
       // Identity material for the bot:
       //  - user_id is a hint only (client-side, untrusted).
       //  - init_data is the raw, signed string the bot re-verifies with HMAC.
-      user_id: (tg && tg.initDataUnsafe && tg.initDataUnsafe.user)
-        ? tg.initDataUnsafe.user.id
-        : null,
-      init_data: tg ? (tg.initData || '') : ''
+      // user_id: (tg && tg.initDataUnsafe && tg.initDataUnsafe.user)
+      //   ? tg.initDataUnsafe.user.id
+      //   : null,
+      // init_data: tg ? (tg.initData || '') : ''
     };
   }
 
