@@ -30,13 +30,13 @@
   var SEND_DATA_MAX_BYTES = 4096; // Telegram's hard limit for sendData()
 
   var GENDERS = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' }
+    { value: 'Male', label: 'I\'m male' },
+    { value: 'Female', label: 'I\'m female' }
   ];
 
   var PREFERENCES = [
-    { value: 'Male', label: 'Male' },
-    { value: 'Female', label: 'Female' },
+    { value: 'Male', label: 'Man' },
+    { value: 'Female', label: 'Woman' },
     { value: 'doesn\'t matter', label: "Doesn't matter" }
   ];
 
