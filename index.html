@@ -4,8 +4,9 @@
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1, viewport-fit=cover">
   <meta name="color-scheme" content="light dark">
-  <title>Sign up</title>
+  <title data-i18n="meta.title">Sign up</title>
   <script src="https://telegram.org/js/telegram-web-app.js?56"></script>
+  <script src="i18n.js"></script>
   <link rel="stylesheet" href="styles.css">
 </head>
 <body>
@@ -21,12 +22,12 @@
 
       <!-- ---------------------------------------------------- Your details -->
       <section class="section">
-        <h2 class="section__header">Your details</h2>
+        <h2 class="section__header" data-i18n="section.details.header">Your details</h2>
         <div class="section__body">
 
           <div class="field" data-field="name">
             <div class="row">
-              <label class="visually-hidden" for="name">Name</label>
+              <label class="visually-hidden" for="name" data-i18n="field.name.placeholder">Name</label>
               <input
                 class="row__input"
                 id="name"
@@ -36,6 +37,7 @@
                 autocomplete="given-name"
                 maxlength="128"
                 placeholder="Name"
+                data-i18n-placeholder="field.name.placeholder"
                 aria-describedby="name-error">
               <span class="counter" id="name-counter" aria-hidden="true">0/128</span>
             </div>
@@ -44,10 +46,10 @@
 
           <div class="field" data-field="birthday">
             <div class="row row--date">
-              <span class="row__label">Birthday</span>
-              <span class="row__value is-empty" id="birthday-value">Choose</span>
+              <span class="row__label" data-i18n="field.birthday.label">Birthday</span>
+              <span class="row__value is-empty" id="birthday-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
-              <label class="visually-hidden" for="birthday">Birthday</label>
+              <label class="visually-hidden" for="birthday" data-i18n="field.birthday.label">Birthday</label>
               <input
                 class="row__input--date-native"
                 id="birthday"
@@ -60,19 +62,19 @@
           </div>
 
         </div>
-        <p class="section__footer">You must be 18 or older to use this bot.</p>
+        <p class="section__footer" data-i18n="section.details.footer">You must be 18 or older to use this bot.</p>
       </section>
 
       <!-- ------------------------------------------------------- About you -->
       <section class="section">
-        <h2 class="section__header">About you</h2>
+        <h2 class="section__header" data-i18n="section.about.header">About you</h2>
         <div class="section__body">
 
           <div class="field" data-field="gender">
             <button type="button" class="row row--picker" id="gender-row"
                     aria-haspopup="dialog" aria-expanded="false" aria-describedby="gender-error">
-              <span class="row__label">Gender</span>
-              <span class="row__value is-empty" id="gender-value">Choose</span>
+              <span class="row__label" data-i18n="field.gender.label">Gender</span>
+              <span class="row__value is-empty" id="gender-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
             </button>
             <p class="field__error" id="gender-error" role="alert" hidden></p>
@@ -81,8 +83,8 @@
           <div class="field" data-field="preference">
             <button type="button" class="row row--picker" id="preference-row"
                     aria-haspopup="dialog" aria-expanded="false" aria-describedby="preference-error">
-              <span class="row__label">Preference</span>
-              <span class="row__value is-empty" id="preference-value">Choose</span>
+              <span class="row__label" data-i18n="field.preference.label">Preference</span>
+              <span class="row__value is-empty" id="preference-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
             </button>
             <p class="field__error" id="preference-error" role="alert" hidden></p>
@@ -94,15 +96,15 @@
       <!-- ------------------------------------------------------------- Bio -->
       <section class="section">
         <div class="section__header-row">
-          <h2 class="section__header">Bio</h2>
-          <button type="button" class="hint-button" id="bio-hint-button">
+          <h2 class="section__header" data-i18n="section.bio.header">Bio</h2>
+          <button type="button" class="hint-button" id="bio-hint-button" data-i18n="bio.hintButton">
             Tips
           </button>
         </div>
         <div class="section__body">
           <div class="field" data-field="bio">
             <div class="row row--textarea">
-              <label class="visually-hidden" for="bio">Bio</label>
+              <label class="visually-hidden" for="bio" data-i18n="section.bio.header">Bio</label>
               <textarea
                 class="row__textarea"
                 id="bio"
@@ -110,27 +112,28 @@
                 rows="1"
                 maxlength="180"
                 placeholder="A few words about you"
+                data-i18n-placeholder="field.bio.placeholder"
                 aria-describedby="bio-error"></textarea>
             </div>
             <p class="field__error" id="bio-error" role="alert" hidden></p>
           </div>
         </div>
         <p class="section__footer section__footer--split">
-          <span>Anyone you match with can read this.</span>
+          <span data-i18n="section.bio.footer">Anyone you match with can read this.</span>
           <span class="counter" id="bio-counter" aria-hidden="true">0/180</span>
         </p>
       </section>
 
       <!-- -------------------------------------------------------- Location -->
       <section class="section">
-        <h2 class="section__header">Location</h2>
+        <h2 class="section__header" data-i18n="section.location.header">Location</h2>
         <div class="section__body">
 
           <div class="field" data-field="country">
             <button type="button" class="row row--picker" id="country-row"
                     aria-haspopup="dialog" aria-expanded="false" aria-describedby="country-error">
-              <span class="row__label">Country</span>
-              <span class="row__value is-empty" id="country-value">Choose</span>
+              <span class="row__label" data-i18n="field.country.label">Country</span>
+              <span class="row__value is-empty" id="country-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
             </button>
             <p class="field__error" id="country-error" role="alert" hidden></p>
@@ -140,30 +143,30 @@
           <div class="field" data-field="city">
             <button type="button" class="row row--picker" id="city-row" disabled
                     aria-haspopup="dialog" aria-expanded="false" aria-describedby="city-error">
-              <span class="row__label">City</span>
-              <span class="row__value is-empty" id="city-value">Choose</span>
+              <span class="row__label" data-i18n="field.city.label">City</span>
+              <span class="row__value is-empty" id="city-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
             </button>
             <p class="field__error" id="city-error" role="alert" hidden></p>
           </div>
 
         </div>
-        <p class="section__footer" id="location-footer">Pick a country to see its cities.</p>
+        <p class="section__footer" id="location-footer" data-i18n="location.footerDefault">Pick a country to see its cities.</p>
       </section>
 
       <!-- ------------------------------------------------------------ Photo -->
       <section class="section" id="photo-section" hidden>
-        <h2 class="section__header">Photo</h2>
+        <h2 class="section__header" data-i18n="section.photo.header">Photo</h2>
         <div class="section__body">
           <div class="field" data-field="usePhoto">
             <label class="row row--check" for="usePhoto">
               <input class="check__input" type="checkbox" id="usePhoto" name="usePhoto">
               <span class="check" aria-hidden="true"></span>
-              <span class="check__label">Use my Telegram profile picture for my profile</span>
+              <span class="check__label" data-i18n="photo.useLabel">Use my Telegram profile picture for my profile</span>
             </label>
           </div>
         </div>
-        <p class="section__footer">Optional. You can turn this off and add a different photo later.</p>
+        <p class="section__footer" data-i18n="section.photo.footer">Optional. You can turn this off and add a different photo later.</p>
       </section>
 
       <!-- ----------------------------------------------------------- Terms -->
@@ -173,12 +176,10 @@
             <label class="row row--check" for="tos">
               <input class="check__input" type="checkbox" id="tos" name="tos" aria-describedby="tos-error">
               <span class="check" aria-hidden="true"></span>
-              <span class="check__label">
-                I accept the
-                <a href="https://example.com/terms" data-external-link>Terms of Service</a>
-                and the
-                <a href="https://example.com/privacy" data-external-link>Privacy Policy</a>.
-              </span>
+              <!-- Filled in by app.js (renderTosLabel): the translated
+                   sentence decides where the two links sit, app.js only
+                   supplies their href/text. -->
+              <span class="check__label" id="tos-label"></span>
             </label>
             <p class="field__error" id="tos-error" role="alert" hidden></p>
           </div>
@@ -186,7 +187,7 @@
       </section>
 
       <!-- Browser fallback for Telegram's MainButton. Hidden inside Telegram. -->
-      <button type="submit" class="main-button" id="fallbackSubmit" hidden disabled>Save profile</button>
+      <button type="submit" class="main-button" id="fallbackSubmit" hidden disabled data-i18n="submit.buttonText">Save profile</button>
     </form>
   </main>
 
@@ -197,7 +198,7 @@
       <div class="sheet__grabber" aria-hidden="true"></div>
       <h3 class="sheet__title" id="sheetTitle"></h3>
       <div class="sheet__search" id="sheetSearchWrap" hidden>
-        <input class="sheet__search-input" id="sheetSearch" type="search" placeholder="Search" autocomplete="off">
+        <input class="sheet__search-input" id="sheetSearch" type="search" placeholder="Search" data-i18n-placeholder="common.search" autocomplete="off">
       </div>
       <div class="sheet__list" id="sheetList" role="listbox" tabindex="-1"></div>
     </div>

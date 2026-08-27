@@ -29,15 +29,24 @@
   var LIMITS = { name: 128, bio: 180, ageMin: 18, ageMax: 120 };
   var SEND_DATA_MAX_BYTES = 4096; // Telegram's hard limit for sendData()
 
+  // Shorthand for window.I18N.t — every user-facing string in this file
+  // should go through this instead of a literal, so ?language=xx (see
+  // i18n.js) actually changes what's shown. Values (not just labels) stay
+  // untranslated on purpose: `state.gender.value` is what gets sent to the
+  // bot in buildPayload() and must stay a stable machine value regardless
+  // of display language.
+  var i18n = window.I18N;
+  function t(key, vars) { return i18n.t(key, vars); }
+
   var GENDERS = [
-    { value: 'Male', label: 'I\'m male' },
-    { value: 'Female', label: 'I\'m female' }
+    { value: 'Male', label: t('gender.male') },
+    { value: 'Female', label: t('gender.female') }
   ];
 
   var PREFERENCES = [
-    { value: 'Male', label: 'Man' },
-    { value: 'Female', label: 'Woman' },
-    { value: 'doesn\'t matter', label: "Doesn't matter" }
+    { value: 'Male', label: t('preference.man') },
+    { value: 'Female', label: t('preference.woman') },
+    { value: 'doesn\'t matter', label: t('preference.noPreference') }
   ];
 
   /* ------------------------------------------------------- Telegram bridge */
@@ -287,34 +296,34 @@
   var validators = {
     name: function (v) {
       var value = String(v || '').trim();
-      if (!value) return 'Enter your name.';
-      if (value.length > LIMITS.name) return 'Name must be ' + LIMITS.name + ' characters or fewer.';
+      if (!value) return t('errors.name.required');
+      if (value.length > LIMITS.name) return t('errors.name.tooLong', { max: LIMITS.name });
       return '';
     },
     birthday: function (v) {
       var raw = String(v == null ? '' : v).trim();
-      if (!raw) return 'Enter your birthday.';
+      if (!raw) return t('errors.birthday.required');
 
       var birth = parseISODate(raw);
-      if (!birth) return 'Enter a valid birthday.';
-      if (birth.getTime() > Date.now()) return 'Birthday can’t be in the future.';
+      if (!birth) return t('errors.birthday.invalid');
+      if (birth.getTime() > Date.now()) return t('errors.birthday.future');
 
       var age = calculateAge(raw);
-      if (age < LIMITS.ageMin) return 'You must be at least ' + LIMITS.ageMin + ' to use this bot.';
-      if (age > LIMITS.ageMax) return 'Enter a valid birthday.';
+      if (age < LIMITS.ageMin) return t('errors.birthday.tooYoung', { min: LIMITS.ageMin });
+      if (age > LIMITS.ageMax) return t('errors.birthday.invalid');
       return '';
     },
-    gender: function (v) { return v ? '' : 'Choose your gender.'; },
-    preference: function (v) { return v ? '' : 'Choose who you want to meet.'; },
+    gender: function (v) { return v ? '' : t('errors.gender.required'); },
+    preference: function (v) { return v ? '' : t('errors.preference.required'); },
     bio: function (v) {
       var value = String(v || '').trim();
-      if (!value) return 'Write a short bio.';
-      if (String(v || '').length > LIMITS.bio) return 'Bio must be ' + LIMITS.bio + ' characters or fewer.';
+      if (!value) return t('errors.bio.required');
+      if (String(v || '').length > LIMITS.bio) return t('errors.bio.tooLong', { max: LIMITS.bio });
       return '';
     },
-    country: function (v) { return v ? '' : 'Choose your country.'; },
-    city: function (v) { return v ? '' : 'Choose your city.'; },
-    tos: function (v) { return v ? '' : 'Accept the Terms of Service and Privacy Policy to continue.'; }
+    country: function (v) { return v ? '' : t('errors.country.required'); },
+    city: function (v) { return v ? '' : t('errors.city.required'); },
+    tos: function (v) { return v ? '' : t('errors.tos.required'); }
   };
 
   var FIELD_ORDER = ['name', 'birthday', 'gender', 'preference', 'bio', 'country', 'city', 'tos'];
@@ -465,21 +474,12 @@
     });
   }
 
-  var BIO_TIPS = [
-    'Mention a hobby or interest you\u2019re genuinely excited about, not just that you "like" it.',
-    'Add one specific, concrete detail \u2014 a favourite trip, a go-to weekend plan, a dish you always cook.',
-    'Say what you\u2019re looking for, even in a few words.',
-    'Keep it short. A couple of clear sentences beats a long paragraph.',
-    'Skip generic lines like "I love to travel and laugh" \u2014 everyone writes that. Get specific instead.',
-    'Let a bit of personality or humour come through \u2014 it\u2019s more memorable than a polished résumé.'
-  ];
-
   function bindBioHint() {
     if (!els.bioHintButton) return;
 
     els.bioHintButton.addEventListener('click', function () {
       haptic('selection');
-      openInfoSheet('Tips for a better bio', BIO_TIPS);
+      openInfoSheet(t('bio.tipsTitle'), t('bio.tips'));
     });
   }
 
@@ -501,14 +501,29 @@
 
   /* ---------------------------------------------------------- external links */
 
+  /**
+   * Fill #tos-label from the translation. The translation string carries
+   * {termsLink}/{privacyLink} placeholders so each language can put the
+   * links wherever its own word order needs them; the hrefs/text here are
+   * the only untranslated bit, since they're config (TERMS_URL/PRIVACY_URL),
+   * not display copy.
+   */
+  function renderTosLabel() {
+    var label = $('tos-label');
+    if (!label) return;
+
+    var termsLink = '<a href="' + TERMS_URL + '" data-external-link>' + t('tos.terms') + '</a>';
+    var privacyLink = '<a href="' + PRIVACY_URL + '" data-external-link>' + t('tos.privacy') + '</a>';
+
+    label.innerHTML = t('tos.labelHtml', { termsLink: termsLink, privacyLink: privacyLink });
+  }
+
   // Telegram must open links itself, otherwise the Mini App navigates away.
   function bindExternalLinks() {
-    var map = { 'Terms of Service': TERMS_URL, 'Privacy Policy': PRIVACY_URL };
     var links = document.querySelectorAll('[data-external-link]');
 
     Array.prototype.forEach.call(links, function (link) {
-      var url = map[link.textContent.trim()] || link.getAttribute('href');
-      link.setAttribute('href', url);
+      var url = link.getAttribute('href');
 
       link.addEventListener('click', function (e) {
         e.preventDefault();
@@ -670,7 +685,7 @@
       var doneBtn = document.createElement('button');
       doneBtn.type = 'button';
       doneBtn.className = 'sheet__retry';
-      doneBtn.textContent = 'Got it';
+      doneBtn.textContent = t('sheet.gotIt');
       doneBtn.addEventListener('click', closeSheet);
       info.appendChild(doneBtn);
 
@@ -685,7 +700,7 @@
       spinner.className = 'spinner';
       spinner.setAttribute('aria-hidden', 'true');
       var loadingText = document.createElement('p');
-      loadingText.textContent = 'Loading cities…';
+      loadingText.textContent = t('sheet.loadingCities');
       loading.appendChild(spinner);
       loading.appendChild(loadingText);
       els.sheetList.appendChild(loading);
@@ -702,7 +717,7 @@
         var retryBtn = document.createElement('button');
         retryBtn.type = 'button';
         retryBtn.className = 'sheet__retry';
-        retryBtn.textContent = 'Try again';
+        retryBtn.textContent = t('sheet.tryAgain');
         retryBtn.addEventListener('click', sheet.error.retry);
         err.appendChild(retryBtn);
       }
@@ -718,13 +733,13 @@
       visible = sheet.items.filter(function (item) { return item.label.toLowerCase().indexOf(q) !== -1; });
       if (visible.length > MAX_RENDERED_OPTIONS) {
         visible = visible.slice(0, MAX_RENDERED_OPTIONS);
-        note = 'Showing the first ' + MAX_RENDERED_OPTIONS + ' matches — refine your search to see more.';
+        note = t('sheet.showingFirstMatches', { max: MAX_RENDERED_OPTIONS });
       }
     } else if (sheet.previewLimit != null && sheet.items.length > sheet.previewLimit) {
       // No search yet, and the full list is long: show a first taste of it
       // rather than nothing, and hint that typing narrows it down.
       visible = sheet.items.slice(0, sheet.previewLimit);
-      note = 'Showing ' + sheet.previewLimit + ' of ' + sheet.items.length + ' — type to search the rest.';
+      note = t('sheet.showingPreview', { shown: sheet.previewLimit, total: sheet.items.length });
     } else {
       visible = sheet.items;
     }
@@ -732,7 +747,7 @@
     if (!visible.length) {
       var empty = document.createElement('p');
       empty.className = 'sheet__empty';
-      empty.textContent = q ? 'Nothing matches “' + query.trim() + '”.' : 'Nothing to show yet.';
+      empty.textContent = q ? t('sheet.noMatches', { query: query.trim() }) : t('sheet.nothingToShow');
       els.sheetList.appendChild(empty);
       return;
     }
@@ -826,7 +841,7 @@
 
   function setPickerValue(field, label) {
     var p = pickers[field];
-    p.value.textContent = label || 'Choose';
+    p.value.textContent = label || t('common.choose');
     p.value.classList.toggle('is-empty', !label);
   }
 
@@ -874,8 +889,8 @@
     var hasCountry = !!code;
     pickers.city.row.disabled = !hasCountry;
     els.locationFooter.textContent = hasCountry
-      ? 'Cities shown are the ones we support in ' + countryName(code) + '.'
-      : 'Pick a country to see its cities.';
+      ? t('location.footerWithCountry', { country: countryName(code) })
+      : t('location.footerDefault');
 
     renderError('city');
   }
@@ -918,7 +933,7 @@
       })
       .catch(function () {
         if (requestId !== cityRequestId) return;
-        setSheetError('Couldn’t load cities. Check your connection and try again.', function () {
+        setSheetError(t('sheet.citiesLoadError'), function () {
           openCitySheet(code);
         });
       });
@@ -927,7 +942,7 @@
   function bindLocationPickers() {
     pickers.country.row.addEventListener('click', function () {
       openSheet({
-        title: 'Country',
+        title: t('sheet.countryTitle'),
         items: countryItems(),
         selected: state.country,
         searchable: COUNTRY_CODES.length > 10,
@@ -1123,7 +1138,7 @@
 
     // sendData() rejects anything over 4096 bytes.
     if (new TextEncoder().encode(json).length > SEND_DATA_MAX_BYTES) {
-      showAlert('This profile is too large to send. Shorten your bio and try again.');
+      showAlert(t('alerts.tooLarge'));
       return;
     }
 
@@ -1134,14 +1149,14 @@
         tg.close();          // most clients close on their own; harmless to repeat
       } catch (e) {
         // sendData only works for Mini Apps opened from a keyboard button.
-        showAlert('Couldn’t send your profile. Open this form from the bot’s keyboard button and try again.');
+        showAlert(t('alerts.sendFailed'));
       }
       return;
     }
 
     // Browser fallback: nothing to send to, so show what would have been sent.
     console.log('Payload (not sent — Telegram.WebApp unavailable):', payload);
-    showAlert('Not running inside Telegram. The payload was logged to the console.');
+    showAlert(t('alerts.notInTelegram'));
   }
 
   function showAlert(message) {
@@ -1171,7 +1186,7 @@
     }
 
     if (tg.MainButton) {
-      tgCall(function (t) { t.MainButton.setText('Save profile'); });
+      tgCall(function (tgInstance) { tgInstance.MainButton.setText(t('submit.buttonText')); });
       tgCall(function (t) { t.MainButton.show(); });
       tgCall(function (t) { t.onEvent('mainButtonClicked', submit); });
     } else {
@@ -1200,6 +1215,11 @@
   }
 
   function init() {
+    // Translate every static data-i18n[-placeholder|-html] node up front, and
+    // build the ToS sentence's two links, before anything else touches text.
+    safely('applyStaticTranslations', function () { i18n.applyStaticTranslations(); });
+    safely('renderTosLabel', renderTosLabel);
+
     safely('setupTelegram', setupTelegram);
     safely('renderIdentity', renderIdentity);
 
@@ -1212,8 +1232,8 @@
     safely('bindTos', bindTos);
     safely('bindExternalLinks', bindExternalLinks);
     safely('bindSheet', bindSheet);
-    safely('bindSimplePicker:gender', function () { bindSimplePicker('gender', 'Gender', GENDERS); });
-    safely('bindSimplePicker:preference', function () { bindSimplePicker('preference', 'Preference', PREFERENCES); });
+    safely('bindSimplePicker:gender', function () { bindSimplePicker('gender', t('sheet.genderTitle'), GENDERS); });
+    safely('bindSimplePicker:preference', function () { bindSimplePicker('preference', t('sheet.preferenceTitle'), PREFERENCES); });
     safely('bindLocationPickers', bindLocationPickers);
 
     safely('prefillFromQuery', prefillFromQuery);
