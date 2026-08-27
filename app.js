@@ -1051,8 +1051,8 @@
       // Only offer the checkbox when there is actually a photo to use, and
       // default it to checked since that's the more useful starting point.
       telegramPhotoUrl = BOT_PROFILE_URL;
-      state.usePhoto = true;
-      els.usePhoto.checked = true;
+      state.usePhoto = false;
+      els.usePhoto.checked = false;
       els.photoSection.hidden = false;
     } else {
       var initials = (user.first_name || '?').charAt(0) + (user.last_name || '').charAt(0);
