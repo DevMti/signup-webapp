@@ -845,6 +845,43 @@
     p.value.classList.toggle('is-empty', !label);
   }
 
+  // Common shorthands accepted from the URL for the preference picker,
+  // mapped to the actual stored value (`t()` output changes with the
+  // language, but the machine value never does — see the `i18n` note near
+  // GENDERS/PREFERENCES above).
+  var PREFERENCE_ALIASES = {
+    'any': "doesn't matter",
+    'everyone': "doesn't matter",
+    'both': "doesn't matter",
+    'no preference': "doesn't matter",
+    'nopreference': "doesn't matter",
+    'either': "doesn't matter",
+    'man': 'Male',
+    'men': 'Male',
+    'woman': 'Female',
+    'women': 'Female'
+  };
+
+  /**
+   * Find an option from GENDERS/PREFERENCES matching a raw query-string
+   * value, case-insensitively, against its stored value, its (possibly
+   * translated) label, or — for `preference` — a short alias like "any".
+   */
+  function matchOption(options, raw, aliases) {
+    if (!raw) return null;
+    var q = raw.trim().toLowerCase();
+
+    if (aliases && Object.prototype.hasOwnProperty.call(aliases, q)) {
+      q = aliases[q].toLowerCase();
+    }
+
+    var found = options.find(function (o) { return o.value.toLowerCase() === q; });
+    if (found) return found;
+
+    found = options.find(function (o) { return o.label.toLowerCase() === q; });
+    return found || null;
+  }
+
   function bindSimplePicker(field, title, options) {
     pickers[field].row.addEventListener('click', function () {
       openSheet({
@@ -1006,13 +1043,47 @@
       if (validators.birthday(state.birthday)) touched.birthday = true;
     }
 
-    // Optional extras: ?country=<CODE>&city=<name>. Country is matched
-    // case-insensitively against ISO codes; city is validated against the
-    // (lazily fetched) list for that country, since we don't have it upfront.
-    var qCountry = params.get('country');
-    var code = qCountry ? qCountry.trim().toUpperCase() : '';
+    // ?gender=male&preference=any — matched case-insensitively against the
+    // stored value, the current display label, or (for preference) a short
+    // alias. An unrecognized value is silently ignored, same as a missing one.
+    var qGender = params.get('gender');
+    var genderMatch = matchOption(GENDERS, qGender);
+    if (genderMatch) {
+      state.gender = { value: genderMatch.value, label: genderMatch.label };
+      setPickerValue('gender', genderMatch.label);
+      if (validators.gender(state.gender)) touched.gender = true;
+    }
 
-    if (code && Object.prototype.hasOwnProperty.call(LOCATIONS, code)) {
+    var qPreference = params.get('preference');
+    var preferenceMatch = matchOption(PREFERENCES, qPreference, PREFERENCE_ALIASES);
+    if (preferenceMatch) {
+      state.preference = { value: preferenceMatch.value, label: preferenceMatch.label };
+      setPickerValue('preference', preferenceMatch.label);
+      if (validators.preference(state.preference)) touched.preference = true;
+    }
+
+    // Optional extras: ?country=<CODE or name>&city=<name>. Country is
+    // matched case-insensitively first against ISO codes, then against each
+    // country's display name (so both ?country=IR and ?country=Iran work);
+    // city is validated against the (lazily fetched) list for that country,
+    // since we don't have it upfront.
+    var qCountry = params.get('country');
+    var rawCountry = qCountry ? qCountry.trim() : '';
+    var code = '';
+
+    if (rawCountry) {
+      var upper = rawCountry.toUpperCase();
+      if (Object.prototype.hasOwnProperty.call(LOCATIONS, upper)) {
+        code = upper;
+      } else {
+        var byName = COUNTRY_CODES.find(function (c) {
+          return LOCATIONS[c].name.toLowerCase() === rawCountry.toLowerCase();
+        });
+        if (byName) code = byName;
+      }
+    }
+
+    if (code) {
       applyCountry(code);
 
       var qCity = params.get('city');
@@ -1040,8 +1111,13 @@
       applyCountry(null);
     }
 
-    els.bio.value = '';
-    updateCounter(els.bioCounter, 0, LIMITS.bio);
+    var qBio = params.get('bio');
+    if (qBio) {
+      state.bio = qBio.slice(0, LIMITS.bio);
+      if (validators.bio(state.bio)) touched.bio = true;
+    }
+    els.bio.value = state.bio;
+    updateCounter(els.bioCounter, state.bio.length, LIMITS.bio);
   }
 
   /* ----------------------------------------------------------------- identity */
