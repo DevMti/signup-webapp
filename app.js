@@ -90,6 +90,14 @@
     return v === '1' || v === 'true' || v === 'yes';
   }
 
+  // ?hideprofile=1 — skips the "use my Telegram photo" step.
+  var HIDE_PROFILE = truthyParam(new URLSearchParams(window.location.search).get('hideprofile'));
+
+  // ?hide_tos=1 — skips the ToS checkbox, for flows where the user has
+  // already agreed to terms upstream (see applyHideTos()). Independent of
+  // HIDE_PROFILE — pass either, both, or neither.
+  var HIDE_TOS = truthyParam(new URLSearchParams(window.location.search).get('hide_tos'));
+
   function showDebugLine(message) {
     if (!debugPanel) {
       debugPanel = document.getElementById('debugPanel');
@@ -504,6 +512,25 @@
       haptic('selection');
       refresh('tos');
     });
+  }
+
+  /**
+   * ?hide_tos=1 hides the ToS checkbox and treats it as already accepted —
+   * the assumption being that whatever upstream flow set hide_tos already
+   * got the user's agreement. Runs after bindTos() so the checkbox's own
+   * state/listeners are already in place; refresh('tos') re-validates
+   * immediately so a hidden, unticked box can't block submit.
+   */
+  function applyHideTos() {
+    if (!HIDE_TOS) return;
+
+    var tosField = document.querySelector('.field[data-field="tos"]');
+    var tosSection = tosField ? tosField.closest('.section') : null;
+    if (tosSection) tosSection.hidden = true;
+
+    state.tos = true;
+    els.tos.checked = true;
+    refresh('tos');
   }
 
   /* ---------------------------------------------------------- external links */
@@ -1155,8 +1182,7 @@
       // ?hideprofile=1 hides the checkbox section (e.g. for a bot flow that
       // never wants to offer the Telegram photo). It never forces the
       // checkbox on when the section would otherwise be shown.
-      var hideProfile = truthyParam(new URLSearchParams(window.location.search).get('hideprofile'));
-      els.photoSection.hidden = hideProfile;
+      els.photoSection.hidden = HIDE_PROFILE;
     } else {
       var initials = (user.first_name || '?').charAt(0) + (user.last_name || '').charAt(0);
       els.identityAvatar.textContent = initials.toUpperCase();
@@ -1318,6 +1344,7 @@
     safely('bindBioHint', bindBioHint);
     safely('bindUsePhoto', bindUsePhoto);
     safely('bindTos', bindTos);
+    safely('applyHideTos', applyHideTos);
     safely('bindExternalLinks', bindExternalLinks);
     safely('bindSheet', bindSheet);
     safely('bindSimplePicker:gender', function () { bindSimplePicker('gender', t('sheet.genderTitle'), GENDERS); });
