@@ -83,6 +83,13 @@
   var debugPanel = null;
   var debugLog = null;
 
+  /** '1' / 'true' / 'yes' (case-insensitive) count as on; anything else, including a missing param, is off. */
+  function truthyParam(value) {
+    if (!value) return false;
+    var v = value.trim().toLowerCase();
+    return v === '1' || v === 'true' || v === 'yes';
+  }
+
   function showDebugLine(message) {
     if (!debugPanel) {
       debugPanel = document.getElementById('debugPanel');
@@ -1144,7 +1151,12 @@
       telegramPhotoUrl = BOT_PROFILE_URL;
       state.usePhoto = false;
       els.usePhoto.checked = false;
-      els.photoSection.hidden = false;
+
+      // ?hideprofile=1 hides the checkbox section (e.g. for a bot flow that
+      // never wants to offer the Telegram photo). It never forces the
+      // checkbox on when the section would otherwise be shown.
+      var hideProfile = truthyParam(new URLSearchParams(window.location.search).get('hideprofile'));
+      els.photoSection.hidden = hideProfile;
     } else {
       var initials = (user.first_name || '?').charAt(0) + (user.last_name || '').charAt(0);
       els.identityAvatar.textContent = initials.toUpperCase();
