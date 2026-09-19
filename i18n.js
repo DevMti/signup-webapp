@@ -52,7 +52,8 @@
           footer: 'Anyone you match with can read this.'
         },
         location: {
-          header: 'Location'
+          header: 'Location',
+          footer: 'Tap or drag the pin to set your location, or use the GPS button.'
         },
         photo: {
           header: 'Photo',
@@ -65,9 +66,7 @@
         birthday: { label: 'Birthday' },
         gender: { label: 'Gender' },
         preference: { label: 'Preference' },
-        bio: { placeholder: 'A few words about you' },
-        country: { label: 'Country' },
-        city: { label: 'City' }
+        bio: { placeholder: 'A few words about you' }
       },
 
       common: {
@@ -76,8 +75,9 @@
       },
 
       location: {
-        footerDefault: 'Pick a country to see its cities.',
-        footerWithCountry: 'Cities shown are the ones we support in {country}.'
+        useCurrentLabel: 'Use current location',
+        permissionDenied: 'Couldn\u2019t access your location. Drag the pin on the map instead.',
+        mapLoadError: 'Couldn\u2019t load the map. Check your connection and try again.'
       },
 
       photo: {
@@ -120,15 +120,13 @@
       sheet: {
         genderTitle: 'Gender',
         preferenceTitle: 'Preference',
-        countryTitle: 'Country',
-        loadingCities: 'Loading cities\u2026',
+        loadingCities: 'Loading\u2026',
         tryAgain: 'Try again',
         gotIt: 'Got it',
         noMatches: 'Nothing matches \u201c{query}\u201d.',
         nothingToShow: 'Nothing to show yet.',
         showingFirstMatches: 'Showing the first {max} matches \u2014 refine your search to see more.',
-        showingPreview: 'Showing {shown} of {total} \u2014 type to search the rest.',
-        citiesLoadError: 'Couldn\u2019t load cities. Check your connection and try again.'
+        showingPreview: 'Showing {shown} of {total} \u2014 type to search the rest.'
       },
 
       submit: {
@@ -158,8 +156,7 @@
           required: 'Write a short bio.',
           tooLong: 'Bio must be {max} characters or fewer.'
         },
-        country: { required: 'Choose your country.' },
-        city: { required: 'Choose your city.' },
+        location: { required: 'Set your location.' },
         tos: { required: 'Accept the Terms of Service and Privacy Policy to continue.' }
       }
     }

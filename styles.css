@@ -727,6 +727,75 @@ button.row:disabled .chevron { opacity: 0.35; }
   cursor: pointer;
 }
 
+/* --- inline location map ---------------------------------------------------
+
+   Lives directly in the Location section's body, not as a popover — tap or
+   drag the pin to set the location by hand, or tap the floating GPS button
+   to use the device's exact location instead. */
+
+.location-map {
+  position: relative;
+  height: 260px;
+}
+
+.location-map__canvas {
+  position: absolute;
+  inset: 0;
+  background: var(--separator); /* visible while tiles are still loading */
+}
+
+/* Leaflet draws its own zoom/attribution controls; nudge them clear of our
+   own floating coord badge and GPS button. */
+.location-map__canvas .leaflet-top.leaflet-left { top: 10px; left: 10px; }
+.location-map__canvas .leaflet-bottom.leaflet-right { bottom: 10px; right: 10px; }
+
+.location-map__coords {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  z-index: 400; /* above Leaflet's own panes */
+  transform: translateX(-50%);
+  padding: 6px 12px;
+  border-radius: 20px;
+  background: color-mix(in srgb, var(--section-bg) 88%, transparent);
+  backdrop-filter: blur(6px);
+  font-size: 13px;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  color: var(--text);
+  white-space: nowrap;
+  pointer-events: none;
+}
+
+.location-map__coords.is-empty { color: var(--hint); font-weight: 400; }
+
+.location-map__gps {
+  position: absolute;
+  right: 10px;
+  bottom: 10px;
+  z-index: 400;
+  width: 40px;
+  height: 40px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 0;
+  border-radius: 50%;
+  background: var(--section-bg);
+  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.25);
+  cursor: pointer;
+  -webkit-appearance: none;
+  appearance: none;
+}
+
+.location-map__gps:active { opacity: 0.6; }
+
+.location-map__gps-icon {
+  font-size: 20px;
+  line-height: 1;
+  color: var(--accent);
+}
+
 /* --- debug panel (?debug=1, or auto-shown on an uncaught error) ----------- */
 
 .debug-panel {

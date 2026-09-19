@@ -128,30 +128,21 @@
       <section class="section">
         <h2 class="section__header" data-i18n="section.location.header">Location</h2>
         <div class="section__body">
+          <div class="field" data-field="location">
+            <div class="location-map" id="locationMap" aria-describedby="location-error">
+              <!-- Leaflet renders into this; loaded + created by app.js. -->
+              <div class="location-map__canvas" id="mapCanvas"></div>
 
-          <div class="field" data-field="country">
-            <button type="button" class="row row--picker" id="country-row"
-                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="country-error">
-              <span class="row__label" data-i18n="field.country.label">Country</span>
-              <span class="row__value is-empty" id="country-value" data-i18n="common.choose">Choose</span>
-              <span class="chevron" aria-hidden="true"></span>
-            </button>
-            <p class="field__error" id="country-error" role="alert" hidden></p>
+              <span class="location-map__coords is-empty" id="location-coords" data-i18n="common.choose">Choose</span>
+
+              <button type="button" class="location-map__gps" id="mapUseCurrent" aria-label="Use current location">
+                <span class="location-map__gps-icon" aria-hidden="true">&#9678;</span>
+              </button>
+            </div>
+            <p class="field__error" id="location-error" role="alert" hidden></p>
           </div>
-
-          <!-- Disabled until a country is picked; reset whenever it changes. -->
-          <div class="field" data-field="city">
-            <button type="button" class="row row--picker" id="city-row" disabled
-                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="city-error">
-              <span class="row__label" data-i18n="field.city.label">City</span>
-              <span class="row__value is-empty" id="city-value" data-i18n="common.choose">Choose</span>
-              <span class="chevron" aria-hidden="true"></span>
-            </button>
-            <p class="field__error" id="city-error" role="alert" hidden></p>
-          </div>
-
         </div>
-        <p class="section__footer" id="location-footer" data-i18n="location.footerDefault">Pick a country to see its cities.</p>
+        <p class="section__footer" data-i18n="section.location.footer">Tap or drag the pin to set your location, or use the GPS button.</p>
       </section>
 
       <!-- ------------------------------------------------------------ Photo -->
@@ -212,7 +203,6 @@
     <div class="debug-panel__body" id="debugLog"></div>
   </div>
 
-  <script src="locations.js"></script>
   <script src="app.js"></script>
 </body>
 </html>

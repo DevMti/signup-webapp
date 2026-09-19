@@ -155,22 +155,24 @@
     usePhoto: $('usePhoto'),
     tos: $('tos'),
     fallbackSubmit: $('fallbackSubmit'),
-    locationFooter: $('location-footer'),
     sheetRoot: $('sheetRoot'),
     sheet: $('sheet'),
     sheetBackdrop: $('sheetBackdrop'),
     sheetTitle: $('sheetTitle'),
     sheetList: $('sheetList'),
     sheetSearchWrap: $('sheetSearchWrap'),
-    sheetSearch: $('sheetSearch')
+    sheetSearch: $('sheetSearch'),
+    mapCanvas: $('mapCanvas'),
+    locationCoords: $('location-coords'),
+    mapUseCurrent: $('mapUseCurrent')
   };
 
   // Picker rows: row button + value span, kept together for convenience.
+  // (The location field isn't a row/sheet picker any more — it's the inline
+  // map, handled separately by initLocationMap()/bindLocationGps().)
   var pickers = {
     gender: { row: $('gender-row'), value: $('gender-value') },
     preference: { row: $('preference-row'), value: $('preference-value') },
-    country: { row: $('country-row'), value: $('country-value') },
-    city: { row: $('city-row'), value: $('city-value') },
     // No row/sheet here — the real <input type="date"> sits invisibly on
     // top of the row and handles the tap itself. This entry only exists so
     // setPickerValue() can drive the display span the same way it does for
@@ -186,8 +188,7 @@
     gender: null,      // { value, label }
     preference: null,  // { value, label }
     bio: '',
-    country: null,     // country name
-    city: null,        // city name
+    location: null,    // { lat, lng, source: 'device'|'map' }
     usePhoto: false,   // optional — only meaningful when a Telegram photo exists
     tos: false
   };
@@ -199,56 +200,10 @@
   // a bad prefilled value or a submit attempt has forced it open).
   var touched = {};
 
-  var LOCATIONS = window.LOCATIONS || {};
-
-  // Countries sorted once, by display name, for consistent picker order.
-  var COUNTRY_CODES = Object.keys(LOCATIONS).sort(function (a, b) {
-    return LOCATIONS[a].name.localeCompare(LOCATIONS[b].name);
-  });
-
-  /* ------------------------------------------------------- city data (lazy) */
-
-  // City lists are fetched on demand from cities/<CODE>.txt and cached for
-  // the rest of the session, so a 400-city file only costs a request the
-  // first time that country is actually picked — never on page load.
-  var CITY_PREVIEW_LIMIT = 10;     // cities shown before the user types anything
-  var MAX_RENDERED_OPTIONS = 150;  // cap DOM nodes even for a matched search
-
-  var cityCache = {};   // code -> { status: 'loading'|'ready'|'error', cities?, promise? }
-  var cityRequestId = 0; // guards against a stale fetch populating the wrong sheet
-
-  /** Fetch (or reuse a cached/in-flight) city list for a country code. */
-  function fetchCities(code) {
-    var entry = cityCache[code];
-    if (entry && entry.status === 'ready') return Promise.resolve(entry.cities);
-    if (entry && entry.promise) return entry.promise;
-
-    entry = cityCache[code] = { status: 'loading' };
-    entry.promise = fetch('cities/' + encodeURIComponent(code) + '.txt')
-      .then(function (res) {
-        if (!res.ok) throw new Error('HTTP ' + res.status);
-        return res.text();
-      })
-      .then(function (text) {
-        var cities = text.split(/\r?\n/)
-          .map(function (line) { return line.trim(); })
-          .filter(Boolean);
-        entry.status = 'ready';
-        entry.cities = cities;
-        delete entry.promise;
-        return cities;
-      })
-      .catch(function (err) {
-        delete cityCache[code]; // allow a future retry to fetch again
-        // Surface the real cause in the console — the UI only shows a
-        // generic message, but this is what actually failed (bad path,
-        // opened via file://, 404, offline, etc).
-        console.error('Failed to load cities for "' + code + '":', err);
-        throw err;
-      });
-
-    return entry.promise;
-  }
+  // Cap on DOM nodes rendered for a matched search in the (still-used) simple
+  // picker sheets — gender/preference/location-chooser are all tiny lists,
+  // but this stays shared in case a future list grows.
+  var MAX_RENDERED_OPTIONS = 150;
 
   /* -------------------------------------------------------------- date helpers */
 
@@ -336,12 +291,13 @@
       if (String(v || '').length > LIMITS.bio) return t('errors.bio.tooLong', { max: LIMITS.bio });
       return '';
     },
-    country: function (v) { return v ? '' : t('errors.country.required'); },
-    city: function (v) { return v ? '' : t('errors.city.required'); },
+    location: function (v) {
+      return (v && typeof v.lat === 'number' && typeof v.lng === 'number') ? '' : t('errors.location.required');
+    },
     tos: function (v) { return v ? '' : t('errors.tos.required'); }
   };
 
-  var FIELD_ORDER = ['name', 'birthday', 'gender', 'preference', 'bio', 'country', 'city', 'tos'];
+  var FIELD_ORDER = ['name', 'birthday', 'gender', 'preference', 'bio', 'location', 'tos'];
 
   function errorFor(field) {
     return validators[field](state[field]);
@@ -933,102 +889,182 @@
     });
   }
 
-  function countryItems() {
-    return COUNTRY_CODES.map(function (code) {
-      var c = LOCATIONS[code];
-      return { value: code, label: c.name, flag: c.flag };
-    });
-  }
+  /* --------------------------------------------------------------- location */
 
-  /** Country display name for a stored code, or '' if none is selected. */
-  function countryName(code) {
-    return code && LOCATIONS[code] ? LOCATIONS[code].name : '';
-  }
+  // The map is part of the form from the start, so Leaflet is fetched right
+  // away during init() rather than waiting for a tap — there's no picker to
+  // defer it behind anymore.
+  var LEAFLET_JS = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js';
+  var LEAFLET_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css';
 
-  /** Clear the city whenever the country changes, and lock/unlock the row. */
-  function applyCountry(code, options) {
-    var keepCity = options && options.keepCity;
-    state.country = code; // stored as the ISO code; resolved to a name for display/payload
-    setPickerValue('country', countryName(code));
+  // Esri's "Canvas" gray basemap tiles: free, no API key and no account
+  // needed, rendered from Esri/HERE/Garmin/OSM data. Not the plain osm.org
+  // tile server directly, since its usage policy explicitly disallows this
+  // kind of embedded, many-users app without prior arrangement. Note Esri's
+  // tile path is z/y/x (y before x) unlike most XYZ servers, and there's no
+  // subdomain sharding here. Max zoom tops out around 16. Swap in your own
+  // tile provider/key here if you later need higher zoom or custom styling.
+  var TILE_URL_LIGHT = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  var TILE_URL_DARK = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  // Esri ships the gray basemap as two stacked layers: the plain "Base"
+  // above (just terrain/roads, no text) and this "Reference" layer with
+  // city/town names, borders and other labels, meant to sit on top of it.
+  // Without it the map looks empty. Same free, no-key service.
+  var TILE_URL_LABELS_LIGHT = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+  var TILE_URL_LABELS_DARK = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+  var TILE_ATTRIBUTION = '&copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+  var TILE_MAX_ZOOM = 16;
 
-    if (!keepCity) {
-      state.city = null;
-      setPickerValue('city', null);
-      touched.city = false;
-    }
+  var leafletPromise = null;
+  var map = null;         // Leaflet map instance, created once
+  var mapMarker = null;   // the single draggable pin
 
-    var hasCountry = !!code;
-    pickers.city.row.disabled = !hasCountry;
-    els.locationFooter.textContent = hasCountry
-      ? t('location.footerWithCountry', { country: countryName(code) })
-      : t('location.footerDefault');
+  function round6(n) { return Math.round(n * 1e6) / 1e6; }
 
-    renderError('city');
-  }
+  function loadLeaflet() {
+    if (leafletPromise) return leafletPromise;
 
-  /** Turn a plain city-name array into sheet items. */
-  function cityItemsFrom(cities) {
-    return cities.map(function (city) { return { value: city, label: city }; });
-  }
+    leafletPromise = new Promise(function (resolve, reject) {
+      if (window.L) { resolve(window.L); return; }
 
-  /** Open the city sheet for `code`, fetching (or reusing cached) cities. */
-  function openCitySheet(code) {
-    var requestId = ++cityRequestId;
+      var link = document.createElement('link');
+      link.rel = 'stylesheet';
+      link.href = LEAFLET_CSS;
+      document.head.appendChild(link);
 
-    openSheet({
-      title: countryName(code),
-      items: [],
-      selected: state.city,
-      searchable: true,
-      previewLimit: CITY_PREVIEW_LIMIT,
-      onSelect: function (item) {
-        state.city = item.value;
-        setPickerValue('city', item.label);
-        touched.city = true;
-        refresh('city');
-      }
+      var script = document.createElement('script');
+      script.src = LEAFLET_JS;
+      script.onload = function () { resolve(window.L); };
+      script.onerror = function () { reject(new Error('Failed to load Leaflet')); };
+      document.head.appendChild(script);
     });
 
-    var cached = cityCache[code];
-    if (cached && cached.status === 'ready') {
-      setSheetItems(cityItemsFrom(cached.cities));
-      return;
-    }
+    return leafletPromise;
+  }
 
-    setSheetLoading();
+  /** Telegram's own colour-scheme if available, else the browser's. */
+  function colorScheme() {
+    if (tg && tg.colorScheme) return tg.colorScheme;
+    return (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) ? 'dark' : 'light';
+  }
 
-    fetchCities(code)
-      .then(function (cities) {
-        if (requestId !== cityRequestId) return; // a newer request has superseded this one
-        setSheetItems(cityItemsFrom(cities));
-      })
-      .catch(function () {
-        if (requestId !== cityRequestId) return;
-        setSheetError(t('sheet.citiesLoadError'), function () {
-          openCitySheet(code);
+  /**
+   * Ask for the device's exact location. Prefers Telegram's own
+   * LocationManager (Bot API 8.0+): it goes through the native permission
+   * prompt and works inside the Telegram app on every platform. Falls back
+   * to the browser Geolocation API when running outside Telegram or on an
+   * older client. Resolves with { lat, lng }; rejects if denied/unavailable.
+   */
+  function requestDeviceLocation() {
+    return new Promise(function (resolve, reject) {
+      var lm = tg && tg.LocationManager;
+
+      if (lm && typeof lm.init === 'function') {
+        lm.init(function () {
+          if (!lm.isLocationAvailable) { reject(new Error('unavailable')); return; }
+          lm.getLocation(function (data) {
+            if (!data) { reject(new Error('denied')); return; }
+            resolve({ lat: data.latitude, lng: data.longitude });
+          });
         });
-      });
+        return;
+      }
+
+      if (!navigator.geolocation) { reject(new Error('unavailable')); return; }
+
+      navigator.geolocation.getCurrentPosition(
+        function (pos) { resolve({ lat: pos.coords.latitude, lng: pos.coords.longitude }); },
+        function (err) { reject(err); },
+        { enableHighAccuracy: true, timeout: 12000, maximumAge: 60000 }
+      );
+    });
   }
 
-  function bindLocationPickers() {
-    pickers.country.row.addEventListener('click', function () {
-      openSheet({
-        title: t('sheet.countryTitle'),
-        items: countryItems(),
-        selected: state.country,
-        searchable: COUNTRY_CODES.length > 10,
-        onSelect: function (item) {
-          var changed = item.value !== state.country;
-          applyCountry(item.value, { keepCity: !changed });
-          touched.country = true;
-          refresh('country');
-        }
-      });
-    });
+  /** '40.4168, -3.7038' badge text; '' (→ "Choose") if nothing is set yet. */
+  function formatLocationLabel(loc) {
+    if (!loc) return '';
+    return round6(loc.lat) + ', ' + round6(loc.lng);
+  }
 
-    pickers.city.row.addEventListener('click', function () {
-      if (!state.country) return;
-      openCitySheet(state.country);
+  /** Move (or create) the pin and pan the map to it, without touching state. */
+  function placeMarker(L, lat, lng, pan) {
+    if (mapMarker) {
+      mapMarker.setLatLng([lat, lng]);
+    } else {
+      mapMarker = L.marker([lat, lng], { draggable: true }).addTo(map);
+      mapMarker.on('dragend', function () {
+        var p = mapMarker.getLatLng();
+        applyLocation({ lat: p.lat, lng: p.lng }, 'map');
+      });
+    }
+    if (pan) map.panTo([lat, lng]);
+  }
+
+  /** Record a chosen location — from a map tap/drag, GPS, or the query string. */
+  function applyLocation(loc, source) {
+    state.location = loc ? { lat: loc.lat, lng: loc.lng, source: source } : null;
+
+    els.locationCoords.textContent = formatLocationLabel(state.location) || t('common.choose');
+    els.locationCoords.classList.toggle('is-empty', !state.location);
+
+    touched.location = true;
+    refresh('location');
+
+    if (map && loc) placeMarker(window.L, loc.lat, loc.lng, true);
+  }
+
+  /** Build the map once, with a pin only if a starting point is already known. */
+  function initLocationMap() {
+    loadLeaflet().then(function (L) {
+      // Read this now, not when initLocationMap() was called: prefillFromQuery()
+      // (a possible ?lat=&lng=) runs synchronously right after this call, well
+      // before this async callback fires, so state.location may already be set.
+      var start = state.location;
+
+      map = L.map(els.mapCanvas, { attributionControl: true }).setView(
+        start ? [start.lat, start.lng] : [20, 0],
+        start ? 13 : 2
+      );
+
+      var dark = colorScheme() === 'dark';
+
+      L.tileLayer(dark ? TILE_URL_DARK : TILE_URL_LIGHT, {
+        maxZoom: 18,
+        maxNativeZoom: TILE_MAX_ZOOM, // tiles stop sharpening past here; Leaflet upscales further zoom
+        attribution: TILE_ATTRIBUTION
+      }).addTo(map);
+
+      // Labels on top of the base layer (see TILE_URL_LABELS_* above).
+      L.tileLayer(dark ? TILE_URL_LABELS_DARK : TILE_URL_LABELS_LIGHT, {
+        maxZoom: 18,
+        maxNativeZoom: TILE_MAX_ZOOM,
+        pane: 'shadowPane' // sits above tilePane, below markerPane/popupPane — labels show, pin stays on top
+      }).addTo(map);
+
+      map.on('click', function (e) {
+        haptic('selection');
+        applyLocation({ lat: e.latlng.lat, lng: e.latlng.lng }, 'map');
+      });
+
+      if (start) placeMarker(L, start.lat, start.lng, false);
+
+      // Leaflet mis-measures a map created while its container was still
+      // being laid out (e.g. fonts/images above it still loading).
+      window.setTimeout(function () { map.invalidateSize(); }, 50);
+    }).catch(function (err) {
+      logError('loadLeaflet failed: ' + (err && err.message ? err.message : err));
+      showAlert(t('location.mapLoadError'));
+    });
+  }
+
+  function bindLocationGps() {
+    els.mapUseCurrent.setAttribute('aria-label', t('location.useCurrentLabel'));
+
+    els.mapUseCurrent.addEventListener('click', function () {
+      haptic('selection');
+      requestDeviceLocation()
+        .then(function (loc) { applyLocation(loc, 'device'); })
+        .catch(function () { showAlert(t('location.permissionDenied')); });
     });
   }
 
@@ -1096,53 +1132,14 @@
       if (validators.preference(state.preference)) touched.preference = true;
     }
 
-    // Optional extras: ?country=<CODE or name>&city=<name>. Country is
-    // matched case-insensitively first against ISO codes, then against each
-    // country's display name (so both ?country=IR and ?country=Iran work);
-    // city is validated against the (lazily fetched) list for that country,
-    // since we don't have it upfront.
-    var qCountry = params.get('country');
-    var rawCountry = qCountry ? qCountry.trim() : '';
-    var code = '';
-
-    if (rawCountry) {
-      var upper = rawCountry.toUpperCase();
-      if (Object.prototype.hasOwnProperty.call(LOCATIONS, upper)) {
-        code = upper;
-      } else {
-        var byName = COUNTRY_CODES.find(function (c) {
-          return LOCATIONS[c].name.toLowerCase() === rawCountry.toLowerCase();
-        });
-        if (byName) code = byName;
-      }
-    }
-
-    if (code) {
-      applyCountry(code);
-
-      var qCity = params.get('city');
-      if (qCity) {
-        var wantedCity = qCity.trim();
-        fetchCities(code)
-          .then(function (cities) {
-            // The country picker may have changed again before this resolves.
-            if (state.country !== code) return;
-            var match = cities.find(function (c) {
-              return c.toLowerCase() === wantedCity.toLowerCase();
-            });
-            if (match) {
-              state.city = match;
-              setPickerValue('city', match);
-            }
-            touched.city = true;
-            refresh('city');
-          })
-          .catch(function () {
-            // City list failed to load; leave the field for manual selection.
-          });
-      }
-    } else {
-      applyCountry(null);
+    // Optional extras: ?lat=<number>&lng=<number> — a pre-set starting
+    // location (e.g. carried over from a previous session). Treated exactly
+    // like a value picked by hand: it's marked touched so an out-of-range
+    // value's error shows immediately instead of being silently accepted.
+    var qLat = parseFloat(params.get('lat'));
+    var qLng = parseFloat(params.get('lng'));
+    if (isFinite(qLat) && isFinite(qLng) && Math.abs(qLat) <= 90 && Math.abs(qLng) <= 180) {
+      applyLocation({ lat: qLat, lng: qLng }, 'map');
     }
 
     var qBio = params.get('bio');
@@ -1202,11 +1199,13 @@
       preference: state.preference ? state.preference.value : null,
       bio: state.bio.trim(),
 
-      // state.country holds the ISO code (picker value); resolve it to the
-      // ASCII display name for the payload, same shape as before.
-      country: countryName(state.country) || null,
-      country_code: state.country,
-      city: state.city,
+      // Coordinates only — reverse-geocoding (country/city/etc) is left to
+      // the bot, which can look the point up however it needs to.
+      location: state.location ? {
+        lat: round6(state.location.lat),
+        lng: round6(state.location.lng),
+        source: state.location.source // 'device' (GPS/network) or 'map' (manually placed pin)
+      } : null,
 
       // Optional: only true when a Telegram photo exists and the user kept
       // the checkbox on. The bot should still treat photo_url as a hint —
@@ -1269,8 +1268,8 @@
     }
 
     // Browser fallback: nothing to send to, so show what would have been sent.
-    console.log('Payload (not sent — Telegram.WebApp unavailable):', payload);
-    showAlert(t('alerts.notInTelegram'));
+    // console.log('Payload (not sent — Telegram.WebApp unavailable):', payload);
+    // showAlert(t('alerts.notInTelegram'));
   }
 
   function showAlert(message) {
@@ -1349,7 +1348,8 @@
     safely('bindSheet', bindSheet);
     safely('bindSimplePicker:gender', function () { bindSimplePicker('gender', t('sheet.genderTitle'), GENDERS); });
     safely('bindSimplePicker:preference', function () { bindSimplePicker('preference', t('sheet.preferenceTitle'), PREFERENCES); });
-    safely('bindLocationPickers', bindLocationPickers);
+    safely('initLocationMap', initLocationMap);
+    safely('bindLocationGps', bindLocationGps);
 
     safely('prefillFromQuery', prefillFromQuery);
     safely('autoGrow', function () { autoGrow(els.bio); });
