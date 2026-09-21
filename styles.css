@@ -736,6 +736,12 @@ button.row:disabled .chevron { opacity: 0.35; }
 .location-map {
   position: relative;
   height: 260px;
+  /* Leaflet's own panes use z-index up to 700 internally (tiles, markers,
+     popups...). Without a stacking context here those values leak out past
+     this box and can sit on top of page UI with a lower z-index, like the
+     bottom sheet. isolation: isolate boxes them in so 260px-tall map never
+     out-ranks anything outside it. */
+  isolation: isolate;
 }
 
 .location-map__canvas {
@@ -749,8 +755,21 @@ button.row:disabled .chevron { opacity: 0.35; }
 .location-map__canvas .leaflet-top.leaflet-left { top: 10px; left: 10px; }
 .location-map__canvas .leaflet-bottom.leaflet-right { bottom: 10px; right: 10px; }
 
-.leaflet-control-attribution {
-    font-size: 8px !important;
+/* Leaflet's zoom buttons and attribution text render at their desktop
+   default sizes otherwise, which look oversized against our compact
+   260px-tall map and the rest of the app's small UI text. */
+.location-map__canvas .leaflet-control-zoom a {
+  width: 28px;
+  height: 28px;
+  line-height: 28px;
+  font-size: 16px;
+}
+
+.location-map__canvas .leaflet-control-attribution {
+  font-size: 8px;
+  line-height: 1.3;
+  padding: 1px 6px;
+  background: color-mix(in srgb, var(--section-bg) 80%, transparent);
 }
 
 .location-map__coords {
@@ -775,7 +794,7 @@ button.row:disabled .chevron { opacity: 0.35; }
 
 .location-map__gps {
   position: absolute;
-  right: 10px;
+  left: 10px;
   bottom: 10px;
   z-index: 400;
   width: 40px;
