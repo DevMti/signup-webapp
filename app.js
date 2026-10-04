@@ -26,7 +26,11 @@
   var BOT_PROFILE_URL = 'https://cdn-icons-png.flaticon.com/512/9187/9187604.png';
   var BOT_ID = 412412342
 
-  var LIMITS = { name: 128, bio: 180, ageMin: 18, ageMax: 120 };
+  // No ageMin here on purpose: the web form accepts any plausible birthday
+  // and leaves the 18+ check to the bot, which can act on it (ban, etc.)
+  // instead of just refusing to submit. ageMax stays as a sanity bound on
+  // the date picker so nobody can scroll to an implausible 140-year-old date.
+  var LIMITS = { name: 128, bio: 180, ageMax: 120 };
   var SEND_DATA_MAX_BYTES = 4096; // Telegram's hard limit for sendData()
 
   // Shorthand for window.I18N.t — every user-facing string in this file
@@ -143,7 +147,7 @@
     form: $('form'),
     name: $('name'),
     nameCounter: $('name-counter'),
-    birthday: $('birthday'),
+    birthdayRow: $('birthday-row'),
     bio: $('bio'),
     bioCounter: $('bio-counter'),
     bioHintButton: $('bio-hint-button'),
@@ -173,11 +177,7 @@
   var pickers = {
     gender: { row: $('gender-row'), value: $('gender-value') },
     preference: { row: $('preference-row'), value: $('preference-value') },
-    // No row/sheet here — the real <input type="date"> sits invisibly on
-    // top of the row and handles the tap itself. This entry only exists so
-    // setPickerValue() can drive the display span the same way it does for
-    // every other field.
-    birthday: { row: null, value: $('birthday-value') }
+    birthday: { row: $('birthday-row'), value: $('birthday-value') }
   };
 
   /* ---------------------------------------------------------------- state */
@@ -279,7 +279,6 @@
       if (birth.getTime() > Date.now()) return t('errors.birthday.future');
 
       var age = calculateAge(raw);
-      if (age < LIMITS.ageMin) return t('errors.birthday.tooYoung', { min: LIMITS.ageMin });
       if (age > LIMITS.ageMax) return t('errors.birthday.invalid');
       return '';
     },
@@ -396,34 +395,14 @@
     });
   }
 
-  /**
-   * Constrain the native date picker to plausible birthdays: no later than
-   * "LIMITS.ageMin years ago" (so picking today's date can never validate)
-   * and no earlier than "LIMITS.ageMax years ago". This only affects the
-   * browser/OS date-picker UI — the same range is enforced again in
-   * validators.birthday regardless of what the picker allows.
-   */
-  function setupBirthdayLimits() {
-    var today = new Date();
-    var maxDate = new Date(today.getFullYear() - LIMITS.ageMin, today.getMonth(), today.getDate());
-    els.birthday.max = formatISODate(maxDate);
-  }
-
   function bindBirthday() {
-    // Reflect whatever the input starts with (e.g. bfcache restore) before
-    // the user ever touches it.
-    setPickerValue('birthday', formatBirthdayLabel(els.birthday.value));
+    // Reflect whatever state already holds (e.g. a bfcache restore or a
+    // query-string prefill that ran before this binds) before the user
+    // ever taps the row.
+    setPickerValue('birthday', formatBirthdayLabel(state.birthday));
 
-    els.birthday.addEventListener('input', function () {
-      state.birthday = els.birthday.value;
-      setPickerValue('birthday', formatBirthdayLabel(state.birthday));
-      if (touched.birthday) renderError('birthday');
-      updateSubmitState();
-    });
-
-    els.birthday.addEventListener('blur', function () {
-      touched.birthday = true;
-      refresh('birthday');
+    els.birthdayRow.addEventListener('click', function () {
+      openDateSheet();
     });
   }
 
@@ -528,7 +507,7 @@
 
   var sheet = {
     open: false,
-    mode: 'picker',      // 'picker' (selectable options) or 'info' (read-only tips)
+    mode: 'picker',      // 'picker' (selectable options), 'info' (read-only tips), or 'date' (birthday wheel)
     items: [],
     selected: null,
     onSelect: null,
@@ -658,6 +637,11 @@
 
   function renderOptions(query) {
     els.sheetList.textContent = '';
+
+    if (sheet.mode === 'date') {
+      renderDateWheel();
+      return;
+    }
 
     if (sheet.mode === 'info') {
       var info = document.createElement('div');
@@ -889,6 +873,237 @@
     });
   }
 
+  /* --------------------------------------------------------- birthday wheel */
+
+  // Must match --wheel-row-h / --wheel-rows in styles.css.
+  var DATE_WHEEL_ROW_H = 42;
+
+  // State for whichever date sheet is currently open; null otherwise.
+  var dateWheel = null;
+
+  function daysInMonth(year, month) { return new Date(year, month + 1, 0).getDate(); }
+
+  function buildDayItems(count) {
+    var items = [];
+    for (var d = 1; d <= count; d++) items.push({ value: d, label: String(d) });
+    return items;
+  }
+
+  function buildMonthItems() {
+    var items = [];
+    for (var m = 0; m < 12; m++) {
+      items.push({ value: m, label: new Date(2000, m, 1).toLocaleDateString(undefined, { month: 'short' }) });
+    }
+    return items;
+  }
+
+  // Newest year first — most people scroll up from "around now" rather than
+  // down from a century ago. LIMITS.ageMax is a plausibility cap, not an
+  // age-gate: nothing here refuses a recent birthday.
+  function buildYearItems() {
+    var thisYear = new Date().getFullYear();
+    var minYear = thisYear - LIMITS.ageMax;
+    var items = [];
+    for (var y = thisYear; y >= minYear; y--) items.push({ value: y, label: String(y) });
+    return items;
+  }
+
+  /** Default scroll position for a never-set birthday: an arbitrary, plausible age. */
+  function defaultBirthdayDate() {
+    var d = new Date();
+    d.setFullYear(d.getFullYear() - 25);
+    return d;
+  }
+
+  function scrollWheelTo(col, idx, smooth) {
+    col.scrollTo({ top: idx * DATE_WHEEL_ROW_H, behavior: smooth ? 'smooth' : 'auto' });
+  }
+
+  function highlightWheelCenter(col) {
+    var idx = Math.round(col.scrollTop / DATE_WHEEL_ROW_H);
+    var children = col.children;
+    for (var i = 0; i < children.length; i++) {
+      children[i].classList.toggle('is-center', i === idx);
+    }
+  }
+
+  function appendWheelItems(col, items) {
+    var frag = document.createDocumentFragment();
+    items.forEach(function (item, idx) {
+      var el = document.createElement('div');
+      el.className = 'wheel__item';
+      el.textContent = item.label;
+      el.addEventListener('click', function () {
+        haptic('selection');
+        scrollWheelTo(col, idx, true);
+      });
+      frag.appendChild(el);
+    });
+    col.appendChild(frag);
+    col._items = items;
+  }
+
+  /**
+   * One scroll-snapping wheel column. `onSettle` fires with the picked item
+   * once scrolling stops (debounced — scroll-snap fires many scroll events
+   * per gesture, we only care about where it ends up).
+   */
+  function createWheelColumn(ariaLabel, items, selectedIndex, onSettle) {
+    var col = document.createElement('div');
+    col.className = 'wheel__col';
+    col.setAttribute('role', 'listbox');
+    col.setAttribute('aria-label', ariaLabel);
+    col.tabIndex = 0;
+
+    appendWheelItems(col, items);
+
+    var settleTimer = null;
+    col.addEventListener('scroll', function () {
+      highlightWheelCenter(col);
+      if (settleTimer) clearTimeout(settleTimer);
+      settleTimer = setTimeout(function () {
+        var idx = Math.round(col.scrollTop / DATE_WHEEL_ROW_H);
+        idx = Math.max(0, Math.min(col._items.length - 1, idx));
+        haptic('selection');
+        if (onSettle) onSettle(col._items[idx]);
+      }, 120);
+    }, { passive: true });
+
+    col.addEventListener('keydown', function (e) {
+      var idx = Math.round(col.scrollTop / DATE_WHEEL_ROW_H);
+      if (e.key === 'ArrowDown') { e.preventDefault(); scrollWheelTo(col, Math.min(col._items.length - 1, idx + 1), true); }
+      else if (e.key === 'ArrowUp') { e.preventDefault(); scrollWheelTo(col, Math.max(0, idx - 1), true); }
+    });
+
+    // No transition on first paint — the wheel should open already parked
+    // on the right value, not visibly animate into place.
+    requestAnimationFrame(function () {
+      col.scrollTop = Math.max(0, selectedIndex) * DATE_WHEEL_ROW_H;
+      highlightWheelCenter(col);
+    });
+
+    return col;
+  }
+
+  /** Swap the day column's items in place (e.g. 31 -> 29 after Feb/leap-year changes). */
+  function resetDayColumn(col, count, keepDay) {
+    col.textContent = '';
+    appendWheelItems(col, buildDayItems(count));
+    var idx = Math.min(keepDay, count) - 1;
+    col.scrollTop = idx * DATE_WHEEL_ROW_H;
+    highlightWheelCenter(col);
+  }
+
+  function updateDateSheetSummary() {
+    var el = document.getElementById('dateSheetSummary');
+    if (!el || !dateWheel) return;
+    var iso = formatISODate(new Date(dateWheel.year, dateWheel.month, dateWheel.day));
+    el.textContent = formatBirthdayLabel(iso) || '';
+  }
+
+  /** Re-clamp the day when month/year changes land on a shorter month. */
+  function syncDayToMonth() {
+    var maxDay = daysInMonth(dateWheel.year, dateWheel.month);
+    if (dateWheel.day > maxDay) dateWheel.day = maxDay;
+    if (dateWheel.dayCol && dateWheel.dayCol._items.length !== maxDay) {
+      resetDayColumn(dateWheel.dayCol, maxDay, dateWheel.day);
+    }
+  }
+
+  function renderDateWheel() {
+    var wrap = document.createElement('div');
+    wrap.className = 'sheet__date';
+
+    var wheels = document.createElement('div');
+    wheels.className = 'sheet__date-wheels';
+
+    var highlight = document.createElement('div');
+    highlight.className = 'sheet__date-highlight';
+    highlight.setAttribute('aria-hidden', 'true');
+    wheels.appendChild(highlight);
+
+    var maxDay = daysInMonth(dateWheel.year, dateWheel.month);
+    if (dateWheel.day > maxDay) dateWheel.day = maxDay;
+
+    var dayCol = createWheelColumn(t('field.birthday.label') + ' \u2014 day', buildDayItems(maxDay), dateWheel.day - 1, function (item) {
+      dateWheel.day = item.value;
+      updateDateSheetSummary();
+    });
+    dayCol.classList.add('wheel__col--day');
+    dateWheel.dayCol = dayCol;
+
+    var monthItems = buildMonthItems();
+    var monthCol = createWheelColumn(t('field.birthday.label') + ' \u2014 month', monthItems, dateWheel.month, function (item) {
+      dateWheel.month = item.value;
+      syncDayToMonth();
+      updateDateSheetSummary();
+    });
+    monthCol.classList.add('wheel__col--month');
+
+    var yearItems = buildYearItems();
+    var yearIndex = yearItems.findIndex(function (it) { return it.value === dateWheel.year; });
+    var yearCol = createWheelColumn(t('field.birthday.label') + ' \u2014 year', yearItems, yearIndex < 0 ? 0 : yearIndex, function (item) {
+      dateWheel.year = item.value;
+      syncDayToMonth();
+      updateDateSheetSummary();
+    });
+    yearCol.classList.add('wheel__col--year');
+
+    wheels.appendChild(dayCol);
+    wheels.appendChild(monthCol);
+    wheels.appendChild(yearCol);
+    wrap.appendChild(wheels);
+
+    var summary = document.createElement('p');
+    summary.className = 'sheet__date-summary';
+    summary.id = 'dateSheetSummary';
+    wrap.appendChild(summary);
+
+    var doneBtn = document.createElement('button');
+    doneBtn.type = 'button';
+    doneBtn.className = 'sheet__retry sheet__date-done';
+    doneBtn.textContent = t('sheet.done');
+    doneBtn.addEventListener('click', function () {
+      haptic('selection');
+      var iso = formatISODate(new Date(dateWheel.year, dateWheel.month, dateWheel.day));
+      state.birthday = iso;
+      setPickerValue('birthday', formatBirthdayLabel(iso));
+      touched.birthday = true;
+      closeSheet();
+      refresh('birthday');
+    });
+    wrap.appendChild(doneBtn);
+
+    els.sheetList.appendChild(wrap);
+    updateDateSheetSummary();
+  }
+
+  function openDateSheet() {
+    sheet.mode = 'date';
+    sheet.tips = null;
+    sheet.items = [];
+    sheet.onSelect = null;
+    sheet.lastFocused = document.activeElement;
+    sheet.open = true;
+    sheet.loading = false;
+    sheet.error = null;
+
+    var initial = parseISODate(state.birthday) || defaultBirthdayDate();
+    dateWheel = { year: initial.getFullYear(), month: initial.getMonth(), day: initial.getDate(), dayCol: null };
+
+    els.sheetTitle.textContent = t('field.birthday.label');
+    els.sheetSearchWrap.hidden = true;
+    els.sheetSearch.value = '';
+
+    renderOptions('');
+
+    els.sheetRoot.hidden = false;
+    requestAnimationFrame(function () { els.sheetRoot.classList.add('is-open'); });
+
+    document.body.style.overflow = 'hidden';
+    tgCall(function (t) { if (t.BackButton) t.BackButton.show(); });
+  }
+
   /* --------------------------------------------------------------- location */
 
   // The map is part of the form from the start, so Leaflet is fetched right
@@ -1105,11 +1320,7 @@
         zeroPad(qDay.trim(), 2);
 
       state.birthday = iso;
-      // Only hand a syntactically valid date to the native input — an
-      // invalid string would just be ignored by it and leave the field
-      // blank, hiding the bad value from the user.
-      els.birthday.value = parseISODate(iso) ? iso : '';
-      setPickerValue('birthday', formatBirthdayLabel(els.birthday.value));
+      setPickerValue('birthday', formatBirthdayLabel(state.birthday));
       if (validators.birthday(state.birthday)) touched.birthday = true;
     }
 
@@ -1337,7 +1548,6 @@
     safely('renderIdentity', renderIdentity);
 
     safely('bindName', bindName);
-    safely('setupBirthdayLimits', setupBirthdayLimits);
     safely('bindBirthday', bindBirthday);
     safely('bindBio', bindBio);
     safely('bindBioHint', bindBioHint);
