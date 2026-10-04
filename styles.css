@@ -47,7 +47,17 @@
   }
 }
 
-* { box-sizing: border-box; }
+/* Setting this on body alone isn't enough: several browsers (Android Chrome
+   in particular) compute the tap-highlight rectangle from the tapped
+   element's own value rather than relying on inheritance, so a transparent
+   value on an ancestor doesn't reliably suppress it on every input/button.
+   Setting it on every element directly removes the highlight everywhere,
+   so our own :active/:focus styling (which does respect each element's
+   actual border-radius) is the only thing anyone ever sees. */
+* {
+  box-sizing: border-box;
+  -webkit-tap-highlight-color: transparent;
+}
 
 html, body {
   margin: 0;
@@ -297,51 +307,6 @@ button.row:disabled .chevron { opacity: 0.35; }
   -webkit-appearance: none;
   appearance: none;
   border-radius: 0;
-}
-
-/* Birthday row: label + value + chevron look like the other pickers, but a
-   real <input type="date"> sits invisibly on top of the whole row so a tap
-   anywhere opens the native OS date picker. */
-.row--date {
-  position: relative;
-}
-
-.row__input--date-native {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  border: 0;
-  background: transparent;
-  opacity: 0;
-  -webkit-appearance: none;
-  appearance: none;
-}
-
-/* appearance:none only hides the calendar icon visually — in WebKit/Blink,
-   that icon's own hit-box (::-webkit-calendar-picker-indicator) stays the
-   only thing that actually opens the picker on tap; the rest of the field
-   just focuses/edits the date segments. Stretch that hit-box over the whole
-   input so a tap anywhere on the row opens the picker. */
-.row__input--date-native::-webkit-calendar-picker-indicator {
-  position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
-  margin: 0;
-  padding: 0;
-  opacity: 0;
-  cursor: pointer;
-}
-
-/* The native input itself is invisible, so its own :focus-visible outline
-   would be too — show the ring on the row instead when it's focused. */
-.row--date:has(.row__input--date-native:focus-visible) {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
-  border-radius: 4px;
 }
 
 .row__input:focus,
@@ -673,6 +638,97 @@ button.row:disabled .chevron { opacity: 0.35; }
   display: block;
   width: 100%;
   padding: 13px 16px;
+}
+
+/* --- date picker (birthday) ------------------------------------------------
+   A plain iOS-style wheel inside the same bottom sheet used for every other
+   picker, instead of the OS/browser date dialog. Each column is a scroll-
+   snapping list; --wheel-row-h must match DATE_WHEEL_ROW_H in app.js, and
+   --wheel-rows must stay odd so one row sits exactly in the center. */
+
+.sheet__date {
+  --wheel-row-h: 42px;
+  --wheel-rows: 5;
+  padding: 2px 0 calc(16px + env(safe-area-inset-bottom, 0px));
+}
+
+.sheet__date-wheels {
+  position: relative;
+  display: flex;
+  margin: 0 var(--gutter);
+}
+
+/* Tinted band marking the selected row; sits behind the columns' text. */
+.sheet__date-highlight {
+  position: absolute;
+  left: -4px;
+  right: -4px;
+  top: calc((var(--wheel-rows) - 1) / 2 * var(--wheel-row-h));
+  height: var(--wheel-row-h);
+  border-radius: 10px;
+  background: color-mix(in srgb, var(--accent) 12%, transparent);
+  pointer-events: none;
+  z-index: 0;
+}
+
+.wheel__col {
+  position: relative;
+  z-index: 1;
+  flex: 1 1 0;
+  height: calc(var(--wheel-rows) * var(--wheel-row-h));
+  padding: calc((var(--wheel-rows) - 1) / 2 * var(--wheel-row-h)) 0;
+  overflow-y: scroll;
+  overscroll-behavior: contain;
+  scroll-snap-type: y mandatory;
+  -webkit-overflow-scrolling: touch;
+  scrollbar-width: none;
+  box-sizing: content-box;
+}
+
+.wheel__col::-webkit-scrollbar { display: none; }
+
+.wheel__col--day   { flex: 0.8 1 0; }
+.wheel__col--month { flex: 1.3 1 0; }
+.wheel__col--year  { flex: 1.15 1 0; }
+
+.wheel__item {
+  height: var(--wheel-row-h);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  scroll-snap-align: center;
+  font-size: 19px;
+  font-variant-numeric: tabular-nums;
+  color: var(--hint);
+  opacity: 0.6;
+  cursor: pointer;
+  transition: color 0.1s ease, opacity 0.1s ease;
+}
+
+.wheel__item.is-center {
+  color: var(--text);
+  font-weight: 600;
+  opacity: 1;
+}
+
+.wheel__col:focus-visible { outline: none; }
+.wheel__col:focus-visible .wheel__item.is-center {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+  border-radius: 6px;
+}
+
+.sheet__date-summary {
+  margin: 10px var(--gutter) 0;
+  text-align: center;
+  font-size: 13px;
+  color: var(--hint);
+}
+
+.sheet__date-done {
+  display: block;
+  width: calc(100% - var(--gutter) * 2);
+  margin: 14px var(--gutter) 0;
 }
 
 /* --- async list states (used while a large city file loads) --------------- */
