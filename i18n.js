@@ -53,7 +53,7 @@
         },
         location: {
           header: 'Location',
-          footer: 'Tap or drag the pin to set your location, or use the GPS button.'
+          footer: 'Only used to find people near you \u2014 never shown to other users. Tap or drag the pin to set it, or use the GPS button.'
         },
         photo: {
           header: 'Photo',
@@ -123,6 +123,7 @@
         loadingCities: 'Loading\u2026',
         tryAgain: 'Try again',
         gotIt: 'Got it',
+        done: 'Done',
         noMatches: 'Nothing matches \u201c{query}\u201d.',
         nothingToShow: 'Nothing to show yet.',
         showingFirstMatches: 'Showing the first {max} matches \u2014 refine your search to see more.',
