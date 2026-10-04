@@ -45,19 +45,12 @@
           </div>
 
           <div class="field" data-field="birthday">
-            <div class="row row--date">
+            <button type="button" class="row row--picker" id="birthday-row"
+                    aria-haspopup="dialog" aria-expanded="false" aria-describedby="birthday-error">
               <span class="row__label" data-i18n="field.birthday.label">Birthday</span>
               <span class="row__value is-empty" id="birthday-value" data-i18n="common.choose">Choose</span>
               <span class="chevron" aria-hidden="true"></span>
-              <label class="visually-hidden" for="birthday" data-i18n="field.birthday.label">Birthday</label>
-              <input
-                class="row__input--date-native"
-                id="birthday"
-                name="birthday"
-                type="date"
-                autocomplete="bday"
-                aria-describedby="birthday-error">
-            </div>
+            </button>
             <p class="field__error" id="birthday-error" role="alert" hidden></p>
           </div>
 
