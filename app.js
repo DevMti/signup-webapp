@@ -1112,21 +1112,23 @@
   var LEAFLET_JS = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.js';
   var LEAFLET_CSS = 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.9.4/leaflet.css';
 
-  // MapTiler's "Dataviz" style: a minimalist gray basemap, the same kind of
-  // look as Esri's old Canvas tiles this replaces. Esri is a US company and
-  // lists Iran/Syria as "prohibited countries" under its own export-
-  // compliance policy, so ArcGIS tiles are blocked there outright. MapTiler
-  // is Swiss-incorporated and isn't bound by the same US sanctions list —
-  // worth re-checking this periodically, since a vendor's policy (or its
-  // CDN's own geo-filtering) can change. Needs a free MapTiler account:
-  // https://cloud.maptiler.com/ → Account → Keys. Dataviz already bakes
-  // labels into one layer, so unlike the old Esri setup there's no separate
-  // label layer to stack on top.
-  var MAPTILER_API_KEY = 'YOUR_MAPTILER_API_KEY';
-  var TILE_URL_LIGHT = 'https://api.maptiler.com/maps/dataviz/256/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY;
-  var TILE_URL_DARK = 'https://api.maptiler.com/maps/dataviz-dark/256/{z}/{x}/{y}.png?key=' + MAPTILER_API_KEY;
-  var TILE_ATTRIBUTION = '&copy; <a href="https://www.maptiler.com/copyright/" target="_blank" rel="noopener">MapTiler</a> &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
-  var TILE_MAX_ZOOM = 18;
+  // Esri's "Canvas" gray basemap tiles: free, no API key and no account
+  // needed, rendered from Esri/HERE/Garmin/OSM data. Not the plain osm.org
+  // tile server directly, since its usage policy explicitly disallows this
+  // kind of embedded, many-users app without prior arrangement. Note Esri's
+  // tile path is z/y/x (y before x) unlike most XYZ servers, and there's no
+  // subdomain sharding here. Max zoom tops out around 16. Swap in your own
+  // tile provider/key here if you later need higher zoom or custom styling.
+  var TILE_URL_LIGHT = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  var TILE_URL_DARK = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Base/MapServer/tile/{z}/{y}/{x}';
+  // Esri ships the gray basemap as two stacked layers: the plain "Base"
+  // above (just terrain/roads, no text) and this "Reference" layer with
+  // city/town names, borders and other labels, meant to sit on top of it.
+  // Without it the map looks empty. Same free, no-key service.
+  var TILE_URL_LABELS_LIGHT = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Light_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+  var TILE_URL_LABELS_DARK = 'https://services.arcgisonline.com/ArcGIS/rest/services/Canvas/World_Dark_Gray_Reference/MapServer/tile/{z}/{y}/{x}';
+  var TILE_ATTRIBUTION = '&copy; <a href="https://www.esri.com" target="_blank" rel="noopener">Esri</a>, HERE, Garmin, &copy; <a href="https://www.openstreetmap.org/copyright" target="_blank" rel="noopener">OpenStreetMap</a> contributors';
+  var TILE_MAX_ZOOM = 16;
 
   var leafletPromise = null;
   var map = null;         // Leaflet map instance, created once
@@ -1242,9 +1244,16 @@
       var dark = colorScheme() === 'dark';
 
       L.tileLayer(dark ? TILE_URL_DARK : TILE_URL_LIGHT, {
-        maxZoom: 20,
+        maxZoom: 18,
         maxNativeZoom: TILE_MAX_ZOOM, // tiles stop sharpening past here; Leaflet upscales further zoom
         attribution: TILE_ATTRIBUTION
+      }).addTo(map);
+
+      // Labels on top of the base layer (see TILE_URL_LABELS_* above).
+      L.tileLayer(dark ? TILE_URL_LABELS_DARK : TILE_URL_LABELS_LIGHT, {
+        maxZoom: 18,
+        maxNativeZoom: TILE_MAX_ZOOM,
+        pane: 'shadowPane' // sits above tilePane, below markerPane/popupPane — labels show, pin stays on top
       }).addTo(map);
 
       map.on('click', function (e) {
