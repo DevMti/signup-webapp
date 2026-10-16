@@ -487,6 +487,15 @@ button.row:disabled .chevron { opacity: 0.35; }
 .sheet-root.is-open .sheet__backdrop { opacity: 1; }
 .sheet-root.is-open .sheet { transform: translateY(0); }
 
+/* Telegram's MainButton ("Save profile") is native chrome drawn on top of
+   the WebView, outside our DOM, so it isn't contained by the sheet's
+   z-index and can cover the bottom of an open sheet. 64px is a
+   conservative estimate of its height (Telegram doesn't expose the exact
+   value in CSS) plus a little breathing room. */
+html.tg-has-mainbutton .sheet {
+  padding-bottom: calc(64px + env(safe-area-inset-bottom, 0px));
+}
+
 .sheet__grabber {
   width: 36px;
   height: 4px;
@@ -682,7 +691,14 @@ button.row:disabled .chevron { opacity: 0.35; }
   scroll-snap-type: y mandatory;
   -webkit-overflow-scrolling: touch;
   scrollbar-width: none;
-  box-sizing: content-box;
+  /* Must stay border-box (the page default): with content-box, the padding
+     that creates the centering gutter gets added ON TOP of the 210px
+     height instead of counted inside it, so the real scrollable viewport
+     ends up far taller than 5 rows — and the index math below, which
+     assumes a 210px viewport, runs out of scroll room before reaching the
+     last several items in every column (worse the longer the list, which
+     is why years were worse than months). */
+  box-sizing: border-box;
 }
 
 .wheel__col::-webkit-scrollbar { display: none; }
